@@ -1,3 +1,15 @@
+SQUONK
+
+
+WireFrame
+
+![SignUp](client/public/images/UsersHomePage.png)
+![SignUp](client/public/images/SignupPage.png)
+![SignUp](client/public/images/ForgotPassword.png)
+![SignUp](client/public/images/UsersBudgetPage.png)
+![SignUp](client/public/images/AddBudget.png)
+![SignUp](client/public/images/AccountSettings.png)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>

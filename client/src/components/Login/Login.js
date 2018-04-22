@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
+import './Login.css';
 
-class App extends Component {
+class Login extends Component {
   render() {
     return (
-// <div className = "App">
 <div className="formContainer">
   <div className="formWrapper formWrapperLogin">
     <div className="formTitle formTitleLogin">Login</div>
@@ -42,9 +41,8 @@ class App extends Component {
 </div>
 
 </div>
-// </div>
     );
   }
 }
 
-export default App;
+export default Login;

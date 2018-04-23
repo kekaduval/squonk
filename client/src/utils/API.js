@@ -1,5 +1,8 @@
 import axios from "axios";
 
+//userRoute  -- /api/user
+//budgetRoute -- /api/budget
+//billRoute -- /api/bill
 export default {
 
     // Gets all articles
@@ -21,3 +24,4 @@ export default {
     }
 
 }
+

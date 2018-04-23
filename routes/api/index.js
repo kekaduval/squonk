@@ -1,8 +1,12 @@
 const router = require("express").Router();
-const budgetRoutes = require("./budgets");
+const userRoutes = require("./user");
+const budgetRoutes = require("./budget");
+const billRoutes = require("./bill");
 
 // now its /api/budgets
-router.use("/budgets", budgetRoutes);
+router.use("/user", userRoutes);
+router.use("/budget", budgetRoutes);
+router.use("/bill", billRoutes);
 
 
 module.exports = router;

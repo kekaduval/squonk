@@ -16,6 +16,9 @@ var BillSchema = new Schema({
         type: Number,
         required: true
     },
+    actualAmount: {
+        type: Number,
+    },
     
     billStatic: {
         type: Boolean,

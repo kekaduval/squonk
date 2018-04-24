@@ -10,18 +10,17 @@ var BudgetSchema = new Schema({
     budgetName: {
         type: String,
         required: true
-    },
-    // `link` is required and of type String
-    link: {
-        type: String,
+    },  
+    budgetAmount: {
+        type: Number,
         required: true
     },
 
-    saved: {
-        type: Boolean,
-        required: true,
-        default: false,
+   actualAmount: {
+        type: Number,
+        required: true
     },
+
     // `Bill` is an object that stores a Bill id
     // The ref property links the ObjectId to the Bill model
     // This allows us to populate the Budget with an associated Bill

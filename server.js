@@ -14,7 +14,7 @@ app.use(express.static("client/build"));
 // Add routes, both API and view
 app.use(routes);
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/sqonk";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/squonk";
 
 mongoose.Promise = global.Promise;
 

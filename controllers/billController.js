@@ -2,8 +2,8 @@ const db = require("../models");
 
 //importing in other controller files so we can borrow functions from the other controllers
 //example // .get(userController.findAll)
-const budgetController = require("../../controllers/budgetController");
-const userController = require("../../controllers/userController");
+const budgetController = require("../controllers/budgetController");
+const userController = require("../controllers/userController");
 
 
 // Defining methods for the ArticlesController

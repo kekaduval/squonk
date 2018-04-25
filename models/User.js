@@ -14,16 +14,19 @@ var UserSchema = new Schema({
         type: String,
         required: true
     },
-    secQestion1: {
+    secQuestion1: {
         type: String,
         required: true
-    }, secQestion1Answer: {
+    }, 
+    secQuestion1Answer: {
         type: String,
         required: true
-    }, secQestion2: {
+    }, 
+    secQuestion2: {
         type: String,
         required: true
-    }, secQestion2Answer: {
+    }, 
+    secQuestion2Answer: {
         type: String,
         required: true
     },

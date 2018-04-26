@@ -2,6 +2,9 @@ import React from 'react';
 import AddBudget from '../../components/AddBudget';
 import API from "../../utils/API";
 
+import BudgetBar from "../../components/BudgetBar";
+
+
 
 class Budgets extends React.Component {
 
@@ -25,7 +28,7 @@ class Budgets extends React.Component {
         console.log("Helloooo");
         const {name, value } = event.target;
         this.setState({
-            [name]: value    
+            [name]: value
         });
         console.log(this.state);
     };
@@ -77,11 +80,13 @@ class Budgets extends React.Component {
         return (
             <React.Fragment>
             <div className=''>
-            <h1 className=''>Budget Bar</h1>
-            </div>
 
+            <AddButton />
+            <BudgetBar />
+            </div>
                 <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick}/>
-        </React.Fragment >
+        </ React.Fragment>
+
         )
     }
 }

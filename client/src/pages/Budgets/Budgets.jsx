@@ -5,59 +5,80 @@ import AddButton from "../../components/AddButton";
 
 
 class Budgets extends React.Component {
+  state = {
+    user: "5ae141a878d938388eaf3989",
+    budgetName: "",
+    budgetPlannedAmount: "",
+    userBudgets: [],
+  };
 
-    state = {
-        user: "gabe",
-        budgetName: "",
-        budgetPlannedAmount: "",
-    }
-
-    //input boxes information for adding a Budget
-    handleChange = event => {
-        console.log("Helloooo");
-        const {name, value } = event.target;
-        this.setState({
-            [name]: value    
-        });
-        console.log(this.state);
-    };
-
-
-    submitBudgetClick = event => {
-        event.preventDefault();
-        console.log("Budget Submitted");
-
-        const newBudget = {
-            budgetName:this.state.budgetName,
-            budgetPlanned: this.state.budgetPlannedAmount,
-            actualAmount: this.state.budgetPlannedAmount
-        }
+  //Mongo user Object IDs
+  //   gabe: 5ae141a878d938388eaf3989
+  //   nathan: 5ae141a878d938388eaf398a
+  //   keka: 5ae141a878d938388eaf398b
 
 
 
-        API.createBudget(this.state.user, newBudget)
-            .then(res => {
-                this.setState({
-                    articles: res.data.response.docs
-                });
-                console.log(this.state.articles);
-            })
-            .catch(err => console.log(err));
-    };
+  //input boxes information for adding a Budget
+  handleChange = event => {
+    console.log("Helloooo");
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
+    console.log(this.state);
+  };
 
 
-    render() {
-        return (
-            <React.Fragment>
-            <div className=''>
-            <AddButton />
-            <h1 className=''>Budget Bar</h1>
-            </div>
+//   Adding a user created budget to Mongo and associating it with the user
+  submitBudgetClick = () => {
+  
+    console.log("Budget Submitted");
 
-                <AddBudget handleChange={this.handleChange} value={this.state}/>
-        </React.Fragment >
-        )
-    }
+     const id = this.state.user;
+
+     const newBudget = {
+       budgetName: this.state.budgetName,
+       budgetPlanned: this.state.budgetPlannedAmount,
+       actualAmount: this.state.budgetPlannedAmount
+     };
+
+     API.createBudget(newBudget)
+       .then(res => {
+         this.setState({
+           userBudgets: res.data
+         });
+       console.log(this.state.userBudgets);
+      })
+      .catch(err => console.log(err));
+  };
+
+// submitBudgetClick = () => {
+//     console.log("YOOOOOO");
+
+//          API.getUsers()
+//         //  API.getBudgets()
+//        .then(res => {
+//             console.log(res);
+//          })
+//       .catch(err => console.log(err));
+//   };
+
+
+
+
+  render() {
+    return (
+      <React.Fragment>
+        <div className="">
+          <AddButton />
+          <h1 className="">Budget Bar</h1>
+        </div>
+
+        <AddBudget handleChange={this.handleChange} value={this.state} onClick={() => this.submitBudgetClick()} />
+      </React.Fragment>
+    );
+  }
 }
 
 export default Budgets;

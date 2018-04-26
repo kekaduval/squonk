@@ -1,4 +1,5 @@
 const db = require("../models");
+const mongoose = require("mongoose");
 
 //importing in other controller files so we can borrow functions from the other controllers
 //example // .get(userController.findAll)

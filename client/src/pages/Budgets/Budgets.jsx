@@ -17,7 +17,7 @@ class Budgets extends React.Component {
         console.log("Helloooo");
         const {name, value } = event.target;
         this.setState({
-            [name]: value    
+            [name]: value
         });
         console.log(this.state);
     };
@@ -53,9 +53,8 @@ class Budgets extends React.Component {
             <AddButton />
             <h1 className=''>Budget Bar</h1>
             </div>
-
-                <AddBudget handleChange={this.handleChange} value={this.state}/>
-        </React.Fragment >
+                <AddBudget handleChange={this.handleChange} value={this.state} />
+        </ React.Fragment>
         )
     }
 }

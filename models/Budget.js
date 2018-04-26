@@ -11,7 +11,7 @@ var BudgetSchema = new Schema({
         type: String,
         required: true
     },  
-    budgetAmount: {
+    budgetPlannedAmount: {
         type: Number,
         required: true
     },

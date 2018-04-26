@@ -18,7 +18,7 @@ export default {
         return axios.delete("/api/budgets/" + id);
     },
     // Saves a budgets to the database
-    saveBudgets: (data) => {
+    createBudget: (id, data) => {
         console.log('11111122222', data);
         return axios.post("/api/budgets/" + data);
     }

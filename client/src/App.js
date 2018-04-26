@@ -6,6 +6,7 @@ import './App.css';
 const App = () => (
   <React.Fragment>
     <Jumbotron />
+    <Budgets />
   </React.Fragment>
 );
 

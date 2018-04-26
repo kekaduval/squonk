@@ -1,0 +1,28 @@
+import React from 'react';
+
+const AddBudget = props  => (
+    <div className='row'>
+    <div className='col-md-2'>
+            <input
+                className="form-control text-center"
+                type="text"
+                name="budgetName"
+                onChange={props.handleChange }
+                value={props.value.budgetName}
+                placeholder="Budget Name"
+            />
+    </div>
+        <div className='col-md-2'>
+            <input
+                className="form-control text-center"
+                type="number"
+                name="plannedAmount"
+                onChange={props.handleChange}
+                value={props.value.plannedAmount}
+                placeholder=" Planned Amount $25, $100, $1000"
+            />
+        </div>    
+    </div>
+)
+
+export default AddBudget;

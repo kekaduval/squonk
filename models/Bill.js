@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 // Using the Schema constructor, create a new BillSchema object
 // This is similar to a Sequelize model
-var BillSchema = new Schema({
+var billSchema = new Schema({
 
     billName: {
         type: String,
@@ -28,7 +28,7 @@ var BillSchema = new Schema({
 });
 
 // This creates our model from the above schema, using mongoose's model method
-var Bill = mongoose.model("Bill", BillSchema);
+var Bill = mongoose.model("Bill", billSchema);
 
 // Export the Bill model
 module.exports = Bill;

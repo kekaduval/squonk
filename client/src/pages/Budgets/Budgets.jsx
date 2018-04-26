@@ -1,17 +1,27 @@
 import React from 'react';
 import AddBudget from '../../components/AddBudget';
 import API from "../../utils/API";
-import AddButton from "../../components/AddButton";
+
 import BudgetBar from "../../components/BudgetBar";
+
 
 
 class Budgets extends React.Component {
 
     state = {
-        user: "gabe",
+        userId: "5ae223edcaab7a10731e1723",
+        userName: "gabe",
         budgetName: "",
         budgetPlannedAmount: "",
+        userBudgets: [],
     }
+
+    // usernames and ObjectIDs
+    // gabe - "5ae223edcaab7a10731e1723"
+    // nathan - "5ae223edcaab7a10731e1724"
+    // keka - "5ae223edcaab7a10731e1725"
+
+
 
     //input boxes information for adding a Budget
     handleChange = event => {
@@ -24,38 +34,59 @@ class Budgets extends React.Component {
     };
 
 
-    submitBudgetClick = event => {
-        event.preventDefault();
+    submitBudgetClick = () => {
         console.log("Budget Submitted");
-
         const newBudget = {
-            budgetName:this.state.budgetName,
-            budgetPlanned: this.state.budgetPlannedAmount,
+            userId: this.state.userId,
+            userName: this.state.userName,
+            budgetName: this.state.budgetName,
+            budgetPlannedAmount: this.state.budgetPlannedAmount,
             actualAmount: this.state.budgetPlannedAmount
         }
 
-
-
-        API.createBudget(this.state.user, newBudget)
+        API.createBudget(newBudget)
             .then(res => {
                 this.setState({
-                    articles: res.data.response.docs
+                    userBudgets: res.data
                 });
-                console.log(this.state.articles);
+                console.log(this.state.userBudgets);
             })
             .catch(err => console.log(err));
     };
+
+    // submitBudgetClick = () => {
+    //     API.getUsers()
+    //         .then(res => console.log(res))
+    //         .catch(err => console.log(err));
+    // };
+
+    // submitBudgetClick = () => {
+    //     API.getBudgets()
+    //         .then(res => console.log(res))
+    //         .catch(err => console.log(err));
+    // };
+
+    // submitBudgetClick = () => {
+    //     API.getBills()
+    //         .then(res => console.log(res))
+    //         .catch(err => console.log(err));
+    // };
+
+
+
 
 
     render() {
         return (
             <React.Fragment>
             <div className=''>
+
             <AddButton />
             <BudgetBar />
             </div>
-                <AddBudget handleChange={this.handleChange} value={this.state} />
+                <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick}/>
         </ React.Fragment>
+
         )
     }
 }

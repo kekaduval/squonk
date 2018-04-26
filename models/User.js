@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 // Using the Schema constructor, create a new UserSchema object
 // This is similar to a Sequelize model
-var UserSchema = new Schema({
+var userSchema = new Schema({
     userName: {
         type: String,
         required: true
@@ -45,7 +45,7 @@ var UserSchema = new Schema({
 });
 
 // This creates our model from the above schema, using mongoose's model method
-var User = mongoose.model("User", UserSchema);
+var User = mongoose.model("User", userSchema);
 
 // Export the User model
 module.exports = User;

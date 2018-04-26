@@ -1,0 +1,11 @@
+.addButton {
+  display:block;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: 1px solid orange;
+  background: orange;
+  color: white;
+  font-size: 100px;
+  text-align: center;
+}

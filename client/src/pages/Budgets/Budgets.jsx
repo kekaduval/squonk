@@ -6,10 +6,12 @@ import API from "../../utils/API";
 class Budgets extends React.Component {
 
     state = {
+        user: "gabe",
         budgetName: "",
-        plannedAmount: "",
+        budgetPlannedAmount: "",
     }
 
+    //input boxes information for adding a Budget
     handleChange = event => {
         console.log("Helloooo");
         const {name, value } = event.target;
@@ -18,6 +20,30 @@ class Budgets extends React.Component {
         });
         console.log(this.state);
     };
+
+
+    submitBudgetClick = event => {
+        event.preventDefault();
+        console.log("Budget Submitted");
+
+        const newBudget = {
+            budgetName:this.state.budgetName,
+            budgetPlanned: this.state.budgetPlannedAmount,
+            actualAmount: this.state.budgetPlannedAmount
+        }
+
+
+
+        API.createBudget(this.state.user, newBudget)
+            .then(res => {
+                this.setState({
+                    articles: res.data.response.docs
+                });
+                console.log(this.state.articles);
+            })
+            .catch(err => console.log(err));
+    };
+
 
     render() {
         return (

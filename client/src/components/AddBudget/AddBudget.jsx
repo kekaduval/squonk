@@ -16,12 +16,13 @@ const AddBudget = props  => (
             <input
                 className="form-control text-center"
                 type="number"
-                name="plannedAmount"
+                name="budgetPlannedAmount"
                 onChange={props.handleChange}
-                value={props.value.plannedAmount}
+                value={props.value.budgetPlannedAmount}
                 placeholder=" Planned Amount $25, $100, $1000"
             />
-        </div>    
+        </div>   
+        {/* <submit onClick={props.submitBudgetClick}/> */}
     </div>
 )
 

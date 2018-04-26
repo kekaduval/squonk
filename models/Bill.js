@@ -12,11 +12,11 @@ var billSchema = new Schema({
         required: true
     },
 
-    billAmount: {
+    billPlannedAmount: {
         type: Number,
         required: true
     },
-    actualAmount: {
+    billActualAmount: {
         type: Number,
     },
     
@@ -25,6 +25,18 @@ var billSchema = new Schema({
         required: true,
         default: false,
     },
+    userId: {
+        type: String,
+        required: true,
+    },
+    userName: {
+        type: String,
+        required: true,
+    },
+    budgetName: {
+        type: String,
+        required: true,
+    }
 });
 
 // This creates our model from the above schema, using mongoose's model method

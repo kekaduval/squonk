@@ -9,11 +9,15 @@ import BudgetBar from "../../components/BudgetBar";
 class Budgets extends React.Component {
 
     state = {
-        userId: "5ae223edcaab7a10731e1723",
-        userName: "gabe",
-        budgetName: "",
-        budgetPlannedAmount: "",
-        userBudgets: [],
+        userId: "5ae223edcaab7a10731e1723", //UserID
+        userName: "gabe", //Name of userlogged in
+        budgetName: "", //name of Budget user creates
+        budgetPlannedAmount: "", //Planned Amount when user creates a budget
+        userBudgets: [], //A list of all user budgets when they log in
+        userBills: [], //A list of all the users bills when they log in
+        billName: "", //name of the bill when user creates one
+        billPlannedAmount: "", //name of the planned bill amount during creation
+        billStatic: "", //User's decision if this a static planned and actual amount during bill creation
     }
 
     // usernames and ObjectIDs
@@ -33,7 +37,7 @@ class Budgets extends React.Component {
         console.log(this.state);
     };
 
-
+//creating a budget, tieing it to a user and updating all users budget state
     submitBudgetClick = () => {
         console.log("Budget Submitted");
         const newBudget = {
@@ -50,6 +54,31 @@ class Budgets extends React.Component {
                     userBudgets: res.data
                 });
                 console.log(this.state.userBudgets);
+            })
+            .catch(err => console.log(err));
+    };
+
+//creating a bill, tieing it to a users budget and updating all users bills state
+
+    submitBillClick = () => {
+        console.log("Bill Submitted");
+        const newBill = {
+            userId: this.state.userId,
+            userName: this.state.userName,
+            budgetName: this.state.budgetName,
+            billName: this.state.budgetPlannedAmount,
+            billPlannedAmount: this.state.budgetPlannedAmount,
+            billActualAmount: "",
+            billStatic: "",
+
+        }
+
+        API.createBill(newBill)
+            .then(res => {
+                this.setState({
+                    userBills: res.data
+                });
+                console.log(this.state.userBills);
             })
             .catch(err => console.log(err));
     };

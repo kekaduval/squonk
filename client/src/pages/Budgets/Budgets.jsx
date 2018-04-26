@@ -1,83 +1,89 @@
 import React from 'react';
 import AddBudget from '../../components/AddBudget';
 import API from "../../utils/API";
-import AddButton from "../../components/AddButton";
 
 
 class Budgets extends React.Component {
-  state = {
-    user: "5ae141a878d938388eaf3989",
-    budgetName: "",
-    budgetPlannedAmount: "",
-    userBudgets: [],
-  };
 
-  //Mongo user Object IDs
-  //   gabe: 5ae141a878d938388eaf3989
-  //   nathan: 5ae141a878d938388eaf398a
-  //   keka: 5ae141a878d938388eaf398b
+    state = {
+        userId: "5ae223edcaab7a10731e1723",
+        userName: "gabe",
+        budgetName: "",
+        budgetPlannedAmount: "",
+        userBudgets: [],
+    }
 
-
-
-  //input boxes information for adding a Budget
-  handleChange = event => {
-    console.log("Helloooo");
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-    console.log(this.state);
-  };
-
-
-//   Adding a user created budget to Mongo and associating it with the user
-  submitBudgetClick = () => {
-  
-    console.log("Budget Submitted");
-
-    //  const id = this.state.user;
-
-    //  const body = {
-    //    budgetName: this.state.budgetName,
-    //    budgetPlanned: this.state.budgetPlannedAmount,
-    //    actualAmount: this.state.budgetPlannedAmount
-    //  };
-
-    API.createBudget({
-      budgetName: this.state.budgetName,
-      budgetPlanned: this.state.budgetPlannedAmount,
-      actualAmount: this.state.budgetPlannedAmount
-    })
-  .then(res => console.log(res))
-      
-      .catch(err => console.log(err));
-  };
-
-// submitBudgetClick = () => {
-//     console.log("YOOOOOO");
-
-//          API.getUsers()
-//         //  API.getBudgets()
-//        .then(res => {
-//             console.log(res);
-//          })
-//       .catch(err => console.log(err));
-//   };
+    // usernames and ObjectIDs
+    // gabe - "5ae223edcaab7a10731e1723"
+    // nathan - "5ae223edcaab7a10731e1724"
+    // keka - "5ae223edcaab7a10731e1725"
 
 
 
+    //input boxes information for adding a Budget
+    handleChange = event => {
+        console.log("Helloooo");
+        const {name, value } = event.target;
+        this.setState({
+            [name]: value    
+        });
+        console.log(this.state);
+    };
 
-  render() {
-    return (
-      <React.Fragment>
-        <div className="">
-          <AddButton />
-          <h1 className="">Budget Bar</h1>
-        </div>
-        <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick} />
-      </React.Fragment>
-    );
-  }
+
+    submitBudgetClick = () => {
+        console.log("Budget Submitted");
+        const newBudget = {
+            userId: this.state.userId,
+            userName: this.state.userName,
+            budgetName: this.state.budgetName,
+            budgetPlannedAmount: this.state.budgetPlannedAmount,
+            actualAmount: this.state.budgetPlannedAmount
+        }
+
+        API.createBudget(newBudget)
+            .then(res => {
+                this.setState({
+                    userBudgets: res.data
+                });
+                console.log(this.state.userBudgets);
+            })
+            .catch(err => console.log(err));
+    };
+
+    // submitBudgetClick = () => {
+    //     API.getUsers()
+    //         .then(res => console.log(res))
+    //         .catch(err => console.log(err));
+    // };
+
+    // submitBudgetClick = () => {
+    //     API.getBudgets()
+    //         .then(res => console.log(res))
+    //         .catch(err => console.log(err));
+    // };
+
+    // submitBudgetClick = () => {
+    //     API.getBills()
+    //         .then(res => console.log(res))
+    //         .catch(err => console.log(err));
+    // };
+
+
+
+
+
+    render() {
+        return (
+            <React.Fragment>
+            <div className=''>
+            <h1 className=''>Budget Bar</h1>
+            </div>
+
+                <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick}/>
+        </React.Fragment >
+        )
+    }
 }
 
 export default Budgets;

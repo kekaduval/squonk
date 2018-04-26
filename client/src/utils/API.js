@@ -20,8 +20,7 @@ export default {
     // Saves a budgets to the database
     saveBudgets: (data) => {
         console.log('11111122222', data);
-        return axios.post("/api/budgets/", data);
+        return axios.post("/api/budgets/" + data);
     }
 
 }
-

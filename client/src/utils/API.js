@@ -27,6 +27,12 @@ export default {
     return axios.post("/api/budget/", data);
   },
 
+  //creates a bill and sends all the users bills back to the usersbill state
+  createBill: (data) => {
+    console.log('creating new bill', data);
+    return axios.post("/api/bill/", data);
+  },
+
 
   //Gets all users
   getUsers: () => {

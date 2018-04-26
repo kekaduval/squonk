@@ -23,7 +23,7 @@ const AddBudget = props => (
         placeholder=" Planned Amount $25, $100, $1000"
       />
     </div>
-    <BudgetSubmitButton {...props} />
+    <BudgetSubmitButton onClick={props.handleClick} />
   </div>
 );
 

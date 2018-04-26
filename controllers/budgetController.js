@@ -1,5 +1,7 @@
 const db = require("../models");
 const mongoose = require("mongoose");
+var axios = require("axios");
+
 
 //importing in other controller files so we can borrow functions from the other controllers
 //example // .get(userController.findAll)
@@ -43,9 +45,9 @@ module.exports = {
         db.Budget.create(req.body)
             .then(dbModel => {
                 var id = mongoose.Types.ObjectId(req.params.id);
-                return db.Article.findOneAndUpdate({ _id: id }, { $push: { notes: dbNote._id } }, { new: true });
+                return db.User.findOneAndUpdate({ _id: id }, { $push: { budgets: dbBudget._id } });
             })
-            .then(dbModel => res.json(dbModel))
+            .then(dbModel => res.send("Success"))
             .catch(err => res.status(422).json(err));
         }
 

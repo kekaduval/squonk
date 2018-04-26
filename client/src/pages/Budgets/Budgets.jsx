@@ -35,21 +35,21 @@ class Budgets extends React.Component {
   
     console.log("Budget Submitted");
 
-     const id = this.state.user;
+    //  const id = this.state.user;
 
-     const newBudget = {
-       budgetName: this.state.budgetName,
-       budgetPlanned: this.state.budgetPlannedAmount,
-       actualAmount: this.state.budgetPlannedAmount
-     };
+    //  const body = {
+    //    budgetName: this.state.budgetName,
+    //    budgetPlanned: this.state.budgetPlannedAmount,
+    //    actualAmount: this.state.budgetPlannedAmount
+    //  };
 
-     API.createBudget(newBudget)
-       .then(res => {
-         this.setState({
-           userBudgets: res.data
-         });
-       console.log(this.state.userBudgets);
-      })
+    API.createBudget({
+      budgetName: this.state.budgetName,
+      budgetPlanned: this.state.budgetPlannedAmount,
+      actualAmount: this.state.budgetPlannedAmount
+    })
+  .then(res => console.log(res))
+      
       .catch(err => console.log(err));
   };
 
@@ -74,8 +74,7 @@ class Budgets extends React.Component {
           <AddButton />
           <h1 className="">Budget Bar</h1>
         </div>
-
-        <AddBudget handleChange={this.handleChange} value={this.state} onClick={() => this.submitBudgetClick()} />
+        <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick} />
       </React.Fragment>
     );
   }

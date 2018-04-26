@@ -21,9 +21,9 @@ export default {
   //       console.log('11111122222', datas);
   //       return axios.post("/api/budget/"+ id );
   //   },
-  createBudget: (body) => {
-    console.log("11111122222", body);
-    return axios.post("/api/budget/", {data:body});
+  createBudget: (data) => {
+    console.log('11111122222', data);   
+    return axios.post("/api/budget/", data);
   },
 
   getUsers: () => {

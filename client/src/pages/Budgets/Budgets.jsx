@@ -1,6 +1,7 @@
 import React from 'react';
 import AddBudget from '../../components/AddBudget';
 import API from "../../utils/API";
+import AddButton from "../../components/AddButton";
 
 
 class Budgets extends React.Component {
@@ -49,6 +50,7 @@ class Budgets extends React.Component {
         return (
             <React.Fragment>
             <div className=''>
+            <AddButton />
             <h1 className=''>Budget Bar</h1>
             </div>
 

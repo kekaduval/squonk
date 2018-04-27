@@ -5,18 +5,18 @@ var Schema = mongoose.Schema;
 
 // Using the Schema constructor, create a new BillSchema object
 // This is similar to a Sequelize model
-var BillSchema = new Schema({
+var billSchema = new Schema({
 
     billName: {
         type: String,
         required: true
     },
 
-    billAmount: {
+    billPlannedAmount: {
         type: Number,
         required: true
     },
-    actualAmount: {
+    billActualAmount: {
         type: Number,
     },
     
@@ -25,10 +25,22 @@ var BillSchema = new Schema({
         required: true,
         default: false,
     },
+    userId: {
+        type: String,
+        required: true,
+    },
+    userName: {
+        type: String,
+        required: true,
+    },
+    budgetName: {
+        type: String,
+        required: true,
+    }
 });
 
 // This creates our model from the above schema, using mongoose's model method
-var Bill = mongoose.model("Bill", BillSchema);
+var Bill = mongoose.model("Bill", billSchema);
 
 // Export the Bill model
 module.exports = Bill;

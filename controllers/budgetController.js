@@ -18,7 +18,8 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     findById: function (req, res) {
-        db.Budget.findById(req.params.id)
+        var id = mongoose.Types.ObjectId(req.params.id);
+        db.Budget.findById(id)
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },

@@ -33,6 +33,16 @@ export default {
     return axios.post("/api/bill/", data);
   },
 
+  getUserBudgets: (id) => {
+    // console.log("user id" +id )
+    return axios.get("/api/user/" + id)
+  },
+
+  getBudgetBills: (id) => {
+    // console.log("budget id" + id)
+    return axios.get("/api/budget/" + id)
+  },
+
 
   //Gets all users
   getUsers: () => {

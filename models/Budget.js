@@ -1,11 +1,11 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
 // Save a reference to the Schema constructor
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 // Using the Schema constructor, create a new BudgetSchema object
 // This is similar to a Sequelize model
-var BudgetSchema = new Schema({
+const budgetSchema = new Schema({
     // `title` is required and of type String
     budgetName: {
         type: String,
@@ -18,6 +18,15 @@ var BudgetSchema = new Schema({
 
    actualAmount: {
         type: Number,
+        required: true
+    },
+
+    userId: {
+        type: String,
+        required: true
+    },
+    userName: {
+        type: String,
         required: true
     },
 
@@ -36,7 +45,7 @@ var BudgetSchema = new Schema({
 });
 
 // This creates our model from the above schema, using mongoose's model method
-var Budget = mongoose.model("Budget", BudgetSchema);
+const Budget = mongoose.model("Budget", budgetSchema);
 
 // Export the Budget model
 module.exports = Budget;

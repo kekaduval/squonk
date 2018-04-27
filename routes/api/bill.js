@@ -3,7 +3,7 @@ const billController = require("../../controllers/billController");
 
 // Matches with "/api/bill"
 router.route("/")
-// .get(billController.findAll)
+.get(billController.findAll)
 // .post(billController.create);
 
 // Matches with "/api/bills/:id"

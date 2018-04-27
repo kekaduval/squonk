@@ -9,13 +9,16 @@ router.route("/")
     .post(budgetController.createBudget);
 
 // Matches with "/api/budgets/:id"
-// router.route("/:id")
-//     // .get(budgetController.findById)
+router.route("/:id")
+    .get(budgetController.findById)
 //     // .put(budgetController.update)
 //     // .delete(budgetController.remove);
 // router.route("/:id")
 // .post(budgetController.createBudget)
 
+
+
+    
 
 module.exports = router;
 

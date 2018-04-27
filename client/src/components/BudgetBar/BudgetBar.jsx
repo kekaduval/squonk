@@ -1,42 +1,39 @@
 import React from 'react';
 import "./BudgetBar.css"
+// import BillDisplayItem from "../BillDisplayItem"
 
 class BudgetBar extends React.Component{
-//   constructor(){
-//     super();
-//
-//   this.state = {
-//     users: [],
-//   }
-// };
-//
-//   componentDidMount() {
-//     this.loadBudgets();
-//   }
-//
-//   // Loads all books  and sets them to this.state.books
-//   loadBudgets = () => {
-//     API.getBudgets()
-//       .then(res =>
-//         this.setState({ users: res.data })
-//       )
-//       .catch(err => console.log(err));
-//   };
 
-render(){
-  const image = "image"
-  return (
-    <React.Fragment>
-    <div>
-    <h1>Select a Budget</h1>
-    <ul className="dropdown-menu" id="dropdown">
-     <li>Nate Budget 1</li>
-     <li>{image}</li>
-     </ul>
-    </div>
-    </React.Fragment>
-  )
-}
-}
+  render(){
+    let budgetItems = this.props.budgets.map(budgets => {
+        return <option key={budgets.name} value="budgets">{budgets.name}</option>
+      });
+  let budgetPlannedTotals = this.props.planned.map(planned => {
+      return <p key={planned.amount} value="budgets">{planned.amount}</p>
+    });
+
+    return (
+      <React.Fragment>
+<div className="row">
+<div className="col-md-3">
+<form>
+<select ref="userBudgets">
+{budgetItems}
+</select>
+</form>
+</div>
+<div className="col-md-3">
+<p>Budgeted</p>
+{budgetPlannedTotals}
+</div>
+<div className="col-md-3">
+<p>Actual</p>
+{budgetPlannedTotals}
+</div>
+</div>
+      </React.Fragment>
+    )
+  }
+  }
 
 export default BudgetBar;

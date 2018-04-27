@@ -2,7 +2,8 @@ import React from 'react';
 import AddBudget from '../../components/AddBudget';
 import API from "../../utils/API";
 import AddButton from "../../components/AddButton"
-import BudgetBar from "../../components/BudgetBar";
+import BudgetBar from "../../components/BudgetBar
+import BillsDisplay from "../../components/BillsDisplay";
 import BillsContainer from "../../components/BillsContainer"
 
 
@@ -145,17 +146,71 @@ class Budgets extends React.Component {
     // };
 
 
-
+componentWillMount() {
+  this.setState({
+    userBills: [
+      {
+        name: "Shoes",
+        amount: 100
+      }, {
+        name: "Drinks",
+        amount: 50
+      }, {
+        name: "Manscaping",
+        amount: 120
+      }
+    ]
+  })
+  this.setState({
+    userBudgets: [
+      {
+        name: "Personal Budget"
+      }, {
+        name: "Sex Swing Budget"
+      }, {
+        name: "Comics"
+      }
+    ]
+  })
+  this.setState({
+    budgetPlannedAmount: [
+    //   {
+    //     amount: 1000
+    //   }, {
+    //     amount: 2000
+    //   }, {
+    //     amount: 75
+    //   }
+    //
+   ]
+  })
+  this.setState({
+      billActualAmount: [
+    //   {
+    //     amount: 1000
+    //   }, {
+    //     amount: 2000
+    //   }, {
+    //     amount: 75
+    //   }
+    //
+  ]
+  })
+}
 
 
     render() {
+      console.log(this.state.userBudgets);
         return (
-            <React.Fragment>
-                <AddButton />
-                <BudgetBar />
-                <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick}/>
-                <BillsContainer userBudgets={this.state.userBudgets}/>
-            </ React.Fragment>
+        <React.Fragment>
+        <div className=''>
+        <AddButton />
+        </div>
+        <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick}/>
+        <BudgetBar budgets={this.state.userBudgets} planned={this.state.budgetPlannedAmount} actual={this.state.budgetPlannedAmount}/>
+        <BillsDisplay bills={this.state.userBills}/>
+        </ React.Fragment>
+    
 
         )
     }

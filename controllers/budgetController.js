@@ -20,7 +20,9 @@ module.exports = {
     findById: function (req, res) {
         var id = mongoose.Types.ObjectId(req.params.id);
         db.Budget.findById(id)
-            .then(dbModel => res.json(dbModel))
+            .then(dbModel => {res.json(dbModel)
+            console.log(dbModel);
+            })
             .catch(err => res.status(422).json(err));
     },
     create: function (req, res) {

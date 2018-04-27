@@ -4,15 +4,15 @@ import API from "../../utils/API";
 import AddButton from "../../components/AddButton"
 import BudgetBar from "../../components/BudgetBar"
 import BillsDisplay from "../../components/BillsDisplay";
-import BillsContainer from "../../components/BillsContainer";
+// import BillsContainer from "../../components/BillsContainer";
 
 
 
 class Budgets extends React.Component {
 
     state = {
-        userId: "5ae223edcaab7a10731e1723", //UserID
-        userName: "gabe", //Name of userlogged in
+        userId: "5ae25e793217552b542c310e", //UserID
+        userName: "nathan", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetPlannedAmount: "", //Planned Amount when user creates a budget
         userBudgets: [], //A list of all user budgets when they log in

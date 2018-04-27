@@ -4,7 +4,7 @@ import API from "../../utils/API";
 import AddButton from "../../components/AddButton"
 import BudgetBar from "../../components/BudgetBar"
 import BillsDisplay from "../../components/BillsDisplay";
-import BillsContainer from "../../components/BillsContainer";
+// import BillsContainer from "../../components/BillsContainer";
 
 
 

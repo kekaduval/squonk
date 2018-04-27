@@ -29,6 +29,17 @@ class Budgets extends React.Component {
 
     }
 
+
+// This will be removed once I add Gabe
+    componentWillMount() {
+      this.setState({
+        budgetPlannedAmount: []
+      })
+      this.setState({
+          billActualAmount: []
+      })
+    }
+
     // usernames and ObjectIDs
     // gabe - "5ae223edcaab7a10731e1723"
     // nathan - "5ae223edcaab7a10731e1724"
@@ -145,60 +156,6 @@ class Budgets extends React.Component {
     //         .catch(err => console.log(err));
     // };
 
-
-componentWillMount() {
-  this.setState({
-    userBills: [
-      {
-        name: "Shoes",
-        amount: 100
-      }, {
-        name: "Drinks",
-        amount: 50
-      }, {
-        name: "Manscaping",
-        amount: 120
-      }
-    ]
-  })
-  this.setState({
-    userBudgets: [
-      {
-        name: "Personal Budget"
-      }, {
-        name: "Sex Swing Budget"
-      }, {
-        name: "Comics"
-      }
-    ]
-  })
-  this.setState({
-    budgetPlannedAmount: [
-    //   {
-    //     amount: 1000
-    //   }, {
-    //     amount: 2000
-    //   }, {
-    //     amount: 75
-    //   }
-    //
-   ]
-  })
-  this.setState({
-      billActualAmount: [
-    //   {
-    //     amount: 1000
-    //   }, {
-    //     amount: 2000
-    //   }, {
-    //     amount: 75
-    //   }
-    //
-  ]
-  })
-}
-
-
     render() {
       console.log(this.state.userBudgets);
         return (
@@ -208,7 +165,7 @@ componentWillMount() {
         </div>
         <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick}/>
         <BudgetBar budgets={this.state.userBudgets} planned={this.state.budgetPlannedAmount} actual={this.state.budgetPlannedAmount}/>
-        <BillsDisplay bills={this.state.userBills}/>
+        <BillsDisplay bills={this.state.userChosenBudgetBillObjects}/>
         </ React.Fragment>
 
 

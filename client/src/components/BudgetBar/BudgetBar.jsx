@@ -8,6 +8,7 @@ class BudgetBar extends React.Component{
     let budgetItems = this.props.budgets.map(budgets => {
         return <option key={budgets.name} value="budgets">{budgets.name}</option>
       });
+
   let budgetPlannedTotals = this.props.planned.map(planned => {
       return <p key={planned.amount} value="budgets">{planned.amount}</p>
     });

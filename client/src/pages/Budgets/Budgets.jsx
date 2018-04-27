@@ -2,8 +2,9 @@ import React from 'react';
 import AddBudget from '../../components/AddBudget';
 import API from "../../utils/API";
 import AddButton from "../../components/AddButton"
-import BudgetBar from "../../components/BudgetBar";
-import BillsContainer from "../../components/BillsContainer"
+import BudgetBar from "../../components/BudgetBar"
+import BillsDisplay from "../../components/BillsDisplay";
+import BillsContainer from "../../components/BillsContainer";
 
 
 
@@ -26,6 +27,17 @@ class Budgets extends React.Component {
     componentDidMount() {
         this.loadBudgets();
 
+    }
+
+
+// This will be removed once I add Gabe
+    componentWillMount() {
+      this.setState({
+        budgetPlannedAmount: []
+      })
+      this.setState({
+          billActualAmount: []
+      })
     }
 
     // usernames and ObjectIDs
@@ -53,8 +65,8 @@ class Budgets extends React.Component {
         this.setState({
             userChosenBudget: this.state.userBudgets[0]
         })
-        console.log("User chosen budget is ", this.state.userChosenBudget); 
-        this.userBudgetBillsID();     
+        console.log("User chosen budget is ", this.state.userChosenBudget);
+        this.userBudgetBillsID();
     }
 
     //grabs all the ID of the bills associated with the chosen budget
@@ -65,14 +77,14 @@ class Budgets extends React.Component {
                 this.setState({
                     userChosenBudgetBillsID: res.data.bills
                 });
-                console.log("Bills IDs assoc. with chosen Budget", this.state.userChosenBudgetBillsID);              
+                console.log("Bills IDs assoc. with chosen Budget", this.state.userChosenBudgetBillsID);
             })
             .catch(err => console.log(err));
     }
 
     // getBillsFromObjects = () =>{
     //     this.state.userChosenBudgetBillsID.map(id =>{
-        
+
     //     })
     // }
 
@@ -144,18 +156,18 @@ class Budgets extends React.Component {
     //         .catch(err => console.log(err));
     // };
 
-
-
-
-
     render() {
+      console.log(this.state.userBudgets);
         return (
-            <React.Fragment>
-                <AddButton />
-                <BudgetBar />
-                <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick}/>
-                <BillsContainer userBudgets={this.state.userBudgets}/>
-            </ React.Fragment>
+        <React.Fragment>
+        <div className=''>
+        <AddButton />
+        </div>
+        <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick}/>
+        <BudgetBar budgets={this.state.userBudgets} planned={this.state.budgetPlannedAmount} actual={this.state.budgetPlannedAmount}/>
+        <BillsDisplay bills={this.state.userChosenBudgetBillObjects}/>
+        </ React.Fragment>
+
 
         )
     }

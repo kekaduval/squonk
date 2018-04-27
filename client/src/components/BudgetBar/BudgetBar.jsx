@@ -1,6 +1,5 @@
 import React from 'react';
 import "./BudgetBar.css"
-var Select = require('react-select');
 
 class BudgetBar extends React.Component{
 //   constructor(){
@@ -29,9 +28,11 @@ render(){
   return (
     <React.Fragment>
     <div>
+    <h1>Select a Budget</h1>
     <ul className="dropdown-menu" id="dropdown">
-    <li>{image}</li>
-    </ul>
+     <li>Nate Budget 1</li>
+     <li>{image}</li>
+     </ul>
     </div>
     </React.Fragment>
   )

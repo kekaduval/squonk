@@ -13,7 +13,7 @@ class BudgetBar extends React.Component {
             {budgets}
           </option>
         );
-        console.log()
+        // console.log()
       });
     // }
 

@@ -8,7 +8,7 @@ class BillsDisplay extends React.Component {
     if (this.props.bills.length >= 1) {
       billDisplayItems = this.props.bills.map(bills => {
         console.log(bills);
-        return <BillDisplayItem key={bills.name} bills={bills} />;
+        return <BillDisplayItem key={bills._id} bills={bills} />;
       });
     } else {
       billDisplayItems = "No Bills Are Availabile";

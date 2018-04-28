@@ -2,7 +2,7 @@ import React from 'react';
 import AddBudget from '../../components/AddBudget';
 import API from "../../utils/API";
 import AddButton from "../../components/AddButton"
-import BudgetBar from "../../components/BudgetBar"
+// import BudgetBar from "../../components/BudgetBar"
 import BillsDisplay from "../../components/BillsDisplay";
 // import BillsContainer from "../../components/BillsContainer";
 
@@ -11,8 +11,8 @@ import BillsDisplay from "../../components/BillsDisplay";
 class Budgets extends React.Component {
 
     state = {
-        userId: "5ae25e793217552b542c310e", //UserID
-        userName: "nathan", //Name of userlogged in
+        userId: "5ae223edcaab7a10731e1723", //UserID
+        userName: "gabe", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetPlannedAmount: "", //Planned Amount when user creates a budget
         userBudgets: [], //A list of all user budgets when they log in
@@ -63,7 +63,7 @@ class Budgets extends React.Component {
     //grabs the first user budget to load bills
     userFirstBudget = () =>{
         this.setState({
-            userChosenBudget: this.state.userBudgets[0]
+            userChosenBudget: this.state.userBudgets[0].budgetName
         })
         console.log("User chosen budget is ", this.state.userChosenBudget);
         this.userBudgetBillsID();
@@ -71,7 +71,7 @@ class Budgets extends React.Component {
 
     //grabs all the ID of the bills associated with the chosen budget
     userBudgetBillsID = () => {
-        const budgetId = this.state.userChosenBudget;
+        const budgetId = this.state.userBudgets[0]._id;
         API.getBudgetBills(budgetId)
             .then(res => {
                 this.setState({
@@ -164,7 +164,7 @@ class Budgets extends React.Component {
         <AddButton />
         </div>
         <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick}/>
-        <BudgetBar budgets={this.state.userBudgets} planned={this.state.budgetPlannedAmount} actual={this.state.budgetPlannedAmount}/>
+        {/* <BudgetBar budgets={this.state.userBudgets} planned={this.state.budgetPlannedAmount} actual={this.state.budgetPlannedAmount}/> */}
         <BillsDisplay bills={this.state.userChosenBudgetBillObjects}/>
         </ React.Fragment>
 

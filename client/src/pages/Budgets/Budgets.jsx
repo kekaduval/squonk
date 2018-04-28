@@ -58,7 +58,6 @@ class Budgets extends React.Component {
                     userBudgets: res.data.budgets
                 });
                 console.log("All the User Budgets ",this.state.userBudgets);
-                console.log(typeof(this.state.userBudgets[0].actualAmount));
                 let userBudgetNames = this.state.userBudgets.map(budget => {
                 return budget.budgetName
                 })
@@ -189,7 +188,6 @@ class Budgets extends React.Component {
         <BudgetBar budgets={this.state.budgetNameList} planned={this.state.budgetPlannedAmount} actual={this.state.budgetActualAmount} />
         <BillsDisplay bills={this.state.userChosenBudgetBills}  budgetid={this.state.userChosenBudgetId}/>
 
-   
         </ React.Fragment>
 
 

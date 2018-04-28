@@ -4,13 +4,19 @@ import "./BudgetBar.css";
 
 class BudgetBar extends React.Component {
   render() {
-    let budgetItems = this.props.budgets.map(budgets => {
-      return (
-        <option key={budgets} value="budgets">
-          {budgets.name}
-        </option>
-      );
-    });
+    console.log(this.props.budgets);
+    let budgetItems;
+    // if (this.props.budgets) {
+      budgetItems = this.props.budgets.map(budgets => {
+        return (
+          <option key={budgets} value="budgets">
+            {budgets}
+          </option>
+        );
+        console.log()
+      });
+    // }
+
 
     let budgetPlannedTotals = this.props.planned.map(planned => {
       return (

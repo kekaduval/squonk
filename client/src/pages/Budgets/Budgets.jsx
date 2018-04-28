@@ -19,7 +19,7 @@ class Budgets extends React.Component {
         budgetActualAmount: "", //The Amount left in the budget after bills are added
         userBudgets: [], //A list of all user budgets when they log in
         userChosenBudget: "", //Budget ID of the Budget the user is viewing
-        userChosenBudgetBillsID: [],
+        userChosenBudgetBills: [],
         userChosenBudgetBillObjects: [], //A list of all the users bills when they log in
         billName: "", //name of the bill when user creates one
         billPlannedAmount: "", //name of the planned bill amount during creation
@@ -98,18 +98,12 @@ class Budgets extends React.Component {
         API.getBudgetBills(budgetId)
             .then(res => {
                 this.setState({
-                    userChosenBudgetBillsID: res.data.bills
+                    userChosenBudgetBills: res.data
                 });
-                console.log("Bills IDs assoc. with chosen Budget", this.state.userChosenBudgetBillsID);
+                console.log("Bills associated with chosen Budget", this.state.userChosenBudgetBills);
             })
             .catch(err => console.log(err));
     }
-
-    // getBillsFromObjects = () =>{
-    //     this.state.userChosenBudgetBillsID.map(id =>{
-
-    //     })
-    // }
 
     //input boxes information for adding a Budget
     handleChange = event => {
@@ -137,6 +131,10 @@ class Budgets extends React.Component {
             .catch(err => console.log(err));
     };
 
+    getBudgetDetails = () =>{
+
+    }
+
     //creating a bill, tieing it to a users budget and updating all users bills state
     submitBillClick = () => {
         console.log("Bill Submitted");
@@ -148,9 +146,7 @@ class Budgets extends React.Component {
             billPlannedAmount: this.state.budgetPlannedAmount,
             billActualAmount: "",
             billStatic: "",
-
         }
-
         API.createBill(newBill)
             .then(res => {
                 this.setState({
@@ -178,6 +174,10 @@ class Budgets extends React.Component {
     //         .then(res => console.log(res))
     //         .catch(err => console.log(err));
     // };
+
+    showAddBudget =() =>{
+
+    }
 
     render() {
         return (

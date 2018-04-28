@@ -1,8 +1,11 @@
 import React from 'react';
 import BudgetSubmitButton from '../BudgetSubmitButton'
+import "./AddBudget.css"
 
 const AddBudget = props => (
-  <div className='container'>
+
+  
+  <div className='container hideme'>
     <div className="row">
       <div className="col-md-2">
         <input
@@ -14,6 +17,8 @@ const AddBudget = props => (
           placeholder="Budget Name"
         />
       </div>
+
+
       <div className="col-md-3">
         <input
           className="form-control text-center"
@@ -24,6 +29,8 @@ const AddBudget = props => (
           placeholder=" Planned Amount $25, $100, $1000"
         />
       </div>
+
+
       <BudgetSubmitButton onClick={props.handleClick} />
     </div>
   </div>

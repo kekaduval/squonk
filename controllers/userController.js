@@ -18,6 +18,7 @@ module.exports = {
     findById: function (req, res) {
         var id = mongoose.Types.ObjectId(req.params.id);
         db.User.findById(id)
+            .populate("budgets")
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },

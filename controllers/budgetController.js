@@ -20,6 +20,7 @@ module.exports = {
     findById: function (req, res) {
         var id = mongoose.Types.ObjectId(req.params.id);
         db.Budget.findById(id)
+            .populate("bills")
             .then(dbModel => {res.json(dbModel)
             console.log(dbModel);
             })

@@ -15,7 +15,7 @@ class Budgets extends React.Component {
         userName: "gabe", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
-        budgetPlannedAmount: "", //Planned Amount when user creates a budget
+        budgetPlannedAmount: [], //Planned Amount when user creates a budget
         budgetActualAmount: "", //The Amount left in the budget after bills are added
         userBudgets: [], //A list of all user budgets when they log in
         userChosenBudget: "", //Budget ID of the Budget the user is viewing
@@ -33,14 +33,14 @@ class Budgets extends React.Component {
 
 
 // This will be removed once I add Gabe
-    componentWillMount() {
-      this.setState({
-        budgetPlannedAmount: []
-      })
-      this.setState({
-          billActualAmount: []
-      })
-    }
+    // componentWillMount() {
+    //   this.setState({
+    //     budgetPlannedAmount: [25 , 2000]
+    //   })
+    //   this.setState({
+    //       billActualAmount: []
+    //   })
+    // }
 
     // usernames and ObjectIDs
     // gabe - "5ae223edcaab7a10731e1723"
@@ -57,7 +57,6 @@ class Budgets extends React.Component {
                     userBudgets: res.data.budgets
                 });
                 console.log("All the User Budgets ",this.state.userBudgets);
-                console.log(typeof(this.state.userBudgets[0].actualAmount));
                 let userBudgetNames = this.state.userBudgets.map(budget => {
                 return budget.budgetName
                 })
@@ -77,7 +76,7 @@ class Budgets extends React.Component {
                 console.log(userBudgetNames);
                 // console.log(userPlannedAmount);
                 // console.log(userActualAmount);
-                console.log(this.state.budgetNameList);
+                console.log(this.state);
                 this.userFirstBudget()
             })
             .catch(err => console.log(err));
@@ -189,7 +188,7 @@ class Budgets extends React.Component {
         <AddButton />
         </div>
         <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick}/>
-        <BudgetBar budgets={this.state.budgetNameList} planned={this.state.budgetPlannedAmount} actual={this.state.budgetActualAmount} />
+        <BudgetBar value={this.state} />
         <BillsDisplay bills={this.state.userChosenBudgetBillObjects} />
         </ React.Fragment>
 

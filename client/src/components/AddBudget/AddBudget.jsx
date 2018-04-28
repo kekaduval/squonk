@@ -4,7 +4,7 @@ import "./AddBudget.css"
 
 const AddBudget = props => (
 
-  
+
   <div className='container hideme'>
     <div className="row">
       <div className="col-md-2">

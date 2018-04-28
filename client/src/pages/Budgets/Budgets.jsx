@@ -18,7 +18,8 @@ class Budgets extends React.Component {
         budgetPlannedAmount: "", //Planned Amount when user creates a budget
         budgetActualAmount: "", //The Amount left in the budget after bills are added
         userBudgets: [], //A list of all user budgets when they log in
-        userChosenBudget: "", //Budget ID of the Budget the user is viewing
+        userChosenBudgetName: "", //Budget ID of the Budget the user is viewing
+        userChosenBudgetId:"",
         userChosenBudgetBills: [],
         userChosenBudgetBillObjects: [], //A list of all the users bills when they log in
         billName: "", //name of the bill when user creates one
@@ -72,8 +73,6 @@ class Budgets extends React.Component {
                 //   // budgetPlannedAmount: userPlannedAmount,
                 //   // budgetActualAmount: userActualAmount
                 })
-
-
                 console.log(userBudgetNames);
                 // console.log(userPlannedAmount);
                 // console.log(userActualAmount);
@@ -83,27 +82,27 @@ class Budgets extends React.Component {
             .catch(err => console.log(err));
     }
 
+
     //grabs the first user budget to load bills
     userFirstBudget = () =>{
         this.setState({
-            userChosenBudget: this.state.userBudgets[0].budgetName
+            userChosenBudgetName: this.state.userBudgets[1].budgetName,
+            userChosenBudgetId: this.state.userBudgets[1]._id,
         })
-        console.log("User chosen budget is ", this.state.userChosenBudget);
+        console.log("User chosen budget is ", this.state.userChosenBudgetName);
         this.userBudgetBillsID();
     }
 
     //grabs all the ID of the bills associated with the chosen budget
     userBudgetBillsID = () => {
-        const budgetId = this.state.userBudgets[0]._id;
+        const budgetId = this.state.userChosenBudgetId;
         API.getBudgetBills(budgetId)
             .then(res => {
                 this.setState({
-                    userChosenBudgetBills: res.data,
-                    userChosenBudgetBillObjects: res.data.bills
+                    userChosenBudgetBills: res.data.bills,
                 });
                 console.log("Bills associated with chosen Budget", this.state.userChosenBudgetBills);
-                console.log("Bills Objects", this.state.userChosenBudgetBillObjects);
-                
+                console.log("Budget ID associated with chosen bull", this.state.userChosenBudgetId);          
             })
             .catch(err => console.log(err));
     }
@@ -185,12 +184,12 @@ class Budgets extends React.Component {
     render() {
         return (
         <React.Fragment>
-        <div className=''>
         <AddButton />
-        </div>
         <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick}/>
         <BudgetBar budgets={this.state.budgetNameList} planned={this.state.budgetPlannedAmount} actual={this.state.budgetActualAmount} />
-        <BillsDisplay bills={this.state.userChosenBudgetBillObjects} />
+        <BillsDisplay bills={this.state.userChosenBudgetBills}  budgetid={this.state.userChosenBudgetId}/>
+
+   
         </ React.Fragment>
 
 

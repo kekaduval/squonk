@@ -33,10 +33,14 @@ var billSchema = new Schema({
         type: String,
         required: true,
     },
+    budgetId: {
+        type: String,
+        required: true,
+    },
     budgetName: {
         type: String,
         required: true,
-    }
+    },
 });
 
 // This creates our model from the above schema, using mongoose's model method

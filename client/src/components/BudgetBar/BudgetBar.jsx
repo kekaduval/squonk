@@ -4,7 +4,8 @@ import "./BudgetBar.css";
 
 const BudgetBar = props => {
 
-console.log(props.value.userBudgets);
+console.log(props.value.currentBudgetPlannedAmount);
+console.log(props.value);
 console.log(props.value.userBudgets.length);
 // for (var i = 0; i < props.value.userBudgets; i++) {
 //   return (
@@ -18,29 +19,35 @@ let budgetItems = props.value.budgetNameList.map(budgets => {
   return (
     <option id="select" key={budgets} value="budgets">{budgets}</option>
   )
-
 })
 
-let selectedItems = document.querySelectorAll('select').filter;
-console.log(selectedItems);
+let budgetAmount = props.value.currentBudgetPlannedAmount;
+let actualAmount = props.value.currentBudgetActualAmount;
+
+const style = {
+  color: actualAmount > budgetAmount ? 'red' : 'green'
+};
 
   return (
-    <div className="row">
+    <div className='container'>
+    <div className="row bg">
       <div className="col-md-3">
         <form>
+        <h1>Budgets</h1>
           <select id="budgetDropDown">
           {budgetItems}
           </select>
         </form>
       </div>
       <div className="col-md-3">
-        <p>Budgeted</p>
-
+        <h1>Budgeted</h1>
+        <p style={style}>{budgetAmount}</p>
       </div>
       <div className="col-md-3">
-        <p>Actual</p>
-
+        <h1>Actual</h1>
+        <p style={style}>{actualAmount}</p>
       </div>
+    </div>
     </div>
   );
   };

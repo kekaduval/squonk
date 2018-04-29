@@ -12,11 +12,13 @@ import BillsDisplay from "../../components/BillsDisplay";
 class Budgets extends React.Component {
 
     state = {
-        userId: "5ae223edcaab7a10731e1723", //UserID
-        userName: "gabe", //Name of userlogged in
+        userId: "5ae49802b1ef377b04cd52ae", //UserID
+        userName: "nathan", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
-        budgetPlannedAmount: [], //Planned Amount when user creates a budget
+        budgetPlannedAmount: "", //Planned Amount when user creates a budget
+        currentBudgetPlannedAmount: "", //Planned Amount that will pull into the budget bar
+        currentBudgetActualAmount: "",  //Planned Amount that will pull into the budget bar
         budgetActualAmount: "", //The Amount left in the budget after bills are added
         userBudgets: [], //A list of all user budgets when they log in
         userChosenBudgetName: "", //Budget ID of the Budget the user is viewing
@@ -82,6 +84,8 @@ class Budgets extends React.Component {
         this.setState({
             userChosenBudgetName: this.state.userBudgets[0].budgetName,
             userChosenBudgetId: this.state.userBudgets[0]._id,
+            currentBudgetPlannedAmount: this.state.userBudgets[0].budgetPlannedAmount,
+            currentBudgetActualAmount: this.state.userBudgets[0].actualAmount,
         })
         console.log("User chosen budget is ", this.state.userChosenBudgetName);
         this.userBudgetBillsID();
@@ -164,6 +168,7 @@ class Budgets extends React.Component {
             <React.Fragment>
                 <Navbar />
                 <BudgetBar value={this.state} />
+                <br /><br />
                 <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick} />
                 <BillsDisplay bills={this.state.userChosenBudgetBills} budgetid={this.state.userChosenBudgetId} handleClick={this.submitBillClick} value={this.state} handleChange={this.handleChange} />
             </ React.Fragment>

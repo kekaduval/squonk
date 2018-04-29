@@ -5,7 +5,6 @@ import API from "../../utils/API";
 // import AddButton from "../../components/AddButton"
 import BudgetBar from "../../components/BudgetBar"
 import BillsDisplay from "../../components/BillsDisplay";
-// import BillsContainer from "../../components/BillsContainer";
 
 
 
@@ -91,7 +90,8 @@ class Budgets extends React.Component {
         this.userBudgetBillsID();
     }
 
-    //grabs all the ID of the bills associated with the chosen budget
+
+    //grabs all the bills associated with the chosen budget
     userBudgetBillsID = () => {
         const budgetId = this.state.userChosenBudgetId;
         API.getBudgetBills(budgetId)
@@ -105,9 +105,9 @@ class Budgets extends React.Component {
             .catch(err => console.log(err));
     }
 
+
     //input boxes information for adding a Budget
     handleChange = event => {
-        console.log("Helloooo");
         const { name, value } = event.target;
         this.setState({
             [name]: value
@@ -125,15 +125,11 @@ class Budgets extends React.Component {
             budgetPlannedAmount: this.state.budgetPlannedAmount,
             actualAmount: this.state.budgetPlannedAmount
         }
-
         API.createBudget(newBudget)
             .then(this.loadBudgets())
             .catch(err => console.log(err));
     };
 
-    getBudgetDetails = () => {
-
-    }
 
     //creating a bill, tieing it to a users budget and updating all users bills state
     submitBillClick = () => {
@@ -154,23 +150,46 @@ class Budgets extends React.Component {
                     userBills: res.data
                 });
                 console.log(this.state.userBills);
+                this.userBudgetBillsID();
             })
             .catch(err => console.log(err));
     };
 
-
-    showAddBudget = () => {
-
+    deleteBill = (id,event) =>{
+        event.preventDefault();
+        const data ={
+            billId: id,
+            budgetId: this.state.userChosenBudgetId
+        }
+        API.deleteBill(data)
+        .then(res => console.log(res))
+        .then(this.userBudgetBillsID())
+        .catch(err => console.log(err));     
     }
+
 
     render() {
         return (
             <React.Fragment>
                 <Navbar />
-                <BudgetBar value={this.state} />
-                <br /><br />
-                <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick} />
-                <BillsDisplay bills={this.state.userChosenBudgetBills} budgetid={this.state.userChosenBudgetId} handleClick={this.submitBillClick} value={this.state} handleChange={this.handleChange} />
+
+                <BudgetBar
+                    value={this.state}
+                />
+                <AddBudget
+                    handleChange={this.handleChange}
+                    value={this.state}
+                    handleClick={this.submitBudgetClick}
+                />
+                <BillsDisplay
+                    bills={this.state.userChosenBudgetBills}
+                    budgetid={this.state.userChosenBudgetId}
+                    handleClick={this.submitBillClick}
+                    value={this.state}
+                    handleChange={this.handleChange}
+                    deleteClick={(event) => this.deleteBill( event)}
+                />
+
             </ React.Fragment>
         )
     }

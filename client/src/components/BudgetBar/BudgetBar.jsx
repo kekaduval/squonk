@@ -12,7 +12,8 @@ let budgetItems = props.value.budgetNameList.map(budgets => {
 })
 
   return (
-    <div className="row">
+    <div className='container'>
+    <div className="row bg">
       <div className="col-md-3">
         <form>
           <select>
@@ -28,6 +29,7 @@ let budgetItems = props.value.budgetNameList.map(budgets => {
         <p>Actual</p>
 
       </div>
+    </div>
     </div>
   );
   };

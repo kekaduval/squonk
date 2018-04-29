@@ -4,13 +4,14 @@ const billController = require("../../controllers/billController");
 // Matches with "/api/bill"
 router.route("/")
 .get(billController.findAll)
-.post(billController.createBill);
+.post(billController.createBill)
+.delete (billController.remove);
 
 // Matches with "/api/bills/:id"
 router.route("/:id")
 // .get(billController.findById)
 // .put(billController.update)
-// .delete(billController.remove);
+.delete(billController.remove);
 
 
 module.exports = router;

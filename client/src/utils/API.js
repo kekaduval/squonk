@@ -45,6 +45,11 @@ export default {
     return axios.get("/api/budget/" + id);
   },
 
+  deleteBill: data => {
+    console.log("bill being deleted ", data);
+    return axios.delete("/api/bill/", data);
+  },
+
   //Gets all users
   getUsers: () => {
     return axios({

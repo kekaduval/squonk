@@ -151,6 +151,18 @@ class Budgets extends React.Component {
             .catch(err => console.log(err));
     };
 
+    deleteBill = (id,event) =>{
+        event.preventDefault();
+        const data ={
+            billId: id,
+            budgetId: this.state.userChosenBudgetId
+        }
+        API.deleteBill(data)
+        .then(res => console.log(res))
+        .then(this.userBudgetBillsID())
+        .catch(err => console.log(err));     
+    }
+
 
     render() {
         return (
@@ -170,6 +182,7 @@ class Budgets extends React.Component {
                     handleClick={this.submitBillClick}
                     value={this.state}
                     handleChange={this.handleChange}
+                    deleteClick={(event) => this.deleteBill( event)}
                 />
             </ React.Fragment>
         )

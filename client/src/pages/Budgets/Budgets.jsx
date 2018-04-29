@@ -11,8 +11,8 @@ import BillsDisplay from "../../components/BillsDisplay";
 class Budgets extends React.Component {
 
     state = {
-        userId: "5ae223edcaab7a10731e1723", //UserID
-        userName: "gabe", //Name of userlogged in
+        userId: "5ae49802b1ef377b04cd52ae", //UserID
+        userName: "nathan", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
         budgetPlannedAmount: [], //Planned Amount when user creates a budget
@@ -102,7 +102,7 @@ class Budgets extends React.Component {
                 });
                 console.log("Bills associated with chosen Budget", this.state.userChosenBudgetBills);
                 console.log("Bills Objects", this.state.userChosenBudgetBillObjects);
-                
+
             })
             .catch(err => console.log(err));
     }

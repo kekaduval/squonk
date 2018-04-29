@@ -1,7 +1,8 @@
 import React from 'react';
+import Navbar from '../../components/Navbar';
 import AddBudget from '../../components/AddBudget';
 import API from "../../utils/API";
-import AddButton from "../../components/AddButton"
+// import AddButton from "../../components/AddButton"
 import BudgetBar from "../../components/BudgetBar"
 import BillsDisplay from "../../components/BillsDisplay";
 // import BillsContainer from "../../components/BillsContainer";
@@ -85,8 +86,8 @@ class Budgets extends React.Component {
     //grabs the first user budget to load bills
     userFirstBudget = () =>{
         this.setState({
-            userChosenBudgetName: this.state.userBudgets[1].budgetName,
-            userChosenBudgetId: this.state.userBudgets[1]._id,
+            userChosenBudgetName: this.state.userBudgets[0].budgetName,
+            userChosenBudgetId: this.state.userBudgets[0]._id,
         })
         console.log("User chosen budget is ", this.state.userChosenBudgetName);
         this.userBudgetBillsID();
@@ -183,11 +184,13 @@ class Budgets extends React.Component {
     render() {
         return (
         <React.Fragment>
-        <AddButton />
-        <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick}/>
-
         
+       
+        <Navbar />
         <BudgetBar value={this.state} />
+        
+        <AddBudget handleChange={this.handleChange} value={this.state} handleClick={this.submitBudgetClick}/>      
+
         <BillsDisplay bills={this.state.userChosenBudgetBills}  budgetid={this.state.userChosenBudgetId}/>
 
         </ React.Fragment>

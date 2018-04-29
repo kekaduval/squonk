@@ -35,5 +35,16 @@ module.exports = {
             .then(dbModel => dbModel.remove())
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
+    },
+    createBill: function (req, res) {
+        db.Bill.create(req.body)
+            .then(dbBill => {
+                var id = mongoose.Types.ObjectId(req.body.budgetId);
+                console.log("This is the id " + id);
+                return db.Budget.findOneAndUpdate({ _id: id }, { $push: { bills: dbBill._id } });
+            })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
     }
 };
+

@@ -22,7 +22,7 @@ let budgetItems = props.value.budgetNameList.map(budgets => {
         </form>
       </div>
       <div className="col-md-3">
-        Budgeted
+        <p>Budgeted</p>
 
       </div>
       <div className="col-md-3">

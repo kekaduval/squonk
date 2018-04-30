@@ -39,7 +39,7 @@ let allBillsPlannedAmountSum = billPlannedAmountValues.reduce((a, b) => a + b, 0
 console.log("Bills Planned Values for the Budget", billPlannedAmountValues);
 console.log("Bill Planned Values Total for the Budget", allBillsPlannedAmountSum);
 
-let totalBillPlannedAmount = initialBudgetPlannedAmount + allBillsActualAmountSum;
+let totalBillPlannedAmount = initialBudgetPlannedAmount + allBillsPlannedAmountSum;
 let leftAmount = totalBillPlannedAmount - allBillsActualAmountSum  
 
 console.log("afdafagasgas"+ typeof(totalBillPlannedAmount));
@@ -67,16 +67,16 @@ const style = {
     
 
       <div className="col-md-3">
-          <h1>Planned $:<span className='marginLeft' style={style}>{totalBillPlannedAmount}</span></h1>
+          <h1>Planned $:<span className='marginLeft' style={style}>{parseFloat(totalBillPlannedAmount).toFixed(2)}</span></h1>
       </div>
 
 
       <div className="col-md-3">
-          <h1>Actual $:<span className='marginLeft' style={style}>{allBillsActualAmountSum.toFixed(2)}</span></h1>
+          <h1>Actual $:<span className='marginLeft' style={style}>{parseFloat(allBillsActualAmountSum).toFixed(2)}</span></h1>
       </div>
 
         <div className="col-md-3">
-          <h1> $Left :<span className='marginLeft' style={style}>{leftAmount.toFixed(2)}</span></h1>
+          <h1> $Left :<span className='marginLeft' style={style}>{parseFloat(leftAmount).toFixed(2)}</span></h1>
         </div>
     </div>
     </div>

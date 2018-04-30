@@ -46,10 +46,10 @@ const BillsDisplay = props => {
           <h4>Totals</h4>
       </div>
         <div className='col-md-2 text-center'>
-          <h4>${parseFloat(allBillsActualAmountSum).toFixed(2)}</h4>
+          <h4>${parseFloat(allBillsPlannedAmountSum).toFixed(2)}</h4>
         </div>  
         <div className='col-md-2 text-center'>
-          <h4>${parseFloat(allBillsPlannedAmountSum).toFixed(2)}</h4>
+          <h4>${parseFloat(allBillsActualAmountSum).toFixed(2)}</h4>
         </div>      
       </div>
 

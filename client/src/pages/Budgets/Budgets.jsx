@@ -241,7 +241,7 @@ class Budgets extends React.Component {
                     />) : (false)}
                 <BillsDisplay
                     bills={this.state.userChosenBudgetBills}
-                    budgetid={this.state.userChosenBudgetId}
+                    // budgetid={this.state.userChosenBudgetId}
                     handleClick={this.submitBillClick}
                     value={this.state}
                     handleChange={this.handleChange}

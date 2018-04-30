@@ -11,8 +11,8 @@ import BillsDisplay from "../../components/BillsDisplay";
 class Budgets extends React.Component {
 
     state = {
-        userId: "5ae49802b1ef377b04cd52ae", //UserID
-        userName: "nathan", //Name of userlogged in
+        userId: "5ae223edcaab7a10731e1723", //UserID
+        userName: "gabe", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
         budgetPlannedAmount: "", //Planned Amount when user creates a budget
@@ -183,15 +183,8 @@ class Budgets extends React.Component {
     render() {
         return (
             <React.Fragment>
-<<<<<<< HEAD
                 <Navbar
                     handleClick={this.showAddBudget}
-=======
-                <Navbar />
-
-                <BudgetBar
-                    value={this.state}
->>>>>>> 808afed1b361038de2acacac59e7471f7c453906
                 />
                 <BudgetBar
                     value={this.state}

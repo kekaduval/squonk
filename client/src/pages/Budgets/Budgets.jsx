@@ -21,18 +21,20 @@ class Budgets extends React.Component {
         budgetActualAmount: "", //The Amount left in the budget after bills are added
         userBudgets: [], //A list of all user budgets when they log in
         userChosenBudgetName: "", //Budget ID of the Budget the user is viewing
-        userChosenBudgetId: "",
-        userChosenBudgetBills: [],
+        userChosenBudgetId: "", //The ID of the budget the user has selected
+        userChosenBudgetBills: [], //The bills to the budget the user has selected
         userChosenBudgetBillObjects: [], //A list of all the users bills when they log in
         billName: "", //name of the bill when user creates one
         billPlannedAmount: "", //name of the planned bill amount during creation
         billStatic: false, //User's decision if this a static planned and actual amount during bill creation
-        showAddBudget: false,
-        showAddBill: false,
-    }
+        showAddBudget: false, //keeps Add budget hidden until Add Budget is clicked
+        showAddBill: false, // keeps Add Bill hidden until Add Bill is clicked
+        allUsers:[], //all users names and IDs
+        }
 
     componentDidMount() {
         this.loadBudgets();
+        this.getAllUsers();
 
     }
 
@@ -177,6 +179,22 @@ class Budgets extends React.Component {
 
     showAddBill = () => {
         this.setState({ showAddBill: true })
+    }
+
+    getAllUsers = () => {
+        API.getUsers()
+            .then(res => console.log(res))
+            .then(res => res.data.map(index => { 
+                return (
+                this.setState({allUsers:
+                    {
+                    userName:index.userName,
+                    userID:index.userId
+                }
+            }))
+            }))
+            .then(console.log('YOOOOOOOOO', this.state.allUsers))
+            .catch(err => console.log(err));
     }
 
 

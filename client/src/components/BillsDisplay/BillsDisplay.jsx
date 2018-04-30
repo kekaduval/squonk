@@ -31,7 +31,7 @@ const BillsDisplay = props => (
     <AddBillButton onClick={props.onClick} />
 
     {props.showBillStatus ? (
-      <AddBill onClick={props.handleClick} value={props.value} handleChange={props.handleChange} />) : (null)}
+      <AddBill handleClick={props.handleClick} onClick={props.handleClickCancel} value={props.value} handleChange={props.handleChange} />) : (null)}
   </div>
 )
 

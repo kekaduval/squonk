@@ -1,5 +1,6 @@
 import React from 'react';
 import BillSubmitButton from '../BillSubmitButton'
+import CancelButton from '../CancelButton'
 import "./AddBill.css"
 
 const AddBill = props => (
@@ -44,7 +45,8 @@ const AddBill = props => (
 
 
 
-      <BillSubmitButton onClick={props.onClick} />
+      <BillSubmitButton onClick={props.handleClick} />
+      <CancelButton onClick={props.onClick}/>
     </div>
   </div>
 );

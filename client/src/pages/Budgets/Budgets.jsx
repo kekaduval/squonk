@@ -181,6 +181,15 @@ class Budgets extends React.Component {
         this.setState({ showAddBill: true })
     }
 
+    cancelAddBudget = () => {
+        this.setState({ showAddBudget: false })  
+    }
+
+    cancelAddBill = () => {
+        this.setState({ showAddBill: false })
+    }
+
+
     getAllUsers = () => {
         API.getUsers()
             .then(res => console.log(res))
@@ -212,6 +221,7 @@ class Budgets extends React.Component {
                         handleChange={this.handleChange}
                         value={this.state}
                         handleClick={this.submitBudgetClick}
+                        handleClickCancel={this.cancelAddBudget}
                     />) : (false)}
                 <BillsDisplay
                     bills={this.state.userChosenBudgetBills}
@@ -222,6 +232,7 @@ class Budgets extends React.Component {
                     deleteClick={(event) => this.deleteBill(event)}
                     onClick={this.showAddBill}
                     showBillStatus={this.state.showAddBill}
+                    handleClickCancel={this.cancelAddBill}
                 />
 
             </ React.Fragment>

@@ -5,11 +5,11 @@ const BillDisplayItem = props => (
 
 
   <div className='row rowMargin'>
-    <div className='col-md-2'>{props.bill.billName}</div>
-    <div className='col-md-1'>{props.bill.billPlannedAmount}</div>
-    <div className='col-md-1'>{props.bill.billActualAmount}</div>
-    <div className='col-md-1'>{props.bill.billStatic}</div>
-    <div className='col-md-2'>Edit/Delete</div>
+    <div className='col-md-2 text-center rowBG'><h5>{props.bill.billName}</h5></div>
+    <div className='col-md-2 text-center rowBG'><h5>${props.bill.billPlannedAmount.toFixed(2)}</h5></div>
+    <div className='col-md-2 text-center rowBG'><h5>${props.bill.billActualAmount.toFixed(2)}</h5></div>
+    <div className='col-md-1 text-center rowBG'><h5>{props.bill.billStatic}</h5></div>
+    <div className='col-md-2 text-center rowBG'><h5>Edit/Delete</h5></div>
   </div>
 
 )

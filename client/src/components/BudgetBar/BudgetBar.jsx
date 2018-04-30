@@ -29,23 +29,24 @@ const style = {
 };
 
   return (
-    <div className='container'>
+    <div className='container marginBottom headerBG'>
     <div className="row bg">
       <div className="col-md-3">
-        <form>
-        <h1>Budgets</h1>
-          <select id="budgetDropDown">
-          {budgetItems}
-          </select>
-        </form>
+        <h1>Budgets:
+          <span><select id="budgetDropDown">
+            {budgetItems}
+            </select></span></h1>
       </div>
-      <div className="col-md-3">
-        <h1>Budgeted</h1>
-        <p style={style}>{budgetAmount}</p>
+
+    
+
+      <div className="col-md-4">
+          <h1>Budgeted Amount: <span className='marginLeft' style={style}>{budgetAmount}</span></h1>
       </div>
-      <div className="col-md-3">
-        <h1>Actual</h1>
-        <p style={style}>{actualAmount}</p>
+
+
+      <div className="col-md-4">
+          <h1>Actual Amount:<span className='marginLeft'style={style}>{actualAmount}</span></h1>
       </div>
     </div>
     </div>

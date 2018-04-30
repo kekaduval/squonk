@@ -6,7 +6,9 @@ import AddBillButton from "../AddBillButton"
 
 
 
-const BillsDisplay = props => (
+const BillsDisplay = props => {
+
+  return (
 
   <div className='container'>
     <div className='row rowMargin'>
@@ -34,7 +36,8 @@ const BillsDisplay = props => (
     {props.showBillStatus ? (
       <AddBill handleClick={props.handleClick} onClick={props.handleClickCancel} value={props.value} handleChange={props.handleChange} />) : (null)}
   </div>
-)
+  )
+}
 
 export default BillsDisplay;
 

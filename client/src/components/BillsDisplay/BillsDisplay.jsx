@@ -20,8 +20,9 @@ const BillsDisplay = props => (
     {props.bills.length ? (props.bills.map(bill => {
       return (
 
-        <React.Fragment key={props.budgetid}>
-          <BillDisplayItem bill={bill} budgetid={props.budgetid} />
+        <React.Fragment key={bill._id}>
+          {/* <BillDisplayItem bill={bill} budgetid={props.budgetid} /> */}
+          <BillDisplayItem bill={bill} />
 
         </React.Fragment>
       )

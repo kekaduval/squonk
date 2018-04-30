@@ -21,11 +21,37 @@ let budgetItems = props.value.budgetNameList.map(budgets => {
   )
 })
 
-let budgetAmount = props.value.currentBudgetPlannedAmount;
-let actualAmount = props.value.currentBudgetActualAmount;
+let initialBudgetPlannedAmount = props.value.currentBudgetPlannedAmount;
+// let actualAmount = props.value.currentBudgetActualAmount;
+
+
+
+let billActualAmountValues = props.bills.map(i => { return (i.billActualAmount)})
+let allBillsActualAmountSum = billActualAmountValues.reduce((a, b) => a + b, 0)
+
+console.log("Bills Actual Values for the Budget", billActualAmountValues);
+console.log("Bill Actual Values Total for the Budget",allBillsActualAmountSum);
+  
+
+
+let billPlannedAmountValues = props.bills.map(i => { return (i.billPlannedAmount) })
+let allBillsPlannedAmountSum = billPlannedAmountValues.reduce((a, b) => a + b, 0)
+console.log("Bills Planned Values for the Budget", billPlannedAmountValues);
+console.log("Bill Planned Values Total for the Budget", allBillsPlannedAmountSum);
+
+let totalBillPlannedAmount = initialBudgetPlannedAmount + allBillsActualAmountSum;
+let leftAmount = totalBillPlannedAmount - allBillsActualAmountSum  
+
+console.log("afdafagasgas"+ typeof(totalBillPlannedAmount));
+
+
+
+
+
+
 
 const style = {
-  color: actualAmount > budgetAmount ? 'red' : 'green'
+  color: allBillsActualAmountSum > totalBillPlannedAmount ? 'red' : 'green'
 };
 
   return (
@@ -40,14 +66,18 @@ const style = {
 
     
 
-      <div className="col-md-4">
-          <h1>Budgeted Amount: <span className='marginLeft' style={style}>{budgetAmount}</span></h1>
+      <div className="col-md-3">
+          <h1>Planned $:<span className='marginLeft' style={style}>{totalBillPlannedAmount}</span></h1>
       </div>
 
 
-      <div className="col-md-4">
-          <h1>Actual Amount:<span className='marginLeft'style={style}>{actualAmount}</span></h1>
+      <div className="col-md-3">
+          <h1>Actual $:<span className='marginLeft' style={style}>{allBillsActualAmountSum.toFixed(2)}</span></h1>
       </div>
+
+        <div className="col-md-3">
+          <h1> $Left :<span className='marginLeft' style={style}>{leftAmount.toFixed(2)}</span></h1>
+        </div>
     </div>
     </div>
   );

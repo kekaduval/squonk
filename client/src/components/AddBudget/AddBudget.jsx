@@ -13,7 +13,7 @@ const AddBudget = props => (
           type="text"
           name="budgetName"
           onChange={props.handleChange}
-          value={props.value.budgetName}
+          value={props.value.budgetName.toLowerCase()}
           placeholder="Budget Name"
         />
       </div>

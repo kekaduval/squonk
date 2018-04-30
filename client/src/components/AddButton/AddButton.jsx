@@ -3,7 +3,7 @@ import "./AddButton.css"
 
 const AddButton = props => (
   <div className='container'>
-    <button className=" btn btn-primary" title="Add a Budget">Add Budget
+    <button className=" btn btn-primary" title="Add a Budget" onClick={props.onClick}>Add Budget
   </button>
   </div>
 )

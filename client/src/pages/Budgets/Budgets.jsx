@@ -25,6 +25,8 @@ class Budgets extends React.Component {
         billName: "", //name of the bill when user creates one
         billPlannedAmount: "", //name of the planned bill amount during creation
         billStatic: false, //User's decision if this a static planned and actual amount during bill creation
+        showAddBudget: false,
+        showAddBill: false,
     }
 
     componentDidMount() {
@@ -122,6 +124,7 @@ class Budgets extends React.Component {
             actualAmount: this.state.budgetPlannedAmount
         }
         API.createBudget(newBudget)
+            .then(this.setState({ showAddBudget: false }))
             .then(this.loadBudgets())
             .catch(err => console.log(err));
     };
@@ -148,41 +151,55 @@ class Budgets extends React.Component {
                 console.log(this.state.userBills);
                 this.userBudgetBillsID();
             })
+            .then(this.setState({ showAddBill: false }))
             .catch(err => console.log(err));
     };
 
-    deleteBill = (id,event) =>{
+    deleteBill = (id, event) => {
         event.preventDefault();
-        const data ={
+        const data = {
             billId: id,
             budgetId: this.state.userChosenBudgetId
         }
         API.deleteBill(data)
-        .then(res => console.log(res))
-        .then(this.userBudgetBillsID())
-        .catch(err => console.log(err));     
+            .then(res => console.log(res))
+            .then(this.userBudgetBillsID())
+            .catch(err => console.log(err));
+    }
+
+    showAddBudget = () => {
+        this.setState({ showAddBudget: true })
+    }
+
+    showAddBill = () => {
+        this.setState({ showAddBill: true })
     }
 
 
     render() {
         return (
             <React.Fragment>
-                <Navbar />
+                <Navbar
+                    handleClick={this.showAddBudget}
+                />
                 <BudgetBar
                     value={this.state}
                 />
-                <AddBudget
-                    handleChange={this.handleChange}
-                    value={this.state}
-                    handleClick={this.submitBudgetClick}
-                />
+                {this.state.showAddBudget ? (
+                    <AddBudget
+                        handleChange={this.handleChange}
+                        value={this.state}
+                        handleClick={this.submitBudgetClick}
+                    />) : (false)}
                 <BillsDisplay
                     bills={this.state.userChosenBudgetBills}
                     budgetid={this.state.userChosenBudgetId}
                     handleClick={this.submitBillClick}
                     value={this.state}
                     handleChange={this.handleChange}
-                    deleteClick={(event) => this.deleteBill( event)}
+                    deleteClick={(event) => this.deleteBill(event)}
+                    onClick={this.showAddBill}
+                    showBillStatus={this.state.showAddBill}
                 />
             </ React.Fragment>
         )

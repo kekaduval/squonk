@@ -3,7 +3,7 @@ import "./AddBillButton.css"
 
 const AddBillButton = props => (
   <div className='container'>
-    <button className=" btn btn-primary" title="Account Setting">Add Bill
+    <button className=" btn btn-primary" title="Add Bill" onClick={props.onClick}>Add Bill
   </button>
   </div>
 )

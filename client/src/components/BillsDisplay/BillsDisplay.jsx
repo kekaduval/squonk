@@ -8,6 +8,15 @@ import AddBillButton from "../AddBillButton"
 
 const BillsDisplay = props => {
 
+  let billActualAmountValues = props.bills.map(i => { return (i.billActualAmount) })
+  let allBillsActualAmountSum = billActualAmountValues.reduce((a, b) => a + b, 0)
+
+
+
+  let billPlannedAmountValues = props.bills.map(i => { return (i.billPlannedAmount) })
+  let allBillsPlannedAmountSum = billPlannedAmountValues.reduce((a, b) => a + b, 0)
+
+
   return (
 
   <div className='container'>
@@ -31,7 +40,21 @@ const BillsDisplay = props => {
     })
     ) : (<h3 className="text-center">No Bills found</h3>)}
 
+
+      <div className='row'>
+        <div className='col-md-2 text-center'>
+          <h4>Totals</h4>
+      </div>
+        <div className='col-md-2 text-center'>
+          <h4>${parseFloat(allBillsActualAmountSum).toFixed(2)}</h4>
+        </div>  
+        <div className='col-md-2 text-center'>
+          <h4>${parseFloat(allBillsPlannedAmountSum).toFixed(2)}</h4>
+        </div>      
+      </div>
+
     <AddBillButton onClick={props.onClick} />
+    
 
     {props.showBillStatus ? (
       <AddBill handleClick={props.handleClick} onClick={props.handleClickCancel} value={props.value} handleChange={props.handleChange} />) : (null)}

@@ -1,5 +1,17 @@
 .bg {
     background-color: #eaecef;
     height: 30px;
-    
+}
+
+.marginBottom {
+    margin-bottom: 30px;
+}
+
+select {
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+.marginLeft {
+    margin-left: 10px;
 }

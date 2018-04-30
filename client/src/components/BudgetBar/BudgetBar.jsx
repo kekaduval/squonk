@@ -29,7 +29,7 @@ const style = {
 };
 
   return (
-    <div className='container marginBottom'>
+    <div className='container marginBottom headerBG'>
     <div className="row bg">
       <div className="col-md-3">
         <h1>Budgets:

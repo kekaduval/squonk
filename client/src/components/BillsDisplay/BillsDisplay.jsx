@@ -10,11 +10,11 @@ const BillsDisplay = props => (
 
   <div className='container'>
     <div className='row rowMargin'>
-      <div className='col-md-2'><h6>Bill Name</h6></div>
-      <div className='col-md-1'><h6>Planned Amount</h6></div>
-      <div className='col-md-1'><h6>Acutal Amount</h6></div>
-      <div className='col-md-1'><h6>Status</h6></div>
-      <div className='col-md-2'><h6>Edit/Delete</h6></div>
+      <div className='col-md-2 text-center headerBG'><h4>Bill Name</h4></div>
+      <div className='col-md-2 text-center headerBG'><h4>Planned Amount</h4></div>
+      <div className='col-md-2 text-center headerBG'><h4>Acutal Amount</h4></div>
+      <div className='col-md-1 text-center headerBG'><h4>Status</h4></div>
+      <div className='col-md-2 text-center headerBG'><h4>Edit/Delete</h4></div>
     </div>
 
     {props.bills.length ? (props.bills.map(bill => {

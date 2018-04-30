@@ -253,6 +253,8 @@ class Budgets extends React.Component {
                     onClick={this.showAddBill}
                     showBillStatus={this.state.showAddBill}
                     handleClickCancel={this.cancelAddBill}
+                    bills={this.state.userChosenBudgetBills}
+                    // {() => this.deleteBill(bill.id)}
                 />
 
             </ React.Fragment>

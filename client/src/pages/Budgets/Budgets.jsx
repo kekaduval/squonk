@@ -121,6 +121,14 @@ class Budgets extends React.Component {
 
     //creating a budget, tieing it to a user and updating all users budget state
     submitBudgetClick = () => {
+        const userPotentialBudgetName = this.state.budgetName;
+
+        const matchBudgetName = this.state.userBudgets.find(i => i.budgetName === userPotentialBudgetName)
+
+        if (matchBudgetName) {
+            alert("You already have a budget by that name")
+        } else {
+
         console.log("Budget Submitted");
         const newBudget = {
             userId: this.state.userId,
@@ -133,11 +141,19 @@ class Budgets extends React.Component {
             .then(this.setState({ showAddBudget: false }))
             .then(this.loadBudgets())
             .catch(err => console.log(err));
-    };
+    }};
 
 
     //creating a bill, tieing it to a users budget and updating all users bills state
     submitBillClick = () => {
+
+        const userPotentialBillName = this.state.billName;
+
+        const matchBillName = this.state.userChosenBudgetBills.find(i => i.billName === userPotentialBillName)
+
+        if (matchBillName) {
+            alert("You already have a bill by that name")
+        } else{
         console.log("Bill Submitted");
         const newBill = {
             userId: this.state.userId,
@@ -159,7 +175,7 @@ class Budgets extends React.Component {
             })
             .then(this.setState({ showAddBill: false }))
             .catch(err => console.log(err));
-    };
+    }};
 
     deleteBill = (id, event) => {
         event.preventDefault();

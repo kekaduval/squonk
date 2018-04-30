@@ -29,8 +29,8 @@ class Budgets extends React.Component {
         billStatic: false, //User's decision if this a static planned and actual amount during bill creation
         showAddBudget: false, //keeps Add budget hidden until Add Budget is clicked
         showAddBill: false, // keeps Add Bill hidden until Add Bill is clicked
-        allUsers:[], //all users names and IDs
-        }
+        allUsers: [], //all users names and IDs
+    }
 
     componentDidMount() {
         this.loadBudgets();
@@ -129,19 +129,20 @@ class Budgets extends React.Component {
             alert("You already have a budget by that name")
         } else {
 
-        console.log("Budget Submitted");
-        const newBudget = {
-            userId: this.state.userId,
-            userName: this.state.userName,
-            budgetName: this.state.budgetName,
-            budgetPlannedAmount: this.state.budgetPlannedAmount,
-            actualAmount: this.state.budgetPlannedAmount
+            console.log("Budget Submitted");
+            const newBudget = {
+                userId: this.state.userId,
+                userName: this.state.userName,
+                budgetName: this.state.budgetName,
+                budgetPlannedAmount: this.state.budgetPlannedAmount,
+                actualAmount: 0.00
+            }
+            API.createBudget(newBudget)
+                .then(this.setState({ showAddBudget: false }))
+                .then(this.loadBudgets())
+                .catch(err => console.log(err));
         }
-        API.createBudget(newBudget)
-            .then(this.setState({ showAddBudget: false }))
-            .then(this.loadBudgets())
-            .catch(err => console.log(err));
-    }};
+    };
 
 
     //creating a bill, tieing it to a users budget and updating all users bills state
@@ -153,29 +154,30 @@ class Budgets extends React.Component {
 
         if (matchBillName) {
             alert("You already have a bill by that name")
-        } else{
-        console.log("Bill Submitted");
-        const newBill = {
-            userId: this.state.userId,
-            userName: this.state.userName,
-            budgetId: this.state.userChosenBudgetId,
-            budgetName: this.state.userChosenBudgetName,
-            billName: this.state.billName,
-            billPlannedAmount: this.state.billPlannedAmount,
-            billActualAmount: this.state.billPlannedAmount,
-            billStatic: this.state.billStatic,
+        } else {
+            console.log("Bill Submitted");
+            const newBill = {
+                userId: this.state.userId,
+                userName: this.state.userName,
+                budgetId: this.state.userChosenBudgetId,
+                budgetName: this.state.userChosenBudgetName,
+                billName: this.state.billName,
+                billPlannedAmount: this.state.billPlannedAmount,
+                billActualAmount: 0.00,
+                billStatic: this.state.billStatic,
+            }
+            API.createBill(newBill)
+                .then(res => {
+                    this.setState({
+                        userBills: res.data
+                    });
+                    console.log(this.state.userBills);
+                    this.userBudgetBillsID();
+                })
+                .then(this.setState({ showAddBill: false }))
+                .catch(err => console.log(err));
         }
-        API.createBill(newBill)
-            .then(res => {
-                this.setState({
-                    userBills: res.data
-                });
-                console.log(this.state.userBills);
-                this.userBudgetBillsID();
-            })
-            .then(this.setState({ showAddBill: false }))
-            .catch(err => console.log(err));
-    }};
+    };
 
     deleteBill = (id, event) => {
         event.preventDefault();
@@ -198,7 +200,7 @@ class Budgets extends React.Component {
     }
 
     cancelAddBudget = () => {
-        this.setState({ showAddBudget: false })  
+        this.setState({ showAddBudget: false })
     }
 
     cancelAddBill = () => {
@@ -209,14 +211,15 @@ class Budgets extends React.Component {
     getAllUsers = () => {
         API.getUsers()
             .then(res => console.log(res))
-            .then(res => res.data.map(index => { 
+            .then(res => res.data.map(index => {
                 return (
-                this.setState({allUsers:
-                    {
-                    userName:index.userName,
-                    userID:index.userId
-                }
-            }))
+                    this.setState({
+                        allUsers:
+                            {
+                                userName: index.userName,
+                                userID: index.userId
+                            }
+                    }))
             }))
             .then(console.log('YOOOOOOOOO', this.state.allUsers))
             .catch(err => console.log(err));
@@ -231,6 +234,7 @@ class Budgets extends React.Component {
                 />
                 <BudgetBar
                     value={this.state}
+                    bills={this.state.userChosenBudgetBills}
                 />
                 {this.state.showAddBudget ? (
                     <AddBudget

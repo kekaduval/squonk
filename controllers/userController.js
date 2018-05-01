@@ -1,3 +1,4 @@
+
 const db = require("../models");
 const mongoose = require("mongoose");
 
@@ -12,7 +13,20 @@ module.exports = {
     findAll: function (req, res) {
         db.User.find(req.query)
             // .sort({ date: -1 })
-            .then((dbModel) => res.json(dbModel))
+            .then((dbModel) => {
+                // console.log(dbModel[0].userName);
+                const userObject = dbModel.map(index => {
+                    return users= {
+                        user: index.userName,
+                        userID: index._id
+                    }
+                })
+
+                // console.log("THIS IS THE NEW LOGGGGGGGGGGGGGGG",userObject);
+                
+                
+                res.json(userObject)
+            })
             .catch(err => res.status(422).json(err));
     },
     findById: function (req, res) {

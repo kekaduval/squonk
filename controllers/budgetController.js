@@ -22,7 +22,7 @@ module.exports = {
         db.Budget.findById(id)
             .populate("bills")
             .then(dbModel => {res.json(dbModel)
-            console.log(dbModel);
+            // console.log(dbModel);
             })
             .catch(err => res.status(422).json(err));
     },
@@ -48,7 +48,7 @@ module.exports = {
         db.Budget.create(req.body)
             .then(dbBudget => {
                 var id = mongoose.Types.ObjectId(req.body.userId);
-                console.log("This is the id "+id);       
+                // console.log("This is the id "+id);       
                 return db.User.findOneAndUpdate({ _id: id }, { $push: { budgets: dbBudget._id } });
             })
             .then(dbUser => res.json(dbUser.budgets))

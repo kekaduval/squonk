@@ -14,7 +14,7 @@ const BillDisplayItem = props => {
       <div className='col-md-2 text-center rowBG'><h5 style={style}>${props.bill.billPlannedAmount.toFixed(2)}</h5></div>
       <div className='col-md-2 text-center rowBG'><h5 style={style}>${props.bill.billActualAmount.toFixed(2)}</h5></div>
       <div className='col-md-1 text-center rowBG'><h5>{props.bill.billStatic}</h5></div>
-      <div className='col-md-1 text-center rowBG' onClick={(event)=>props.onClick(props.bill._id, event)}><h5>Edit</h5></div>
+      <div className='col-md-1 text-center rowBG' onClick={(event)=>props.editBillShow(props.bill._id, event)} ><h5>Edit</h5></div>
       <div className='col-md-1 text-center rowBG' onClick={(event) => props.onClick(props.bill._id, event)}><h5>Delete</h5></div>
     </div>
   )

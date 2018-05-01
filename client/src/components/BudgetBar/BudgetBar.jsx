@@ -22,16 +22,12 @@ const BudgetBar = props => {
   })
 
   let initialBudgetPlannedAmount = props.value.currentBudgetPlannedAmount;
-  // let actualAmount = props.value.currentBudgetActualAmount;
-
-
 
   let billActualAmountValues = props.bills.map(i => { return (i.billActualAmount) })
   let allBillsActualAmountSum = billActualAmountValues.reduce((a, b) => a + b, 0)
 
   console.log("Bills Actual Values for the Budget", billActualAmountValues);
   console.log("Bill Actual Values Total for the Budget", allBillsActualAmountSum);
-
 
 
   let billPlannedAmountValues = props.bills.map(i => { return (i.billPlannedAmount) })
@@ -41,12 +37,6 @@ const BudgetBar = props => {
 
   let totalBillPlannedAmount = initialBudgetPlannedAmount + allBillsPlannedAmountSum;
   let leftAmount = totalBillPlannedAmount - allBillsActualAmountSum
-
-  console.log("afdafagasgas" + typeof (totalBillPlannedAmount));
-
-
-
-
 
 
 

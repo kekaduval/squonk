@@ -31,11 +31,14 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     remove: function (req, res) {
-        var id = mongoose.Types.ObjectId(req.body.billId);
+        var gabeid = mongoose.Types.ObjectId(req.body.billId);
+        console.log(req);
+        
         var budId = mongoose.Types.ObjectId(req.body.budgetId);
-        db.Bill.findById({ _id: id})    
-            .then(dbModel => dbModel.remove())
-            .then(db.Budget.update({ _id: budId }, { $pull: { bills: id } }))
+        
+        db.Bill.remove({ _id: gabeid})    
+            // .then(dbModel => {dbModel.remove()})
+            .then(db.Budget.update({ _id: budId }, { $pull: { bills: gabeid } }))
             .then(res.send("Done"))
             .catch(err => res.status(422).json(err));
     },
@@ -43,7 +46,7 @@ module.exports = {
 
 
 
-// / router.post("/arrayNoteDelete/:id/:noteId", function (req, res) {
+// router.post("/arrayNoteDelete/:id/:noteId", function (req, res) {
 //         var id = mongoose.Types.ObjectId(req.params.id);
 //         var noteId = mongoose.Types.ObjectId(req.params.noteId);
 //         console.log('Hya', id);

@@ -1,4 +1,5 @@
 import axios from "axios";
+var qs = require('qs');
 
 //userRoute  -- /api/user
 //budgetRoute -- /api/budget
@@ -47,7 +48,7 @@ export default {
 
   deleteBill: data => {
     console.log("bill being deleted ", data);
-    return axios.delete("/api/bill/", data);
+    return axios.post("/api/bill/delete/", qs.stringify(data));
   },
 
   //Gets all users

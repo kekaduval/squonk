@@ -181,10 +181,13 @@ class Budgets extends React.Component {
 
     deleteBill = (id, event) => {
         event.preventDefault();
+        alert("Hi " + id)
         const data = {
             billId: id,
             budgetId: this.state.userChosenBudgetId
         }
+        console.log("fafdsagvasfghashgdashrhgreahsdnhsjtfdshjdx", data);
+        
         API.deleteBill(data)
             .then(res => console.log(res))
             .then(this.userBudgetBillsID())
@@ -210,18 +213,20 @@ class Budgets extends React.Component {
 
     getAllUsers = () => {
         API.getUsers()
-            .then(res => console.log(res))
-            .then(res => res.data.map(index => {
-                return (
-                    this.setState({
-                        allUsers:
-                            {
-                                userName: index.userName,
-                                userID: index.userId
-                            }
-                    }))
-            }))
-            .then(console.log('YOOOOOOOOO', this.state.allUsers))
+            .then(res => {
+                const allUsers = res.data.map(index => {
+                    return (
+                        {
+                            userName: index.userName,
+                            userID: index._id
+                        }
+                    )
+                })
+                console.log("All Users"   , allUsers);               
+                this.setState({
+                    allUsers: allUsers
+                })
+            })
             .catch(err => console.log(err));
     }
 
@@ -249,12 +254,11 @@ class Budgets extends React.Component {
                     handleClick={this.submitBillClick}
                     value={this.state}
                     handleChange={this.handleChange}
-                    deleteClick={(event) => this.deleteBill(event)}
+                    deleteClick={this.deleteBill}
                     onClick={this.showAddBill}
                     showBillStatus={this.state.showAddBill}
                     handleClickCancel={this.cancelAddBill}
                     bills={this.state.userChosenBudgetBills}
-                    // {() => this.deleteBill(bill.id)}
                 />
 
             </ React.Fragment>

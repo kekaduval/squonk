@@ -11,8 +11,8 @@ import BillsDisplay from "../../components/BillsDisplay";
 class Budgets extends React.Component {
 
     state = {
-        userId: "5ae223edcaab7a10731e1723", //UserID
-        userName: "gabe", //Name of userlogged in
+        userId: "5ae49802b1ef377b04cd52ae", //UserID
+        userName: "nathan", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
         budgetPlannedAmount: "", //Planned Amount when user creates a budget
@@ -39,16 +39,6 @@ class Budgets extends React.Component {
     }
 
 
-    // This will be removed once I add Gabe
-    // componentWillMount() {
-    //   this.setState({
-    //     budgetPlannedAmount: [25 , 2000]
-    //   })
-    //   this.setState({
-    //       billActualAmount: []
-    //   })
-    // }
-
     //loads on page load. Gets all the users budgets
     loadBudgets = () => {
         const userId = this.state.userId;
@@ -61,16 +51,8 @@ class Budgets extends React.Component {
                 let userBudgetNames = this.state.userBudgets.map(budget => {
                     return budget.budgetName
                 })
-                // let userPlannedAmount = this.state.userBudgets.map(budget => {
-                // return budget.budgetPlannedAmount
-                // })
-                // let userActualAmount = this.state.userBudgets.map(budget => {
-                // return budget.actualAmount
-                // })
                 this.setState({
                     budgetNameList: userBudgetNames
-                    //   // budgetPlannedAmount: userPlannedAmount,
-                    //   // budgetActualAmount: userActualAmount
                 })
                 console.log(userBudgetNames);
                 // console.log(userPlannedAmount);
@@ -96,7 +78,7 @@ class Budgets extends React.Component {
 
 
     //grabs all the bills associated with the chosen budget
-    userBudgetBillsID = () => {
+    userBudgetBillsID = (e) => {
         const budgetId = this.state.userChosenBudgetId;
         API.getBudgetBills(budgetId)
             .then(res => {
@@ -179,6 +161,18 @@ class Budgets extends React.Component {
         }
     };
 
+// This is the function that gets the selected value from the dropdown ?????????
+    getSelectedValue = (event) => {
+      event.preventDefault();
+      var x = event.target.selectedIndex;
+      console.dir(event.target.options[x].dataset.id)
+      let selectedValue = event.target.options[x].dataset.id
+      // selectedValue is the budget id
+      console.log(selectedValue);
+      this.setState({userChosenBudgetId: selectedValue})
+      this.userBudgetBillsID()
+    }
+
     deleteBill = (id, event) => {
         event.preventDefault();
         const data = {
@@ -235,6 +229,7 @@ class Budgets extends React.Component {
                 <BudgetBar
                     value={this.state}
                     bills={this.state.userChosenBudgetBills}
+                    handleChange={this.getSelectedValue}
                 />
                 {this.state.showAddBudget ? (
                     <AddBudget

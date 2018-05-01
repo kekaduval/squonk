@@ -5,7 +5,7 @@ const AddBillButton = props => {
 
   return (
   <div className=''>
-    <button className=" btn btn-primary marginBottom" title="Add Bill" onClick={props.onClick}>Add Bill to Budget
+    <button className=" btn btn-primary " title="Add Bill" onClick={props.onClick}>+
   </button>
   </div>
   )

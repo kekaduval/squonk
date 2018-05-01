@@ -6,20 +6,13 @@ const BudgetBar = props => {
 
   console.log(props.value.currentBudgetPlannedAmount);
   console.log(props.value);
-  console.log(props.value.userBudgets.length);
-  // for (var i = 0; i < props.value.userBudgets; i++) {
-  //   return (
-  //     <option id={props.value.userBudgets.userId}></option>
-  //   )
-  // }
-  // insert a for loop to separate and create the elements.
-  let budgetItems = props.value.budgetNameList.map(budgets => {
-    // let budgetItems = props.value.map(budgets => {
-    console.log(budgets);
-    return (
-      <option id="select" key={budgets} value="budgets">{budgets}</option>
-    )
-  })
+  let budgetItems;
+  if(props.value.userBudgets.length > 0){
+    budgetItems = props.value.userBudgets.map(budgets => {
+      console.log(budgets);
+      return (<option id="select" key={budgets.id} data-id={budgets._id} >{budgets.budgetName}</option>)
+     })
+  }
 
   let initialBudgetPlannedAmount = props.value.currentBudgetPlannedAmount;
 
@@ -49,12 +42,10 @@ const BudgetBar = props => {
       <div className="row bg">
         <div className="col-md-3">
           <h1>Budgets:
-          <span><select id="budgetDropDown">
-              {budgetItems}
+          <span><select id="budgetDropDown" onChange={props.handleChange}>
+          {budgetItems}
             </select></span></h1>
         </div>
-
-
 
         <div className="col-md-3">
           <h1>Planned $:<span className='marginLeft' style={style}>{parseFloat(totalBillPlannedAmount).toFixed(2)}</span></h1>

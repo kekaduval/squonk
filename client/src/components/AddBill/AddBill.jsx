@@ -38,12 +38,8 @@ const AddBill = props => {
             checked={props.isChecked}
           // onChange={props.handleChange}
           // value={props.value.billStatic}     
-
           />
         </div>
-
-
-
 
 
         <BillSubmitButton onClick={props.handleClick} />

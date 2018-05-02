@@ -5,18 +5,6 @@ var qs = require('qs');
 //budgetRoute -- /api/budget
 //billRoute -- /api/bill
 export default {
-  // // Gets all articles
-  //   getBudgets: () => {
-  //     return axios.get("/api/budgets");
-  //   },
-  // // Gets the budgets with the given id
-  //   getBudgets: id => {
-  //     return axios.get("/api/budgets/" + id);
-  //   },
-  // // Deletes the budgets with the given id
-  // deleteBudgets: id => {
-  //   return axios.delete("/api/budget/" + id);
-  // },
 
   //so far all of these routes below this line function
 
@@ -37,7 +25,10 @@ export default {
     return axios.put("/api/bill/", data);
   },
 
-
+  shareBudget: data => {
+    console.log("users adding to budget", data);
+    return axios.put("/api/user/", data);
+  },
 
   getUserBudgets: id => {
     console.log("user id " +id )

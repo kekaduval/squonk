@@ -5,6 +5,7 @@ import API from "../../utils/API";
 // import AddButton from "../../components/AddButton"
 import BudgetBar from "../../components/BudgetBar"
 import BillsDisplay from "../../components/BillsDisplay";
+import UserLookup from "../../components/UserLookup"
 
 
 
@@ -36,6 +37,8 @@ class Budgets extends React.Component {
         editBill: false, // keeps edit bill hidden until a bills edit button is clicked
         editBillID: "",
         allUsers: [], //all users names and IDs
+        showUserLookup: false,
+        userToShareBudget: "",
     }
 
     componentDidMount() {
@@ -104,6 +107,8 @@ class Budgets extends React.Component {
         this.setState({
             [name]: value
         });
+        console.log(this.state.userToShareBudget);
+        
         // console.log(this.state.billName);
         // console.log(this.state.billPlannedAmount);
         // console.log(this.state.billActualAmount);
@@ -244,6 +249,20 @@ class Budgets extends React.Component {
         }        
         API.deleteBill(data)
             .then(res => console.log(res))
+            .then(alert("User Added"))
+            .catch(err => console.log(err));
+    }
+
+    addUserToMyBudget = (id) => {
+       const usersIDToAdd = id;
+       const budgetToAddTo = this.state.userChosenBudgetId;
+
+       const data = {
+           user: usersIDToAdd,
+           budget: budgetToAddTo
+       }
+        API.shareBudget(data)
+            .then(res => console.log(res))
             .then(this.userBudgetBillsID())
             .catch(err => console.log(err));
     }
@@ -253,7 +272,8 @@ class Budgets extends React.Component {
         this.setState({ 
             showAddBudget: true,
             showAddBill: false,
-            editBill: false
+            editBill: false,
+            showUserLookup: false
          })
     }
 
@@ -261,7 +281,8 @@ class Budgets extends React.Component {
         this.setState({ 
             showAddBill: true,
             showAddBudget: false,
-            editBill: false
+            editBill: false,
+            showUserLookup: false
          })
     }
 
@@ -271,8 +292,19 @@ class Budgets extends React.Component {
             editBill: true,
             showAddBudget: false,
             showAddBill: false,
+            showUserLookup: false,
             editBillID: id
          })         
+    }
+
+
+    showUserLookup = () => {
+        this.setState({
+            showAddBill: false,
+            showAddBudget: false,
+            editBill: false,
+            showUserLookup: true
+        })        
     }
 
     cancelAddBudget = () => {
@@ -287,18 +319,25 @@ class Budgets extends React.Component {
         this.setState({ editBill: false })
     }
 
+    cancelShowUserLookup = () => {
+        this.setState({ showUserLookup: false })
+    }
+    
+
     getAllUsers = () => {
         API.getUsers()
             .then(res => {
+                console.log('this is res ',res);
+                
                 const allUsers = res.data.map(index => {
                     return (
                         {
-                            userName: index.userName,
-                            userID: index._id
+                            userName: index.user,
+                            userID: index.userID
                         }
                     )
                 })
-                console.log("All Users"   , allUsers);               
+                console.log("All Users", allUsers);               
                 this.setState({
                     allUsers: allUsers
                 })
@@ -312,6 +351,7 @@ class Budgets extends React.Component {
             <React.Fragment>
                 <Navbar
                     handleClick={this.showAddBudget}
+                    handleUserClick={this.showUserLookup}
                 />
                 <BudgetBar
                     value={this.state}
@@ -324,6 +364,15 @@ class Budgets extends React.Component {
                         value={this.state}
                         handleClick={this.submitBudgetClick}
                         handleClickCancel={this.cancelAddBudget}
+                    />) : (false)}
+                {this.state.showUserLookup ? (
+                    <UserLookup
+                        handleChange={this.handleChange}
+                        value={this.state}
+                        handleClick={this.addUserToMyBudget}
+                        allUsers={this.state.allUsers}
+                        userToShareBudget={this.state.userToShareBudget}
+                        handleClickCancel={this.cancelShowUserLookup}
                     />) : (false)}
                 <BillsDisplay
                     bills={this.state.userChosenBudgetBills}

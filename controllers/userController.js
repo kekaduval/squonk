@@ -51,5 +51,13 @@ module.exports = {
             .then(dbModel => dbModel.remove())
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
-    }
+    },
+    shareBudget: function (req, res) {
+        db.User.findOneAndUpdate({ _id: req.body.user }, { $push: { budgets: req.body.budget } })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    },
 };
+
+
+

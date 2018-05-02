@@ -26,7 +26,7 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     update: function (req, res) {
-        db.Bill.findOneAndUpdate({ _id: req.params.id }, req.body)
+        db.Bill.findOneAndUpdate({ _id: req.body.billId }, req.body.body)
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },

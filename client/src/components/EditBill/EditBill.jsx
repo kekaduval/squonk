@@ -1,15 +1,22 @@
 import React from 'react';
-import BillSubmitButton from '../BillSubmitButton'
+import EditBillSubmitButton from '../EditBillSubmitButton'
 import CancelButton from '../CancelButton'
-import "./AddBill.css"
+import "./EditBill.css"
 
-const AddBill = props => {
+const EditBill = props => {
 
+  let billClick = props.value.editBillID;
+  let billInfo = props.bills.find(index => index._id  === billClick )
+  console.log("haahhahahahahahah" + billClick);
+  
+  console.log("gggggggggggggg", billInfo);
+  
+  
   return (
     <div className='container marginTopAndBottom'>
       <div className='row '>
-        <div className='offset-4 col-md-2 text-center'>
-          <h3>Add a Bill</h3>
+        <div className='offset-4 col-md-1 text-center'>
+          <h3>Edit Bill</h3>
         </div>
       </div>
       <div className="row">
@@ -17,9 +24,10 @@ const AddBill = props => {
           <input
             className="form-control text-center"
             type="text"
-            name="billName"
+            name="editBillName"
             onChange={props.handleChange}
-            value={props.value.billName}
+            editvalue={props.value.editBillName}
+            // value={billInfo.billName}
             placeholder="Bill Name"
           />
         </div>
@@ -29,9 +37,10 @@ const AddBill = props => {
           <input
             className="form-control text-center"
             type="number"
-            name="billPlannedAmount"
+            name="editBillPlannedAmount"
             onChange={props.handleChange}
-            value={props.value.billPlannedAmount}
+            editvalue={parseFloat(props.value.editBillPlannedAmount).toFixed(2)}
+            // value={parseFloat(billInfo.billPlannedAmount).toFixed(2)}
             placeholder=" Bill Planned Amount $25, $100, $1000"
           />
         </div>
@@ -40,9 +49,10 @@ const AddBill = props => {
           <input
             className="form-control text-center"
             type="number"
-            name="billActualAmount"
+            name="editBillActualAmount"
             onChange={props.handleChange}
-            value={props.value.billActualAmount}
+            editvalue={parseFloat(props.value.editBillActualAmount).toFixed(2)}
+            // value={parseFloat(billInfo.billActualAmount).toFixed(2)}
             placeholder=" Bill Actual Amount $25, $100, $1000"
           />
         </div>
@@ -58,13 +68,13 @@ const AddBill = props => {
         </div>
 
 
-        <BillSubmitButton onClick={props.handleClick} />
+        <EditBillSubmitButton onClick={props.handleClick} />
         <CancelButton onClick={props.onClick} />
       </div>
     </div>
   )
 }
 
-export default AddBill;
+export default EditBill;
 
 

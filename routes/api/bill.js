@@ -5,13 +5,14 @@ const billController = require("../../controllers/billController");
 router.route("/")
 .get(billController.findAll)
 .post(billController.createBill)
+.put(billController.update)
 
 
 // Matches with "/api/bills/:id"
 router.route("/:id")
 // .get(billController.findById)
 // .put(billController.update)
-.delete(billController.remove);
+// .delete(billController.remove);
 
 
 router.route("/delete/")

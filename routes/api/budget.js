@@ -6,7 +6,8 @@ const budgetController = require("../../controllers/budgetController");
 router.route("/")
     .get(budgetController.findAll)
     // .post(budgetController.create)
-    .post(budgetController.createBudget);
+    .post(budgetController.createBudget)
+    // .put(budgetController.update)
 
 // Matches with "/api/budgets/:id"
 router.route("/:id")

@@ -4,7 +4,6 @@ import "./BudgetBar.css";
 
 const BudgetBar = props => {
 
-  console.log(props.value.currentBudgetPlannedAmount);
   console.log(props.value);
   let budgetItems;
   if(props.value.userBudgets.length > 0){

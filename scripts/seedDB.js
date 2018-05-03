@@ -12,7 +12,9 @@ const userSeed = [
     secQuestion1: "Childhood Best Friend?",
     secQuestion1Answer: "john",
     secQuestion2: "Favorite Food?",
-    secQuestion2Answer: "pizza"
+    secQuestion2Answer: "pizza",
+    usersSharedBudgetWithMe: [],
+    sharingBudgetWith:[],
   },
   {
     userName: "nathan",
@@ -20,7 +22,9 @@ const userSeed = [
     secQuestion1: "Childhood Best Friend?",
     secQuestion1Answer: "john",
     secQuestion2: "Favorite Food?",
-    secQuestion2Answer: "pizza"
+    secQuestion2Answer: "pizza",
+    usersSharedBudgetWithMe: [],
+    sharingBudgetWith: [],
   },
   {
     userName: "keka",
@@ -28,7 +32,39 @@ const userSeed = [
     secQuestion1: "Childhood Best Friend?",
     secQuestion1Answer: "john",
     secQuestion2: "Favorite Food?",
-    secQuestion2Answer: "pizza"
+    secQuestion2Answer: "pizza",
+    usersSharedBudgetWithMe: [],
+    sharingBudgetWith: [],
+  },
+  {
+    userName: "gabby",
+    password: "1234",
+    secQuestion1: "Childhood Best Friend?",
+    secQuestion1Answer: "john",
+    secQuestion2: "Favorite Food?",
+    secQuestion2Answer: "pizza",
+    usersSharedBudgetWithMe: [],
+    sharingBudgetWith: [],
+  },
+  {
+    userName: "gabriel",
+    password: "1234",
+    secQuestion1: "Childhood Best Friend?",
+    secQuestion1Answer: "john",
+    secQuestion2: "Favorite Food?",
+    secQuestion2Answer: "pizza",
+    usersSharedBudgetWithMe: [],
+    sharingBudgetWith: [],
+  },
+  {
+    userName: "kekka",
+    password: "1234",
+    secQuestion1: "Childhood Best Friend?",
+    secQuestion1Answer: "john",
+    secQuestion2: "Favorite Food?",
+    secQuestion2Answer: "pizza",
+    usersSharedBudgetWithMe: [],
+    sharingBudgetWith: [],
   }
 ];
 

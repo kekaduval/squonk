@@ -10,9 +10,13 @@ const Navbar = props => {
             <div className='offset-7 col-md-1'>
                 <AddButton onClick={props.handleClick} />
             </div>
+
+
+            {props.budgetListLength.length ? (
             <div className='col-md-1'>
                 <ShareBudgetButton onClick={props.handleUserClick} />
-            </div>
+                </div>):(null)}
+
             <div className='col-md-1'>
                 <AcctSettingsButton />
             </div>

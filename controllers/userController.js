@@ -14,15 +14,17 @@ module.exports = {
         db.User.find(req.query)
             // .sort({ date: -1 })
             .then((dbModel) => {
-                // console.log(dbModel[0].userName);
+                console.log(dbModel[0]);
                 const userObject = dbModel.map(index => {
                     return users= {
                         user: index.userName,
-                        userID: index._id
+                        userID: index._id,
+                        sharedOutBudgets: index.sharingBudgetWith,
+                        sharedWithMe: index.usersSharedBudgetWithMe
                     }
                 })
 
-                // console.log("THIS IS THE NEW LOGGGGGGGGGGGGGGG",userObject);
+                console.log("THIS IS THE NEW LOGGGGGGGGGGGGGGG",userObject);
                 
                 
                 res.json(userObject)
@@ -52,12 +54,35 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
+
+
     shareBudget: function (req, res) {
-        db.User.findOneAndUpdate({ _id: req.body.user }, { $push: { budgets: req.body.budget } })
-            .then(dbModel => res.json(dbModel))
+        console.log(req.body);
+
+        db.User.findOneAndUpdate({ _id: req.body.user }, { $push: { budgets: req.body.budget }})
+            .then((dbModel) => {
+                return db.User.findOneAndUpdate({ _id: req.body.user }, { $push: { usersSharedBudgetWithMe: req.body.body } })})
+            .then((dbUser) => {
+                return db.User.findOneAndUpdate({ _id: req.body.myID }, { $push: { sharingBudgetWith: req.body.userBody} }) 
+                })
+            .then((dbUser) => {return db.User.findById(req.body.myID)})
+            .then(dbUser => res.json(dbUser) )
             .catch(err => res.status(422).json(err));
     },
 };
 
 
+// res.json(dbModel)
 
+// // Route for saving/updating an Note and linking an Article's associated Note
+// createBudget: function (req, res) {
+//     db.Budget.create(req.body)
+//         .then(dbBudget => {
+//             var id = mongoose.Types.ObjectId(req.body.userId);
+//             // console.log("This is the id "+id);       
+//             return db.User.findOneAndUpdate({ _id: id }, { $push: { budgets: dbBudget._id } });
+//         })
+//         .then(dbUser => res.json(dbUser.budgets))
+//         .catch(err => res.status(422).json(err));
+// }
+// };

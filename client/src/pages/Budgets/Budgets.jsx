@@ -6,13 +6,14 @@ import API from "../../utils/API";
 import BudgetBar from "../../components/BudgetBar"
 import BillsDisplay from "../../components/BillsDisplay";
 import UserLookup from "../../components/UserLookup"
+import ShareUserDisplay from "../../components/ShareUserDisplay"
 
 
 
 class Budgets extends React.Component {
 
     state = {
-        userId: "5ae223edcaab7a10731e1723", //UserID
+        userId: "5aea3ea0001d111f438cd33d", //UserID
         userName: "gabe", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
@@ -35,10 +36,13 @@ class Budgets extends React.Component {
         showAddBudget: false, //keeps Add budget hidden until Add Budget is clicked
         showAddBill: false, // keeps Add Bill hidden until Add Bill is clicked
         editBill: false, // keeps edit bill hidden until a bills edit button is clicked
+        showSharedUsers: false,
         editBillID: "",
         allUsers: [], //all users names and IDs
         showUserLookup: false,
         userToShareBudget: "",
+        sharedBudgetWithUsers: [],
+        usersSharedBudgetWithMe: [],
     }
 
     componentDidMount() {
@@ -56,7 +60,17 @@ class Budgets extends React.Component {
                 this.setState({
                     userBudgets: res.data.budgets
                 });
-                // console.log("All the User Budgets ", this.state.userBudgets);
+                this.setState({
+                    sharedBudgetWithUsers: res.data.sharingBudgetWith
+                });
+                this.setState({
+                    usersSharedBudgetWithMe: res.data.usersSharedBudgetWithMe
+                });
+                console.log("All the User Budgets ", this.state.userBudgets);
+                console.log("all the budgets I share", this.state.sharedBudgetWithUsers);
+                console.log("All budgets shared with me", this.state.usersSharedBudgetWithMe);
+                
+                
                 let userBudgetNames = this.state.userBudgets.map(budget => {
                     return budget.budgetName
                 })
@@ -143,7 +157,7 @@ class Budgets extends React.Component {
                 userName: this.state.userName,
                 budgetName: this.state.budgetName,
                 budgetPlannedAmount: this.state.budgetPlannedAmount,
-                actualAmount: 0.00
+                actualAmount: 0
             }
             API.createBudget(newBudget)
                 .then(this.setState({ 
@@ -253,19 +267,60 @@ class Budgets extends React.Component {
             .catch(err => console.log(err));
     }
 
-    addUserToMyBudget = (id) => {
-       const usersIDToAdd = id;
-       const budgetToAddTo = this.state.userChosenBudgetId;
+
+    //Function to add user to budget
+    addUserToMyBudget = (name, id) => {
+       const userIDToAdd = id;
+       const userSharingWithName = name;
+       const budgetIDToAddTo = this.state.userChosenBudgetId;
+       const budgetName = this.state.userChosenBudgetName;
+       const myID = this.state.userId
+       const myName = this.state.userName
+
+       let isUserThere = this.state.sharedBudgetWithUsers.find(i => i.user === name)
+       console.log("hhhhhhh",isUserThere);
+       
+       if(isUserThere){
+           alert('User Already Added')
+       } else{
 
        const data = {
-           user: usersIDToAdd,
-           budget: budgetToAddTo
+           user: userIDToAdd,   //User Im sharing with ID to push in there budgets array
+           budget: budgetIDToAddTo,  // budget ID I'm sharing to push in to users budget array
+           userName: userSharingWithName, //user I'm sharing with name to push to my array
+           myID: myID,
+           body:{  
+               //Creating object for user I'm sharing with to see shared Budget and username
+               user: myName,  
+               budget: budgetName
+           },
+           userBody: {
+               //Creating object for user I'm sharing with to see shared Budget and username
+               user: userSharingWithName,
+               userID: userIDToAdd
+           },
        }
         API.shareBudget(data)
-            .then(res => console.log(res))
+            .then(res => {
+                this.setState({
+                    sharedBudgetWithUsers: res.data.sharingBudgetWith,
+                    usersSharedBudgetWithMe: res.data.usersSharedBudgetWithMe,
+                })
+                console.log("TTTTT", this.state.sharedBudgetWithUsers);
+                console.log(this.state.usersSharedBudgetWithMe);                
+             }            
+            )
             .then(this.userBudgetBillsID())
+            .then(this.cancelShowSharedUsers())
             .catch(err => console.log(err));
+        }
     }
+
+    deleteSharedUser = (name, id, event) => {
+        event.preventDefault();
+        alert("Hi "+ name + id)
+    }
+
 
 
     showAddBudget = () => {
@@ -273,7 +328,8 @@ class Budgets extends React.Component {
             showAddBudget: true,
             showAddBill: false,
             editBill: false,
-            showUserLookup: false
+            showUserLookup: false,
+            showSharedUsers: false
          })
     }
 
@@ -282,7 +338,8 @@ class Budgets extends React.Component {
             showAddBill: true,
             showAddBudget: false,
             editBill: false,
-            showUserLookup: false
+            showUserLookup: false,
+            showSharedUsers: false
          })
     }
 
@@ -293,6 +350,7 @@ class Budgets extends React.Component {
             showAddBudget: false,
             showAddBill: false,
             showUserLookup: false,
+            showSharedUsers: false,
             editBillID: id
          })         
     }
@@ -303,8 +361,20 @@ class Budgets extends React.Component {
             showAddBill: false,
             showAddBudget: false,
             editBill: false,
-            showUserLookup: true
+            showUserLookup: true,
+            showSharedUsers: false
         })        
+    }
+
+    showSharedUsers = () => {
+        this.setState({
+            showAddBill: false,
+            showAddBudget: false,
+            editBill: false,
+            showUserLookup: false,
+            showSharedUsers: true
+        })  
+
     }
 
     cancelAddBudget = () => {
@@ -322,6 +392,10 @@ class Budgets extends React.Component {
     cancelShowUserLookup = () => {
         this.setState({ showUserLookup: false })
     }
+
+    cancelShowSharedUsers = () => {
+        this.setState({ showSharedUsers: false })
+    }
     
 
     getAllUsers = () => {
@@ -333,14 +407,17 @@ class Budgets extends React.Component {
                     return (
                         {
                             userName: index.user,
-                            userID: index.userID
+                            userID: index.userID,
+                            sharedOutBudgets: index.sharedOutBudgets,
+                            sharedWithMeBudgets: index.sharedWithMe,
                         }
                     )
-                })
+                })                
                 console.log("All Users", allUsers);               
                 this.setState({
                     allUsers: allUsers
-                })
+                });
+
             })
             .catch(err => console.log(err));
     }
@@ -352,11 +429,16 @@ class Budgets extends React.Component {
                 <Navbar
                     handleClick={this.showAddBudget}
                     handleUserClick={this.showUserLookup}
+                    budgetListLength={this.state.userBudgets}
                 />
                 <BudgetBar
                     value={this.state}
                     bills={this.state.userChosenBudgetBills}
                     handleChange={this.getSelectedValue}
+                    usersIShareWith={this.state.sharedBudgetWithUsers}
+                    usersWhoShareWithMe={this.state.usersSharedBudgetWithMe}
+                    handleClick={this.showSharedUsers}
+                    handleClickCancel={this.cancelShowSharedUsers}
                 />
                 {this.state.showAddBudget ? (
                     <AddBudget
@@ -373,6 +455,13 @@ class Budgets extends React.Component {
                         allUsers={this.state.allUsers}
                         userToShareBudget={this.state.userToShareBudget}
                         handleClickCancel={this.cancelShowUserLookup}
+                    />) : (false)}
+                {this.state.showSharedUsers ? (
+                    <ShareUserDisplay                 
+                        handleClickCancel={this.cancelShowSharedUsers}
+                        usersIShareWith={this.state.sharedBudgetWithUsers}
+                        usersWhoShareWithMe={this.state.usersSharedBudgetWithMe}
+                        handleClick={this.deleteSharedUser}
                     />) : (false)}
                 <BillsDisplay
                     bills={this.state.userChosenBudgetBills}

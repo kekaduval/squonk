@@ -1,7 +1,7 @@
 import React from 'react';
 import "./BillsDisplayItem.css"
 
-const BillDisplayItem = props => {
+const BillsDisplayItem = props => {
 
   const style = {
     color: props.bill.billActualAmount > props.bill.billPlannedAmount ? 'red' : 'green'
@@ -21,5 +21,5 @@ const BillDisplayItem = props => {
 }
 
 
-export default BillDisplayItem;
+export default BillsDisplayItem;
 

@@ -10,7 +10,7 @@ const BudgetBar = props => {
   if(props.value.userBudgets.length > 0){
     budgetItems = props.value.userBudgets.map(budgets => {
       // console.log(budgets);
-      return (<option id="select" key={budgets.id} data-id={budgets._id} >{budgets.budgetName}</option>)
+      return (<option id="select" key={budgets._id} data-id={budgets._id} >{budgets.budgetName}</option>)
      })
   }
 

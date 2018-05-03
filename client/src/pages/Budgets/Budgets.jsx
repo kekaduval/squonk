@@ -7,6 +7,7 @@ import BudgetBar from "../../components/BudgetBar"
 import BillsDisplay from "../../components/BillsDisplay";
 import UserLookup from "../../components/UserLookup"
 import ShareUserDisplay from "../../components/ShareUserDisplay"
+import NoBudgetsNoBillsDisplay from "../../components/NoBudgetsNoBillsDisplay"
 
 
 
@@ -14,9 +15,8 @@ class Budgets extends React.Component {
 
     state = {
 
-        userId: "5aea3ea0001d111f438cd33d", //UserID
+        userId: "5aea7c788fd20b34b6fde155", //UserID
         userName: "gabe", //Name of userlogged in
-
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
         budgetPlannedAmount: "", //Planned Amount when user creates a budget
@@ -42,6 +42,7 @@ class Budgets extends React.Component {
         editBillID: "",
         allUsers: [], //all users names and IDs
         showUserLookup: false,
+        NoBudgetsNoBillsDisplay:true,
         userToShareBudget: "",
         sharedBudgetWithUsers: [],
         usersSharedBudgetWithMe: [],
@@ -82,11 +83,14 @@ class Budgets extends React.Component {
                 // console.log(userPlannedAmount);
                 // console.log(userActualAmount);
                 // console.log(this.state);
-                this.userFirstBudget()
+                if (this.state.userBudgets.length > 0) {
+                this.userFirstBudget()}
+                else{}
             })
             .catch(err => console.log(err));
     }
 
+    
 
     //grabs the first user budget to load bills
     userFirstBudget = () => {
@@ -146,7 +150,6 @@ class Budgets extends React.Component {
     //creating a budget, tieing it to a user and updating all users budget state
     submitBudgetClick = () => {
         const userPotentialBudgetName = this.state.budgetName;
-
         const matchBudgetName = this.state.userBudgets.find(i => i.budgetName === userPotentialBudgetName)
 
         if (matchBudgetName) {
@@ -262,14 +265,13 @@ class Budgets extends React.Component {
 
     deleteBill = (id, event) => {
         event.preventDefault();
-        alert("Hi " + id)
         const data = {
             billId: id,
             budgetId: this.state.userChosenBudgetId
         }
         API.deleteBill(data)
             .then(res => console.log(res))
-            .then(alert("User Added"))
+            .then(this.userBudgetBillsID())
             .catch(err => console.log(err));
     }
 
@@ -332,6 +334,7 @@ class Budgets extends React.Component {
     showAddBudget = () => {
         this.setState({
             showAddBudget: true,
+            NoBudgetsNoBillsDisplay: false,
             showAddBill: false,
             editBill: false,
             showUserLookup: false,
@@ -347,6 +350,7 @@ class Budgets extends React.Component {
             showUserLookup: false,
             showSharedUsers: false
          })
+        
     }
 
     editBill = (id, event) => {
@@ -363,13 +367,15 @@ class Budgets extends React.Component {
 
 
     showUserLookup = () => {
+        if (this.state.userBudgets.length > 0) {
         this.setState({
             showAddBill: false,
             showAddBudget: false,
             editBill: false,
             showUserLookup: true,
             showSharedUsers: false
-        })        
+        })   
+    }else{ alert("Add A budget First") }     
 
     }
 
@@ -381,19 +387,32 @@ class Budgets extends React.Component {
             showUserLookup: false,
             showSharedUsers: true
         })  
-
     }
 
     cancelAddBudget = () => {
-        this.setState({ showAddBudget: false })
+        this.setState({ 
+            showAddBudget: false,
+            NoBudgetsNoBillsDisplay:true,
+            budgetName: "",
+            budgetPlannedAmount:"", })
     }
 
     cancelAddBill = () => {
-        this.setState({ showAddBill: false })
+        this.setState({ 
+            showAddBill: false,
+            billName:"",
+            billPlannedAmount:"",
+            billActualAmount:"",
+         })
     }
 
     cancelEditBill = () => {
-        this.setState({ editBill: false })
+        this.setState({ 
+            editBill: false,
+            editBillName:"",
+            editBillPlannedAmount:"",
+            editBillActualAmount:"",
+         })
     }
 
     cancelShowUserLookup = () => {
@@ -423,7 +442,8 @@ class Budgets extends React.Component {
                     )
 
                 })                
-                console.log("All Users", allUsers);               
+                console.log("All Users", allUsers);  
+                // console.log("All the User Budgets ", this.state.userBudgets);             
 
                 this.setState({
                     allUsers: allUsers
@@ -474,23 +494,29 @@ class Budgets extends React.Component {
                         usersWhoShareWithMe={this.state.usersSharedBudgetWithMe}
                         handleClick={this.deleteSharedUser}
                     />) : (false)}
-                <BillsDisplay
-                    bills={this.state.userChosenBudgetBills}
-                    // budgetid={this.state.userChosenBudgetId}
-                    handleClick={this.submitBillClick}
-                    value={this.state}
-                    handleChange={this.handleChange}
-                    handleEditChange={this.editHandleChange}
-                    deleteClick={this.deleteBill}
-                    updateBillClick={this.updateBillClick}
-                    onClick={this.showAddBill}
-                    showBillStatus={this.state.showAddBill}
-                    editBill={this.state.editBill}
-                    handleClickCancel={this.cancelAddBill}
-                    editBillShow={this.editBill}
-                    noEditBillShow={this.cancelEditBill}
-                    bills={this.state.userChosenBudgetBills}
-                />
+
+                {this.state.userBudgets.length > 0 ? (
+
+                    <BillsDisplay
+                        handleClick={this.submitBillClick}
+                        value={this.state}
+                        handleChange={this.handleChange}
+                        handleEditChange={this.editHandleChange}
+                        deleteClick={this.deleteBill}
+                        updateBillClick={this.updateBillClick}
+                        onClick={this.showAddBill}
+                        showBillStatus={this.state.showAddBill}
+                        editBill={this.state.editBill}
+                        handleClickCancel={this.cancelAddBill}
+                        editBillShow={this.editBill}
+                        noEditBillShow={this.cancelEditBill}
+                        bills={this.state.userChosenBudgetBills}
+                    />) : (
+                    
+                    this.state.NoBudgetsNoBillsDisplay ? (
+                    <NoBudgetsNoBillsDisplay userName={this.state.userName}/>
+                    ) : (false)
+  )}
 
             </ React.Fragment>
         )

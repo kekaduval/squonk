@@ -6,6 +6,7 @@ import App from '../App'
 const Router = () => (
     <BrowserRouter>
         <Switch>
+            
             <Route exact path="/" component={App} />
         </Switch>
 

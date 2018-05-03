@@ -13,8 +13,10 @@ import ShareUserDisplay from "../../components/ShareUserDisplay"
 class Budgets extends React.Component {
 
     state = {
+
         userId: "5aea3ea0001d111f438cd33d", //UserID
         userName: "gabe", //Name of userlogged in
+
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
         budgetPlannedAmount: "", //Planned Amount when user creates a budget
@@ -48,7 +50,6 @@ class Budgets extends React.Component {
     componentDidMount() {
         this.loadBudgets();
         this.getAllUsers();
-
     }
 
 
@@ -101,8 +102,9 @@ class Budgets extends React.Component {
 
 
     //grabs all the bills associated with the chosen budget
-    userBudgetBillsID = (e) => {
+    userBudgetBillsID = () => {
         const budgetId = this.state.userChosenBudgetId;
+        console.log(budgetId);
         API.getBudgetBills(budgetId)
             .then(res => {
                 this.setState({
@@ -122,7 +124,7 @@ class Budgets extends React.Component {
             [name]: value
         });
         console.log(this.state.userToShareBudget);
-        
+
         // console.log(this.state.billName);
         // console.log(this.state.billPlannedAmount);
         // console.log(this.state.billActualAmount);
@@ -132,7 +134,7 @@ class Budgets extends React.Component {
     editHandleChange = event => {
         const { name, value } = event.target;
         // console.log(event.target);
-        
+
         this.setState({
             [name]: value
         });
@@ -160,7 +162,7 @@ class Budgets extends React.Component {
                 actualAmount: 0
             }
             API.createBudget(newBudget)
-                .then(this.setState({ 
+                .then(this.setState({
                     showAddBudget: false,
                     budgetName: "",
                     budgetPlannedAmount: ""
@@ -197,7 +199,7 @@ class Budgets extends React.Component {
                     // console.log(this.state.userBills);
                     this.userBudgetBillsID();
                 })
-                .then(this.setState({ 
+                .then(this.setState({
                     showAddBill: false,
                     billName: "",
                     billPlannedAmount: "",
@@ -239,20 +241,24 @@ class Budgets extends React.Component {
                     editBillActualAmount: ""
                 }))
                 .catch(err => console.log(err));
-        
+
     };
 
 // This is the function that gets the selected value from the dropdown ?????????
     getSelectedValue = (event) => {
       event.preventDefault();
       var x = event.target.selectedIndex;
-      console.dir(event.target.options[x].dataset.id)
       let selectedValue = event.target.options[x].dataset.id
       // selectedValue is the budget id
-      console.log(selectedValue);
-      this.setState({userChosenBudgetId: selectedValue})
-      this.userBudgetBillsID()
-    }
+      console.log("The new ID should be:" + selectedValue);
+      this.setState({ userChosenBudgetId: selectedValue });
+            API.getBudgetBills(selectedValue)
+                .then(res => {
+                    this.setState({
+                        userChosenBudgetBills: res.data.bills,
+                    });
+    }).catch(err => console.log(err));
+}
 
     deleteBill = (id, event) => {
         event.preventDefault();
@@ -260,7 +266,7 @@ class Budgets extends React.Component {
         const data = {
             billId: id,
             budgetId: this.state.userChosenBudgetId
-        }        
+        }
         API.deleteBill(data)
             .then(res => console.log(res))
             .then(alert("User Added"))
@@ -324,7 +330,7 @@ class Budgets extends React.Component {
 
 
     showAddBudget = () => {
-        this.setState({ 
+        this.setState({
             showAddBudget: true,
             showAddBill: false,
             editBill: false,
@@ -334,7 +340,7 @@ class Budgets extends React.Component {
     }
 
     showAddBill = () => {
-        this.setState({ 
+        this.setState({
             showAddBill: true,
             showAddBudget: false,
             editBill: false,
@@ -345,14 +351,14 @@ class Budgets extends React.Component {
 
     editBill = (id, event) => {
         event.preventDefault()
-        this.setState({ 
+        this.setState({
             editBill: true,
             showAddBudget: false,
             showAddBill: false,
             showUserLookup: false,
             showSharedUsers: false,
             editBillID: id
-         })         
+         })
     }
 
 
@@ -364,6 +370,7 @@ class Budgets extends React.Component {
             showUserLookup: true,
             showSharedUsers: false
         })        
+
     }
 
     showSharedUsers = () => {
@@ -393,16 +400,18 @@ class Budgets extends React.Component {
         this.setState({ showUserLookup: false })
     }
 
+
     cancelShowSharedUsers = () => {
         this.setState({ showSharedUsers: false })
     }
     
 
+
     getAllUsers = () => {
         API.getUsers()
             .then(res => {
                 console.log('this is res ',res);
-                
+
                 const allUsers = res.data.map(index => {
                     return (
                         {
@@ -412,8 +421,10 @@ class Budgets extends React.Component {
                             sharedWithMeBudgets: index.sharedWithMe,
                         }
                     )
+
                 })                
                 console.log("All Users", allUsers);               
+
                 this.setState({
                     allUsers: allUsers
                 });

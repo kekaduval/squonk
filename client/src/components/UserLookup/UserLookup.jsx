@@ -8,7 +8,7 @@ const UserLookup = props => {
   let allUsers = props.allUsers;
   let userToBeAdded = props.userToShareBudget;
 
-  let usersNamesPopulating = allUsers.filter(i => i.userName == userToBeAdded);
+  let usersNamesPopulating = allUsers.filter(i => i.userName.startsWith(userToBeAdded) && userToBeAdded.length>=1);
   // let usersNamesPopulating = allUsers.filter((i,index) => i.userName.charAt(index) == userToBeAdded);
 
   console.log("12345678", allUsers);
@@ -26,7 +26,7 @@ const UserLookup = props => {
 
 
   return (
-
+      // Lookup Input Box
     <div className='container'>
       <div className="row">
         <div className="offset-2 col-md-4">
@@ -42,10 +42,9 @@ const UserLookup = props => {
         <CancelButton onClick={props.handleClickCancel} />
       </div>
 
-
+      {/* username return if found */}
       <div className='row'>
         <div className='offset-3 col-md-2 rowMargin text-center'>
-
           {usersNamesPopulating.length ? (usersNamesPopulating.map(name => {
             return (
               <UsersDisplayItem

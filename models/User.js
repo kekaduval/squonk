@@ -41,7 +41,15 @@ var userSchema = new Schema({
                 // The ObjectIds will refer to the ids in the Budget model
                 ref: "Budget"
             }
-        ]
+        ],
+    sharingBudgetWith: { 
+        type: Array, 
+        "default": [],
+    },
+    usersSharedBudgetWithMe: {
+        type: Array,
+        "default": [],
+    }
 });
 
 // This creates our model from the above schema, using mongoose's model method

@@ -1,5 +1,6 @@
 import React from "react";
 import "./BudgetBar.css";
+import EditShareButton from "../EditShareButton"
 
 
 const BudgetBar = props => {
@@ -13,7 +14,7 @@ const BudgetBar = props => {
      })
   }
 
-  let initialBudgetPlannedAmount = props.value.currentBudgetPlannedAmount;
+  // let initialBudgetPlannedAmount = props.value.currentBudgetPlannedAmount;
   let billActualAmountValues = props.bills.map(i => { return (i.billActualAmount) })
   let allBillsActualAmountSum = billActualAmountValues.reduce((a, b) => a + b, 0)
 
@@ -35,6 +36,8 @@ const BudgetBar = props => {
   };
 
   return (
+
+    <React.Fragment>
     <div className='container marginBottom headerBG'>
       <div className="row bg">
         <div className="col-md-3">
@@ -48,18 +51,35 @@ const BudgetBar = props => {
           <h1>Planned $:<span className='marginLeft' style={style}>{parseFloat(totalBillPlannedAmount).toFixed(2)}</span></h1>
         </div>
 
-
         <div className="col-md-3">
           <h1>Actual $:<span className='marginLeft' style={style}>{parseFloat(allBillsActualAmountSum).toFixed(2)}</span></h1>
         </div>
 
         <div className="col-md-3">
           <h1> $Left :<span className='marginLeft' style={style}>{parseFloat(leftAmount).toFixed(2)}</span></h1>
-        </div>
-      </div>
+        </div>     
+      </div> 
     </div>
+
+ {props.usersIShareWith.length ? (
+      <div className='row text-center'>
+        <div className='col-md-12'>
+            <h3>"This is a Shared Budget"  <span><EditShareButton onClick={props.handleClick}/></span></h3>
+          
+        </div>
+      </div>) :(false)}
+
+
+    
+
+ 
+
+
+
+ </React.Fragment>
+
   );
 };
-
+ 
 
 export default BudgetBar;

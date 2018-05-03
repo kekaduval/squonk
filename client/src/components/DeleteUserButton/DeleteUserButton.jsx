@@ -5,7 +5,7 @@ const DeleteUserButton = props => {
 
   return (
   <div className=''>
-      <button className=" btn btn-success circleBtn" title="Click to a Add a Bill" onClick={(event) => props.onClick(props.sharedWithUsers.user, props.sharedWithUsers.userID, event )}>-
+      <button className=" btn btn-danger circleBtn1" title="Click to a Add a Bill" onClick={(event) => props.onClick(props.user.user, props.user.userID, event )}>-
   </button>
   </div>
   )

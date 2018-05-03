@@ -69,20 +69,22 @@ module.exports = {
             .then(dbUser => res.json(dbUser) )
             .catch(err => res.status(422).json(err));
     },
+
+
+    removeSharedUser: function (req, res) {
+        console.log(req.body);
+
+        db.User.findOneAndUpdate({ _id: req.body.user }, { $pull: { budgets: req.body.budget } })
+            .then((dbModel) => {
+                return db.User.findOneAndUpdate({ _id: req.body.user }, { $pull: { usersSharedBudgetWithMe: req.body.body } })
+            })
+            .then((dbUser) => {
+                return db.User.findOneAndUpdate({ _id: req.body.myID }, { $pull: { sharingBudgetWith: req.body.userBodyRemove } })
+            })
+            .then((dbUser) => { return db.User.findById(req.body.myID) })
+            .then(dbUser => res.json(dbUser))
+            .catch(err => res.status(422).json(err));
+    },
 };
 
-
-// res.json(dbModel)
-
-// // Route for saving/updating an Note and linking an Article's associated Note
-// createBudget: function (req, res) {
-//     db.Budget.create(req.body)
-//         .then(dbBudget => {
-//             var id = mongoose.Types.ObjectId(req.body.userId);
-//             // console.log("This is the id "+id);       
-//             return db.User.findOneAndUpdate({ _id: id }, { $push: { budgets: dbBudget._id } });
-//         })
-//         .then(dbUser => res.json(dbUser.budgets))
-//         .catch(err => res.status(422).json(err));
-// }
-// };
+ 

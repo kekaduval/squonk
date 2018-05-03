@@ -17,16 +17,12 @@ const ShareUserDisplay = props => {
               <h3>Users I Shared This Budget With</h3>
           </div> 
           <div className='row'>     
-            {props.usersIShareWith.map(i => {
+            {props.usersIShareWith.map(user => {
               return (
                 <ShareUserDisplayItem 
-                  key={props.usersIShareWith.userID}
-                  sharedWithUsers={props.usersIShareWith}
-                  onClick={props.handleClick}
-                
-                
-                
-                
+                  key={user.userID}
+                  userInfo={user}
+                  onClick={props.handleClick}           
                 />
               )
             })}
@@ -36,9 +32,9 @@ const ShareUserDisplay = props => {
 
 
        
-          <div className="col">
+          {/* <div className="col">
             <div className='row'>
-              <h3>Users I Shared This Budget With</h3>
+              <h3>Users Shared Budgets I'm In</h3>
             </div>
             <div className='row'>
               {props.usersWhoShareWithMe.map(i => {
@@ -46,7 +42,7 @@ const ShareUserDisplay = props => {
                 )
               })}
             </div>
-          </div> 
+          </div>  */}
       </div>
       <CancelButton onClick={props.handleClickCancel} />
     </div>

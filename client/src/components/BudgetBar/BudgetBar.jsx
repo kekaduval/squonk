@@ -5,16 +5,30 @@ import EditShareButton from "../EditShareButton"
 
 const BudgetBar = props => {
 
-  console.log(props.value);
+  console.log(props.budgets);
+
+  console.log("kkkkkkkkk", props.chosenBudget.budgetName);
+  console.log("LLLLLLLL", props.usersWhoShareWithMe);
+
+  let findThisBudget = props.usersWhoShareWithMe.map(i => {
+    i.budget === props.chosenBudget.budgetName 
+    return i.owner
+
+  } )
+  console.log("PPPPPPPPP", findThisBudget);
+
+  
+  
   let budgetItems;
-  if(props.value.userBudgets.length > 0){
-    budgetItems = props.value.userBudgets.map(budgets => {
+    if (props.budgets.length > 0) {
+    budgetItems = props.budgets.map(budgets => {
+
       // console.log(budgets);
       return (<option id="select" key={budgets._id} data-id={budgets._id} >{budgets.budgetName}</option>)
      })
   }
 
-  // let initialBudgetPlannedAmount = props.value.currentBudgetPlannedAmount;
+  let initialBudgetPlannedAmount = props.chosenBudget.budgetPlannedAmount;
   let billActualAmountValues = props.bills.map(i => { return (i.billActualAmount) })
   let allBillsActualAmountSum = billActualAmountValues.reduce((a, b) => a + b, 0)
 
@@ -27,8 +41,14 @@ const BudgetBar = props => {
   // console.log("Bills Planned Values for the Budget", billPlannedAmountValues);
   // console.log("Bill Planned Values Total for the Budget", allBillsPlannedAmountSum);
 
-  let totalBillPlannedAmount = allBillsPlannedAmountSum;
+  let totalBillPlannedAmount = initialBudgetPlannedAmount;
   let leftAmount = totalBillPlannedAmount - allBillsActualAmountSum
+
+  let sharedWithMeMessage = findThisBudget !== props.myName
+  console.log("999999999999", sharedWithMeMessage);
+  console.log("555555555", findThisBudget);
+  
+  
 
 
   const style = {
@@ -61,6 +81,8 @@ const BudgetBar = props => {
       </div> 
     </div>
 
+
+
  {props.usersIShareWith.length ? (
       <div className='row text-center'>
         <div className='col-md-12'>
@@ -68,6 +90,15 @@ const BudgetBar = props => {
           
         </div>
       </div>) :(false)}
+
+
+
+      {sharedWithMeMessage && props.chosenBudget.userName !== props.myName ? (<div className='row text-center'>
+        <div className='col-md-12'>
+          <h3>"This is a Shared Budget from {findThisBudget}</h3>
+
+        </div>
+      </div>) :(null)} 
 
 
     

@@ -13,6 +13,10 @@ router.route("/:id")
 // .put(userController.update)
 // .delete(userController.remove);
 
+router.route("/share/")
+.post(userController.removeSharedUser);
+
+
 
 module.exports = router;
 

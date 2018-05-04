@@ -15,7 +15,7 @@ class Budgets extends React.Component {
 
     state = {
 
-        userId: "5aeb49d86408271c98bc764a", //UserID
+        userId: "5aece1c7b725b6197ef6d4ae", //UserID
         userName: "gabe", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
@@ -174,12 +174,12 @@ class Budgets extends React.Component {
 
     //creating a budget, tieing it to a user and updating all users budget state
     submitBudgetClick = () => {
-        const userPotentialBudgetName = this.state.budgetName;
-        const matchBudgetName = this.state.userBudgets.find(i => i.budgetName === userPotentialBudgetName)
+        // const userPotentialBudgetName = this.state.userChosenBudgetId;
+        // const matchBudgetName = this.state.userBudgets.find(i => i._id === userPotentialBudgetName)
 
-        if (matchBudgetName) {
-            alert("You already have a budget by that name")
-        } else {
+        // if (matchBudgetName) {
+        //     alert("You already have a budget by that name")
+        // } else {
 
             const newBudget = {
                 userId: this.state.userId,
@@ -205,7 +205,7 @@ class Budgets extends React.Component {
                 })
                 )
                 .catch(err => console.log(err));
-        }
+        // }
     };
 
 
@@ -316,6 +316,29 @@ class Budgets extends React.Component {
             .catch(err => console.log(err));
     }
 
+    deleteBudget = (id, event) => {
+        event.preventDefault();
+        alert(id)
+
+        if (this.state.usersThisBudgetIsSharedWith.length) {
+            alert("yessss")
+        }else{
+            const data = {
+                budget: id,
+                bills: [this.state.userChosenBudgetBills]
+            }
+            API.deleteBudget(data)
+                .then(res => {
+                    console.log(res)
+                    this.loadBudgets()
+                }
+                )
+                .catch(err => console.log(err));
+
+        }
+
+     }
+
 
     //Function to add user to budget
     addUserToMyBudget = (name, id) => {
@@ -411,10 +434,6 @@ class Budgets extends React.Component {
             )
             .then(this.cancelShowSharedUsers())
             .catch(err => console.log(err));
-
-
-
-
     }
 
 
@@ -570,6 +589,7 @@ class Budgets extends React.Component {
                     usersWhoShareWithMe={this.state.allUsersSharingBudgetsWithMe}
                     handleClick={this.showSharedUsers}
                     handleClickCancel={this.cancelShowSharedUsers}
+                    handleClickDeleteBudget={this.deleteBudget}
                 />
                 {this.state.showAddBudget ? (
                     <AddBudget

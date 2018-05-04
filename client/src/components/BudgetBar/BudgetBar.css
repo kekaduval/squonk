@@ -13,7 +13,7 @@ select {
 }
 
 .marginLeft {
-    margin-left: 10px;
+    margin-left: 0px;
 }
 
 .headerBG {
@@ -22,4 +22,13 @@ select {
     border-bottom: 1px solid black;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+.deletePosition {
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    bottom: 1px;
+    left: 20px
 }

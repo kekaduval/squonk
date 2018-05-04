@@ -1,6 +1,7 @@
 import React from "react";
 import "./BudgetBar.css";
 import EditShareButton from "../EditShareButton"
+import DropDownMenu from "../DropDownMenu"
 
 
 const BudgetBar = props => {
@@ -10,23 +11,18 @@ const BudgetBar = props => {
   console.log("kkkkkkkkk", props.chosenBudget.budgetName);
   console.log("LLLLLLLL", props.usersWhoShareWithMe);
 
-  let findThisBudget = props.usersWhoShareWithMe.map(i => {
-    i.budget === props.chosenBudget.budgetName 
-    return i.owner
 
-  } )
-  console.log("PPPPPPPPP", findThisBudget);
+  let findThisBudgetOwner = "";
 
-  
-  
-  let budgetItems;
-    if (props.budgets.length > 0) {
-    budgetItems = props.budgets.map(budgets => {
-
-      // console.log(budgets);
-      return (<option id="select" key={budgets._id} data-id={budgets._id} >{budgets.budgetName}</option>)
-     })
+  if (props.usersWhoShareWithMe) {
+    findThisBudgetOwner = props.usersWhoShareWithMe.map(i => {
+      i.budget === props.chosenBudget.budgetName
+      return (i.owner)
+    })
   }
+  console.log("PPPPPPPPP", findThisBudgetOwner);
+
+
 
   let initialBudgetPlannedAmount = props.chosenBudget.budgetPlannedAmount;
   let billActualAmountValues = props.bills.map(i => { return (i.billActualAmount) })
@@ -44,11 +40,11 @@ const BudgetBar = props => {
   let totalBillPlannedAmount = initialBudgetPlannedAmount;
   let leftAmount = totalBillPlannedAmount - allBillsActualAmountSum
 
-  let sharedWithMeMessage = findThisBudget !== props.myName
+  let sharedWithMeMessage = findThisBudgetOwner !== props.myName
   console.log("999999999999", sharedWithMeMessage);
-  console.log("555555555", findThisBudget);
-  
-  
+  console.log("555555555", findThisBudgetOwner);
+
+
 
 
   const style = {
@@ -56,61 +52,67 @@ const BudgetBar = props => {
   };
 
   return (
-
     <React.Fragment>
-    <div className='container marginBottom headerBG'>
-      <div className="row bg">
-        <div className="col-md-3">
-          <h1>Budgets:
+      <div className='container marginBottom headerBG'>
+        <div className="row bg">
+          <div className="col-md-3">
+            <h2>Budgets:
           <span><select id="budgetDropDown" onChange={props.handleChange}>
-          {budgetItems}
-            </select></span></h1>
+                {props.budgets.length ? (props.budgets.map(budget => {
+                  return (
+                     <DropDownMenu key={budget._id}
+                        budget={budget}
+                      />
+                  )
+                })
+                ) : (null)
+                }
+              </select>
+                {props.budgets.length ? (
+
+                  <span><button className="btn btn-danger deletePosition">-</button></span>
+
+                ) : (null)}
+              </span></h2>
+          </div>
+
+
+          <div className="col-md-3">
+            <h2>Planned $:<span className='marginLeft' style={style}>{parseFloat(totalBillPlannedAmount).toFixed(2)}</span></h2>
+          </div>
+
+          <div className="col-md-3">
+            <h2>Actual $:<span className='marginLeft' style={style}>{parseFloat(allBillsActualAmountSum).toFixed(2)}</span></h2>
+          </div>
+
+          <div className="col-md-2">
+            <h2> $Left :<span className='marginLeft' style={style}>{parseFloat(leftAmount).toFixed(2)}</span></h2>
+          </div>
         </div>
-
-        <div className="col-md-3">
-          <h1>Planned $:<span className='marginLeft' style={style}>{parseFloat(totalBillPlannedAmount).toFixed(2)}</span></h1>
-        </div>
-
-        <div className="col-md-3">
-          <h1>Actual $:<span className='marginLeft' style={style}>{parseFloat(allBillsActualAmountSum).toFixed(2)}</span></h1>
-        </div>
-
-        <div className="col-md-3">
-          <h1> $Left :<span className='marginLeft' style={style}>{parseFloat(leftAmount).toFixed(2)}</span></h1>
-        </div>     
-      </div> 
-    </div>
+      </div>
 
 
 
- {props.usersIShareWith.length ? (
-      <div className='row text-center'>
-        <div className='col-md-12'>
-            <h3>"This is a Shared Budget"  <span><EditShareButton onClick={props.handleClick}/></span></h3>
-          
-        </div>
-      </div>) :(false)}
+      {props.usersIShareWith.length ? (
+        <div className='row text-center'>
+          <div className='col-md-12'>
+            <h3>"This is a Shared Budget"  <span><EditShareButton onClick={props.handleClick} /></span></h3>
+
+          </div>
+        </div>) : (false)}
 
 
 
       {sharedWithMeMessage && props.chosenBudget.userName !== props.myName ? (<div className='row text-center'>
         <div className='col-md-12'>
-          <h3>"This is a Shared Budget from {findThisBudget}</h3>
+          <h3>"This is a Shared Budget from {findThisBudgetOwner}</h3>
 
         </div>
-      </div>) :(null)} 
-
-
-    
-
- 
-
-
-
- </React.Fragment>
+      </div>) : (null)}
+    </React.Fragment>
 
   );
 };
- 
+
 
 export default BudgetBar;

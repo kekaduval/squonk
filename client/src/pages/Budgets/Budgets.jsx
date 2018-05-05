@@ -605,17 +605,21 @@ class Budgets extends React.Component {
             })
             .catch(err => console.log(err));
     }
-
-    // Modal functions
-    openModal = () => {
-        this.setState({ isModalOpen: true })
-    }
+    
+// Modal functions
+openModal = () => {
+  this.setState({ isModalOpen: true })
+  setTimeout(function() { this.setState({ isModalOpen: false }); }.bind(this), 5000)
+  }
 
     closeModal = () => {
         this.setState({ isModalOpen: false })
     }
 
-
+ //////////////////////
+ ///End of Functions//
+ /////////////////////
+    
     render() {
         return (
 
@@ -634,7 +638,6 @@ class Budgets extends React.Component {
                         handleClick={this.showHomePage}
                     />
                 ) : (null)}
-
 
                 {this.state.showHomePage ? (
                     <React.Fragment>
@@ -705,8 +708,6 @@ class Budgets extends React.Component {
                 ) : (null)}
 
             </ React.Fragment>
-
-
 
         )
     }

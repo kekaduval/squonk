@@ -9,13 +9,29 @@ const LoginPage = props => {
                 <div className="formTitle formTitleLogin">Login</div>
                 <form className="form formLogin">
                     <div className="formInputContainer">
-                        <input className="formInput" type="text" placeholder="EMAIL" />
+                        <input className="formInput" type="text" placeholder="USERNAME" />
                     </div>
+
                     <div className="formInputContainer">
                         <div className="formInputWrapper">
-                            <input className="formInput" type="password" placeholder="PASSWORD" />
+                            <input className="formInput" type="password" placeholder=" ENTER PASSWORD" />
                         </div>
                     </div>
+
+                    <div className="formInputContainer">
+                        <div className="formInputWrapper">
+                            <input className="formInput" type="password" placeholder="CONFIRM PASSWORD" />
+                        </div>
+                    </div>
+
+                    <div className="formInputContainer">
+                        <div className="formInputWrapper">
+                            <input className="formInput" type="password" placeholder="SECURITY QUESTION ANSWER" />
+                        </div>
+                    </div>
+
+
+
                     <div className="formInputContainer">
                         <button className="formButton" onClick={(event) => props.handleClick(event)}>Login</button>
                     </div>

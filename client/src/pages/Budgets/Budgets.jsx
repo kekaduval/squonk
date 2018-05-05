@@ -2,22 +2,22 @@ import React from 'react';
 import Navbar from '../../components/Navbar';
 import AddBudget from '../../components/AddBudget';
 import API from "../../utils/API";
-// import AddButton from "../../components/AddButton"
 import BudgetBar from "../../components/BudgetBar"
 import BillsDisplay from "../../components/BillsDisplay";
 import UserLookup from "../../components/UserLookup"
 import ShareUserDisplay from "../../components/ShareUserDisplay"
 import NoBudgetsNoBillsDisplay from "../../components/NoBudgetsNoBillsDisplay"
+import HomePage from '../../components/HomePage'
+import LoginPage from '../../components/LoginPage'
 import Modal from "../../components/Modal"
-
 
 
 class Budgets extends React.Component {
 
     state = {
 
-        userId: "5aedcc24af8a3e4c70f5c805", //UserID
-        userName: "nathan", //Name of userlogged in
+        userId: "5aece1c7b725b6197ef6d4ae", //UserID
+        userName: "gabe", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
         budgetPlannedAmount: "", //Planned Amount when user creates a budget
@@ -48,10 +48,13 @@ class Budgets extends React.Component {
         userToShareBudget: "",
         allSharedBudgetWithUsers: [],
         allUsersSharingBudgetsWithMe: [],
-        // usersSharingThisBudgetWith: [],
         usersThisBudgetIsSharedWith: [],
+        showSquonkGreetingPage: true,
+        showLoginPage: false,
+        showHomePage: false,
         isModalOpen: false,
         modalMessage: "",
+
     }
 
     componentDidMount() {
@@ -184,30 +187,30 @@ class Budgets extends React.Component {
         //     alert("You already have a budget by that name")
         // } else {
 
-            const newBudget = {
-                userId: this.state.userId,
-                userName: this.state.userName,
-                budgetName: this.state.budgetName,
-                budgetPlannedAmount: this.state.budgetPlannedAmount,
-                actualAmount: 0
-            }
-            API.createBudget(newBudget)
-                .then(res => {
+        const newBudget = {
+            userId: this.state.userId,
+            userName: this.state.userName,
+            budgetName: this.state.budgetName,
+            budgetPlannedAmount: this.state.budgetPlannedAmount,
+            actualAmount: 0
+        }
+        API.createBudget(newBudget)
+            .then(res => {
 
-                    console.log("UUUUUUUUUUUUUUUUUU", res);
+                console.log("UUUUUUUUUUUUUUUUUU", res);
 
-                    this.setState({
-                        userBudgets: res.data
-                    });
-                    this.loadBudgets()
-                })
-                .then(this.setState({
-                    showAddBudget: false,
-                    budgetName: "",
-                    budgetPlannedAmount: "",
-                })
-                )
-                .catch(err => console.log(err));
+                this.setState({
+                    userBudgets: res.data
+                });
+                this.loadBudgets()
+            })
+            .then(this.setState({
+                showAddBudget: false,
+                budgetName: "",
+                budgetPlannedAmount: "",
+            })
+            )
+            .catch(err => console.log(err));
         // }
     };
 
@@ -324,7 +327,7 @@ class Budgets extends React.Component {
         alert(id)
 
         if (this.state.usersThisBudgetIsSharedWith.length) {
-        }else{
+        } else {
             const data = {
                 budget: id,
                 bills: [this.state.userChosenBudgetBills]
@@ -339,7 +342,7 @@ class Budgets extends React.Component {
 
         }
 
-     }
+    }
 
 
     //Function to add user to budget
@@ -355,8 +358,8 @@ class Budgets extends React.Component {
         console.log("hhhhhhh", isUserThere);
 
         if (isUserThere) {
-          this.setState({ modalMessage: "User Already Added" })
-          this.openModal()
+            this.setState({ modalMessage: "User Already Added" })
+            this.openModal()
 
         } else {
 
@@ -493,16 +496,16 @@ class Budgets extends React.Component {
                     showSharedUsers: false
                 })
             } else {
-              this.setState({ modalMessage: `This Budget has been Shared with you, and you cannot reshare it. Please contact the owner: ${findOwner}  if you need to add more people to this budget.` })
-              this.openModal()
+                this.setState({ modalMessage: `This Budget has been Shared with you, and you cannot reshare it. Please contact the owner: ${findOwner}  if you need to add more people to this budget.` })
+                this.openModal()
                 // alert(`This Budget has been Shared with you, and you cannot reshare it. Please contact the owner: ${findOwner}  if you need to add more people to this budget.`)
             }
         } else {
-          // alert("Add A budget First")
-          // "You already have a bill by that name"
-          this.setState({ modalMessage: "Add A budget First" })
-          this.openModal()
-         }
+            // alert("Add A budget First")
+            // "You already have a bill by that name"
+            this.setState({ modalMessage: "Add A budget First" })
+            this.openModal()
+        }
 
     }
 
@@ -513,6 +516,24 @@ class Budgets extends React.Component {
             editBill: false,
             showUserLookup: false,
             showSharedUsers: true
+        })
+    }
+
+    showLoginPage = (event) => {
+        event.preventDefault()
+        this.setState({
+            showSquonkGreetingPage: false,
+            showLoginPage: true,
+            showHomePage: false,
+        })
+    }
+
+    showHomePage = (event) => {
+        event.preventDefault()
+        this.setState({
+            showSquonkGreetingPage: false,
+            showLoginPage: false,
+            showHomePage: true,
         })
     }
 
@@ -581,87 +602,116 @@ class Budgets extends React.Component {
             .catch(err => console.log(err));
     }
 
+<<<<<<< HEAD
 // Modal functions
 openModal = () => {
   this.setState({ isModalOpen: true })
   setTimeout(function() { this.setState({ isModalOpen: false }); }.bind(this), 5000)
   }
 
+=======
+    // Modal functions
+    openModal = () => {
+        this.setState({ isModalOpen: true })
+    }
+>>>>>>> master
 
-closeModal = () => {
-  this.setState({ isModalOpen: false })
-}
+    closeModal = () => {
+        this.setState({ isModalOpen: false })
+    }
 
     render() {
         return (
+
             <React.Fragment>
-            <Modal isOpen={this.state.isModalOpen} value={this.state} onClose={() => this.closeModal()}
-             />
-                <Navbar
-                    handleClick={this.showAddBudget}
-                    handleUserClick={this.showUserLookup}
-                    budgetListLength={this.state.userBudgets}
+                <Modal isOpen={this.state.isModalOpen} value={this.state} onClose={() => this.closeModal()}
                 />
-                <BudgetBar
-                    budgets={this.state.userBudgets}
-                    myName={this.state.userName}
-                    chosenBudget={this.state.userChosenBudgetObject}
-                    bills={this.state.userChosenBudgetBills}
-                    handleChange={this.getSelectedValue}
-                    usersIShareWith={this.state.usersThisBudgetIsSharedWith}
-                    usersWhoShareWithMe={this.state.allUsersSharingBudgetsWithMe}
-                    handleClick={this.showSharedUsers}
-                    handleClickCancel={this.cancelShowSharedUsers}
-                    handleClickDeleteBudget={this.deleteBudget}
-                />
-                {this.state.showAddBudget ? (
-                    <AddBudget
-                        handleChange={this.handleChange}
-                        value={this.state}
-                        handleClick={this.submitBudgetClick}
-                        handleClickCancel={this.cancelAddBudget}
-                    />) : (false)}
-                {this.state.showUserLookup ? (
-                    <UserLookup
-                        handleChange={this.handleChange}
-                        value={this.state}
-                        handleClick={this.addUserToMyBudget}
-                        allUsers={this.state.allUsers}
-                        userToShareBudget={this.state.userToShareBudget}
-                        handleClickCancel={this.cancelShowUserLookup}
-                    />) : (false)}
-                {this.state.showSharedUsers ? (
-                    <ShareUserDisplay
-                        handleClickCancel={this.cancelShowSharedUsers}
-                        usersIShareWith={this.state.usersThisBudgetIsSharedWith}
-                        usersWhoShareWithMe={this.state.allUsersSharingBudgetsWithMe}
-                        handleClick={this.deleteSharedUser}
-                    />) : (false)}
+                {this.state.showSquonkGreetingPage ? (
+                    <HomePage
+                        state={this.state}
+                        handleClick={this.showLoginPage}
+                    />
+                ) : (null)}
 
-                {this.state.userBudgets.length ? (
+                {this.state.showLoginPage ? (
+                    <LoginPage
+                        handleClick={this.showHomePage}
+                    />
+                ) : (null)}
 
-                    <BillsDisplay
-                        handleClick={this.submitBillClick}
-                        value={this.state}
-                        handleChange={this.handleChange}
-                        handleEditChange={this.editHandleChange}
-                        deleteClick={this.deleteBill}
-                        updateBillClick={this.updateBillClick}
-                        onClick={this.showAddBill}
-                        showBillStatus={this.state.showAddBill}
-                        editBill={this.state.editBill}
-                        handleClickCancel={this.cancelAddBill}
-                        editBillShow={this.editBill}
-                        noEditBillShow={this.cancelEditBill}
-                        bills={this.state.userChosenBudgetBills}
-                    />) : (
 
-                        this.state.NoBudgetsNoBillsDisplay ? (
-                            <NoBudgetsNoBillsDisplay userName={this.state.userName} />
-                        ) : (false)
-                    )}
+                {this.state.showHomePage ? (
+                    <React.Fragment>
+                        <Navbar
+                            handleClick={this.showAddBudget}
+                            handleUserClick={this.showUserLookup}
+                            budgetListLength={this.state.userBudgets}
+                        />
+                        <BudgetBar
+                            budgets={this.state.userBudgets}
+                            myName={this.state.userName}
+                            chosenBudget={this.state.userChosenBudgetObject}
+                            bills={this.state.userChosenBudgetBills}
+                            handleChange={this.getSelectedValue}
+                            usersIShareWith={this.state.usersThisBudgetIsSharedWith}
+                            usersWhoShareWithMe={this.state.allUsersSharingBudgetsWithMe}
+                            handleClick={this.showSharedUsers}
+                            handleClickCancel={this.cancelShowSharedUsers}
+                            handleClickDeleteBudget={this.deleteBudget}
+                        />
+                        {this.state.showAddBudget ? (
+                            <AddBudget
+                                handleChange={this.handleChange}
+                                value={this.state}
+                                handleClick={this.submitBudgetClick}
+                                handleClickCancel={this.cancelAddBudget}
+                            />) : (false)}
+                        {this.state.showUserLookup ? (
+                            <UserLookup
+                                handleChange={this.handleChange}
+                                value={this.state}
+                                handleClick={this.addUserToMyBudget}
+                                allUsers={this.state.allUsers}
+                                userToShareBudget={this.state.userToShareBudget}
+                                handleClickCancel={this.cancelShowUserLookup}
+                            />) : (false)}
+                        {this.state.showSharedUsers ? (
+                            <ShareUserDisplay
+                                handleClickCancel={this.cancelShowSharedUsers}
+                                usersIShareWith={this.state.usersThisBudgetIsSharedWith}
+                                usersWhoShareWithMe={this.state.allUsersSharingBudgetsWithMe}
+                                handleClick={this.deleteSharedUser}
+                            />) : (false)}
+
+                        {this.state.userBudgets.length ? (
+
+                            <BillsDisplay
+                                handleClick={this.submitBillClick}
+                                value={this.state}
+                                handleChange={this.handleChange}
+                                handleEditChange={this.editHandleChange}
+                                deleteClick={this.deleteBill}
+                                updateBillClick={this.updateBillClick}
+                                onClick={this.showAddBill}
+                                showBillStatus={this.state.showAddBill}
+                                editBill={this.state.editBill}
+                                handleClickCancel={this.cancelAddBill}
+                                editBillShow={this.editBill}
+                                noEditBillShow={this.cancelEditBill}
+                                bills={this.state.userChosenBudgetBills}
+                            />) : (
+
+                                this.state.NoBudgetsNoBillsDisplay ? (
+                                    <NoBudgetsNoBillsDisplay userName={this.state.userName} />
+                                ) : (false)
+                            )}
+                    </ React.Fragment>
+                ) : (null)}
 
             </ React.Fragment>
+
+
+
         )
     }
 }

@@ -584,12 +584,13 @@ class Budgets extends React.Component {
 // Modal functions
 openModal = () => {
   this.setState({ isModalOpen: true })
-}
+  setTimeout(function() { this.setState({ isModalOpen: false }); }.bind(this), 5000)
+  }
+
 
 closeModal = () => {
   this.setState({ isModalOpen: false })
 }
-
 
     render() {
         return (

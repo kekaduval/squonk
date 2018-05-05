@@ -54,6 +54,10 @@ export default {
     return axios.post("/api/bill/delete/", qs.stringify(data));
   },
 
+  deleteBudget: data => {
+    console.log("budget and bills being deleted ", data);
+    // return axios.post("/api/bill/delete/", qs.stringify(data));
+  },
   //Gets all users
   getUsers: () => {
     return axios({

@@ -70,7 +70,7 @@ const BudgetBar = props => {
               </select>
                 {props.budgets.length ? (
 
-                  <span><button className="btn btn-danger deletePosition">-</button></span>
+                  <span><button className="btn btn-danger deletePosition" onClick={(event) => props.handleClickDeleteBudget(props.chosenBudget._id, event)}>-</button></span>
 
                 ) : (null)}
               </span></h2>

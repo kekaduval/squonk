@@ -10,6 +10,7 @@ import NoBudgetsNoBillsDisplay from "../../components/NoBudgetsNoBillsDisplay"
 import HomePage from '../../components/HomePage'
 import LoginPage from '../../components/LoginPage'
 import Modal from "../../components/Modal"
+import SignUpPage from "../../components/SignUpPage"
 
 
 class Budgets extends React.Component {
@@ -53,7 +54,15 @@ class Budgets extends React.Component {
         showLoginPage: false,
         showHomePage: false,
         isModalOpen: false,
+        showSignUpPage: false,
         modalMessage: "",
+        usernameCreate: "",
+        password: "",
+        password2: "",
+        secQuestion: "",
+        secQuestionAnswer: "",
+        secQuestion2:"",
+        secQuestion2Answer: "",
 
     }
 
@@ -158,11 +167,12 @@ class Budgets extends React.Component {
         this.setState({
             [name]: value
         });
-        console.log(this.state.userToShareBudget);
+        console.log(this.state);
 
         // console.log(this.state.billName);
         // console.log(this.state.billPlannedAmount);
-        // console.log(this.state.billActualAmount);
+        console.log("YYYYYUUUUUUUU", this.state.secQuestion);
+        console.log("YYYYYGGGGGGGGG", this.state.secQuestion2);
     };
 
     //input boxes information for adding a Budget
@@ -309,6 +319,7 @@ class Budgets extends React.Component {
 
             ).catch(err => console.log(err));
     }
+
 
     deleteBill = (id, event) => {
         event.preventDefault();
@@ -524,6 +535,17 @@ class Budgets extends React.Component {
         this.setState({
             showSquonkGreetingPage: false,
             showLoginPage: true,
+            showSignUpPage: false,
+            showHomePage: false,
+        })
+    }
+
+    showSignUpPage = (event) => {
+        event.preventDefault()
+        this.setState({
+            showSquonkGreetingPage: false,
+            showLoginPage: false,
+            showSignUpPage: true,
             showHomePage: false,
         })
     }
@@ -533,9 +555,12 @@ class Budgets extends React.Component {
         this.setState({
             showSquonkGreetingPage: false,
             showLoginPage: false,
+            showSignUpPage: false,
             showHomePage: true,
         })
     }
+
+
 
     cancelAddBudget = () => {
         this.setState({
@@ -602,23 +627,19 @@ class Budgets extends React.Component {
             .catch(err => console.log(err));
     }
 
-<<<<<<< HEAD
 // Modal functions
 openModal = () => {
   this.setState({ isModalOpen: true })
   setTimeout(function() { this.setState({ isModalOpen: false }); }.bind(this), 5000)
   }
 
-=======
-    // Modal functions
-    openModal = () => {
-        this.setState({ isModalOpen: true })
-    }
->>>>>>> master
-
     closeModal = () => {
         this.setState({ isModalOpen: false })
     }
+
+ //////////////////////
+ ///End of Functions//
+ /////////////////////
 
     render() {
         return (
@@ -636,9 +657,20 @@ openModal = () => {
                 {this.state.showLoginPage ? (
                     <LoginPage
                         handleClick={this.showHomePage}
+                        handleClickSignUp={this.showSignUpPage}
+                        handleChange={this.handleChange}
+
                     />
                 ) : (null)}
 
+                {this.state.showSignUpPage? (
+                    <SignUpPage
+                        handleClick={this.showSignUpPage}
+                        handleChange={this.handleChange}
+                        value={this.state}
+                        onChange={this.getSignUpDropDownValue}
+                    />
+                ) : (null)}
 
                 {this.state.showHomePage ? (
                     <React.Fragment>
@@ -709,8 +741,6 @@ openModal = () => {
                 ) : (null)}
 
             </ React.Fragment>
-
-
 
         )
     }

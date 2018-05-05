@@ -1,11 +1,12 @@
 import React from 'react';
 import Budgets from "./pages/Budgets";
-import Jumbotron from "./components/Jumbotron";
+import LoginPage from './components/Auth';
+
 import './App.css';
 
 const App = () => (
   <React.Fragment>
-    <Jumbotron />
+
     <Budgets />
   </React.Fragment>
 );

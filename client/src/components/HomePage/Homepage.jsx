@@ -50,7 +50,7 @@ const HomePage = props => {
                     </div>
 
                     <div className="scroller">
-                        <a href="/home" title="login"> <p className="page-title">Get started</p> </a>
+                        <a href="/login" title="login" onClick={(event)=>props.handleClick(event)}> <p className="page-title">Get started</p> </a>
                         <div className="timeline">
                             <span className="timelineUnit"></span>
                             <span className="timelineUnit timelineUnitActive"></span>

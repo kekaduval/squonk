@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Home </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
+  <!-- <link href='http://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'> -->
+
+  <link rel="stylesheet" type="text/css" href="./css/home.css">
+  <!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
+
+</head>
+
+  <body>
+
+    <div class="container">
+
+
+      <div class="containerItem landing-page-container">
+
+        <div  class="open">
+        	<span class="cls"></span>
+        	<span>
+        		<ul class="sub-menu ">
+        			<li>
+        				<a href="#about" title="about"> About Us</a>
+        			</li>
+        			<li>
+        				<a href="#index.html" title="loginSignup"> Log in/Sign up</a>
+        			</li>
+
+        			<li>
+        				<a href="#settings" title="settings">Settings</a>
+        			</li>
+        		</ul>
+        	</span>
+        	<span class="cls"></span>
+        </div>
+
+
+        <div class="contentWrapper">
+          <header class="header">
+            <div class="logo">
+              <span class="letter letter-1">S</span>
+              <span class="letter letter-2">q</span>
+              <span class="letter letter-3">u</span>
+              <span class="letter letter-4">o</span>
+              <span class="letter letter-5">n</span>
+              <span class="letter letter-6">k</span>
+            </div>
+          </header>
+          <div class="ellipses-container">
+            <h2 class="greeting">Budgeting made Social</h2>
+            <div class="ellipses ellipsesOuterThin">
+              <div class="ellipses ellipsesOrbit"></div>
+            </div>
+            <div class="ellipses ellipsesOuterThick"></div>
+          </div>
+
+          <div class="scroller">
+            <a href="index1.html" title="login"> <p class="page-title">Get started</p> </a>
+            <div class="timeline">
+              <span class="timelineUnit"></span>
+              <span class="timelineUnit timelineUnitActive"></span>
+              <span class="timelineUnit"></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"> </script> -->
+  <script src="https://cdn.jsdelivr.net/jquery.scrollto/2.1.0/jquery.scrollTo.min.js"></script>
+  <script type="javascript" src="./js/home.js"> </script>
+  <script type="text/javascript">
+  $(document).ready(function() {
+    console.log("jquery ready");
+      $(document).delegate('.open', 'click', function(event){
+        console.log("open clicked")
+        $(this).addClass('opened');
+        event.stopPropagation();
+      })
+      $(document).delegate('body', 'click', function(event) {
+        console.log("open class removed")
+
+        $('.open').removeClass('opened');
+      })
+      $(document).delegate('.cls', 'click', function(event){
+        console.log("cls clicked")
+
+        $('.open').removeClass('opened');
+        event.stopPropagation();
+      });
+    });
+  </script>
+</body>
+
+</html>

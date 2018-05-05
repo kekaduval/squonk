@@ -5,7 +5,7 @@ const LoginPage = props => {
     return (
 
         <div className="about">
-            <div className="formcontainer">
+            <div className="formContainer">
                 <div className="formTitle formTitleLogin">Login</div>
                 <form className="form formLogin">
                     <div className="formInputContainer">
@@ -26,7 +26,7 @@ const LoginPage = props => {
                         <div className="or">
                             <h2> Or </h2>
                         </div>
-                        <button className="formButton"> Sign up</button>
+                        <button className="formButton" onClick={(event) => props.handleClickSignUp(event)}> Sign up</button>
                     </div>
                 </form>
             </div>

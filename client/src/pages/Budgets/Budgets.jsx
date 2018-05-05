@@ -16,7 +16,7 @@ class Budgets extends React.Component {
     state = {
 
         userId: "5aece1c7b725b6197ef6d4ae", //UserID
-        userName: "gabe", //Name of userlogged in
+        userName: "nathan", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
         budgetPlannedAmount: "", //Planned Amount when user creates a budget
@@ -404,7 +404,7 @@ class Budgets extends React.Component {
         const data = {
             user: userIDToRemove,   //User Im sharing with ID to remove from the budgets array
             budget: budgetIDToRemove,  // budget ID I'm removing user from
-            userName: userSharingWithName, //user I'm sharing with name 
+            userName: userSharingWithName, //user I'm sharing with name
             myID: myID, //my ID
             body: {
                 //Object that I'm removing from usersSharedBudgetWithMe
@@ -560,7 +560,7 @@ class Budgets extends React.Component {
 
                 })
                 console.log("All Users", allUsers);
-                // console.log("All the User Budgets ", this.state.userBudgets);             
+                // console.log("All the User Budgets ", this.state.userBudgets);
 
                 this.setState({
                     allUsers: allUsers

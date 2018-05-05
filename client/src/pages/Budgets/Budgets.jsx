@@ -8,6 +8,7 @@ import BillsDisplay from "../../components/BillsDisplay";
 import UserLookup from "../../components/UserLookup"
 import ShareUserDisplay from "../../components/ShareUserDisplay"
 import NoBudgetsNoBillsDisplay from "../../components/NoBudgetsNoBillsDisplay"
+import Modal from "../../components/Modal"
 
 
 
@@ -15,8 +16,8 @@ class Budgets extends React.Component {
 
     state = {
 
-        userId: "5aece1c7b725b6197ef6d4ae", //UserID
-        userName: "gabe", //Name of userlogged in
+        userId: "5aedcc24af8a3e4c70f5c805", //UserID
+        userName: "nathan", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
         budgetPlannedAmount: "", //Planned Amount when user creates a budget
@@ -49,6 +50,8 @@ class Budgets extends React.Component {
         allUsersSharingBudgetsWithMe: [],
         // usersSharingThisBudgetWith: [],
         usersThisBudgetIsSharedWith: [],
+        isModalOpen: false,
+        modalMessage: "",
     }
 
     componentDidMount() {
@@ -321,7 +324,6 @@ class Budgets extends React.Component {
         alert(id)
 
         if (this.state.usersThisBudgetIsSharedWith.length) {
-            alert("yessss")
         }else{
             const data = {
                 budget: id,
@@ -353,7 +355,9 @@ class Budgets extends React.Component {
         console.log("hhhhhhh", isUserThere);
 
         if (isUserThere) {
-            alert('User Already Added')
+          this.setState({ modalMessage: "User Already Added" })
+          this.openModal()
+
         } else {
 
             const data = {
@@ -404,7 +408,7 @@ class Budgets extends React.Component {
         const data = {
             user: userIDToRemove,   //User Im sharing with ID to remove from the budgets array
             budget: budgetIDToRemove,  // budget ID I'm removing user from
-            userName: userSharingWithName, //user I'm sharing with name 
+            userName: userSharingWithName, //user I'm sharing with name
             myID: myID, //my ID
             body: {
                 //Object that I'm removing from usersSharedBudgetWithMe
@@ -489,9 +493,16 @@ class Budgets extends React.Component {
                     showSharedUsers: false
                 })
             } else {
-                alert(`This Budget has been Shared with you, and you cannot reshare it. Please contact the owner: ${findOwner}  if you need to add more people to this budget.`)
+              this.setState({ modalMessage: `This Budget has been Shared with you, and you cannot reshare it. Please contact the owner: ${findOwner}  if you need to add more people to this budget.` })
+              this.openModal()
+                // alert(`This Budget has been Shared with you, and you cannot reshare it. Please contact the owner: ${findOwner}  if you need to add more people to this budget.`)
             }
-        } else { alert("Add A budget First") }
+        } else {
+          // alert("Add A budget First")
+          // "You already have a bill by that name"
+          this.setState({ modalMessage: "Add A budget First" })
+          this.openModal()
+         }
 
     }
 
@@ -560,7 +571,7 @@ class Budgets extends React.Component {
 
                 })
                 console.log("All Users", allUsers);
-                // console.log("All the User Budgets ", this.state.userBudgets);             
+                // console.log("All the User Budgets ", this.state.userBudgets);
 
                 this.setState({
                     allUsers: allUsers
@@ -570,10 +581,21 @@ class Budgets extends React.Component {
             .catch(err => console.log(err));
     }
 
+// Modal functions
+openModal = () => {
+  this.setState({ isModalOpen: true })
+}
+
+closeModal = () => {
+  this.setState({ isModalOpen: false })
+}
+
 
     render() {
         return (
             <React.Fragment>
+            <Modal isOpen={this.state.isModalOpen} value={this.state} onClose={() => this.closeModal()}
+             />
                 <Navbar
                     handleClick={this.showAddBudget}
                     handleUserClick={this.showUserLookup}

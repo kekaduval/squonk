@@ -2,7 +2,6 @@ import React from 'react';
 import Navbar from '../../components/Navbar';
 import AddBudget from '../../components/AddBudget';
 import API from "../../utils/API";
-// import AddButton from "../../components/AddButton"
 import BudgetBar from "../../components/BudgetBar"
 import BillsDisplay from "../../components/BillsDisplay";
 import UserLookup from "../../components/UserLookup"
@@ -14,14 +13,11 @@ import Modal from "../../components/Modal"
 import SignUpPage from "../../components/SignUpPage"
 
 
-
-
 class Budgets extends React.Component {
 
     state = {
 
         userId: "5aece1c7b725b6197ef6d4ae", //UserID
-
         userName: "gabe", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
@@ -539,7 +535,7 @@ class Budgets extends React.Component {
         this.setState({
             showSquonkGreetingPage: false,
             showLoginPage: true,
-            showSignUpPage: false,            
+            showSignUpPage: false,
             showHomePage: false,
         })
     }
@@ -630,7 +626,7 @@ class Budgets extends React.Component {
             })
             .catch(err => console.log(err));
     }
-    
+
 // Modal functions
 openModal = () => {
   this.setState({ isModalOpen: true })
@@ -644,7 +640,7 @@ openModal = () => {
  //////////////////////
  ///End of Functions//
  /////////////////////
-    
+
     render() {
         return (
 

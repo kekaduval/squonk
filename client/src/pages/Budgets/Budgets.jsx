@@ -17,8 +17,8 @@ class Budgets extends React.Component {
 
     state = {
 
-        userId: "5aece1c7b725b6197ef6d4ae", //UserID
-        userName: "gabe", //Name of userlogged in
+        userId: "5aee44cb10ec4b4e0c31befb", //UserID
+        userName: "nathan", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
         budgetPlannedAmount: "", //Planned Amount when user creates a budget

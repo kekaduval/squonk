@@ -22,8 +22,6 @@ const BudgetBar = props => {
   }
   console.log("PPPPPPPPP", findThisBudgetOwner);
 
-console.log("Planned Amount", props.chosenBudget.budgetPlannedAmount )
-
   let initialBudgetPlannedAmount = props.chosenBudget.budgetPlannedAmount;
   let billActualAmountValues = props.bills.map(i => { return (i.billActualAmount) })
   let allBillsActualAmountSum = billActualAmountValues.reduce((a, b) => a + b, 0)

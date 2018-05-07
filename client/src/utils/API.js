@@ -7,6 +7,10 @@ var qs = require('qs');
 export default {
 
   //so far all of these routes below this line function
+  createUser: data => {
+    console.log("creating new user", data);
+    return axios.post("/api/user/", data);
+  },
 
   //creates a budget and sends all the users budgets back to the usersBudget state
   createBudget: data => {

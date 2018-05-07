@@ -7,7 +7,11 @@ const LoginPage = props => {
           <div className="formTitle formTitleLogin">Sign UP</div>
           <form className="form formLogin">
             <div className="formInputContainer">
-              <input className="formInput" name="usernameCreate" onChange={props.handleChange} value={props.value.usernameCreate} type="text" placeholder="USERNAME" />
+            <input className="formInput" name="usernameCreate" onChange={props.usernameCheck} value={props.value.usernameCreate} type="text" placeholder="USERNAME" />
+
+            {props.value.usernameCreateOK ? (
+              <h4>This username is already taken</h4>
+            ):(null)}
             </div>
 
             <div className="formInputContainer">
@@ -24,17 +28,20 @@ const LoginPage = props => {
 
             <div className="formInputContainer">
               <div className="formInputWrapper">
-                <select onChange={props.handleChange} name="secQuestion">
+              <select onChange={props.handleChange} name="secQuestion" >
+                <option >
+                  PLEASE CHOOSE A SECURITY QUESTION.
+                  </option>
                   <option value="What is your Childhood Nickname?">
                     What is your Childhood Nickname?
                   </option>
                   <option value="What is your Mother's Maiden Name?">
                     What is your Mother's Maiden Name?
                   </option>
-                  <option value="What is your First Pet's Name?">
+                  <option value="What is your First Pet's Name?" >
                     What is your First Pet's Name?
                   </option>
-                  <option value="What is your Favorite Color?">
+                  <option value="What is your Favorite Color?" >
                     What is your Favorite Color?
                   </option>
                 </select>
@@ -49,7 +56,10 @@ const LoginPage = props => {
 
             <div className="formInputContainer">
               <div className="formInputWrapper">
-                <select onChange={props.handleChange} name="secQuestion2">
+              <select onChange={props.handleChange} name="secQuestion2" >
+                <option >
+                  PLEASE CHOOSE A SECURITY QUESTION.
+                  </option>
                   <option value="What is your Favorite Junk Food?">
                     What is your Favorite Junk Food?
                   </option>
@@ -73,7 +83,7 @@ const LoginPage = props => {
             </div>
 
             <div className="formInputContainer">
-              <button className="formButton" onClick={event => props.handleClick(event)}>
+              <button className="formButton" onClick={(event) => props.handleClick(event)}>
                 Submit
               </button>
               <button className="formButton"> Cancel </button>

@@ -8,4 +8,3 @@ const EditShareButton = props => {
     )
 }
 export default EditShareButton;
-

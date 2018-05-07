@@ -60,6 +60,7 @@ class Budgets extends React.Component {
         usernameLogin: "",
         passwordLogin: "",
         usernameCreate: "",
+        usernameCreateOK: "",
         password: "",
         password2: "",
         secQuestion: "",
@@ -631,6 +632,63 @@ class Budgets extends React.Component {
             .catch(err => console.log(err));
     }
 
+    //Checking to see if the username is already in the database
+    userNameCheck = event => {
+        let userToBe = this.state.allUsers.map(user => user.userName)
+        const { name, value } = event.target;
+        this.setState({
+            usernameCreate: value
+        });
+        console.log(this.state.username);
+        if (this.state.usernameCreate.length > 2 && userToBe.includes(this.state.usernameCreate)) {
+            this.setState({
+                usernameCreateOK: true
+            })
+        } else {
+            this.setState({
+                usernameCreateOK: false
+            });
+        }
+    };
+
+    //creation of user and push back to the login screen
+    createUser = () => {
+
+        if (this.state.usernameCreate && this.state.usernameCreateOK === false && this.state.password && this.state.password2 && this.state.secQuestion && this.state.secQuestion2 ) {
+            if (this.state.password !== this.state.password2) {
+                alert("Passwords do not match")
+            } else {
+                const newUser = {
+                    userName: this.state.usernameCreate.toLowerCase(),
+                    password: this.state.password,
+                    secQuestion1: this.state.secQuestion,
+                    secQuestion1Answer: this.state.secQuestionAnswer.toLowerCase(),
+                    secQuestion2: this.state.secQuestion2,
+                    secQuestion2Answer: this.state.secQuestion2Answer.toLowerCase(),
+                }
+                API.createUser(newUser)
+                    .then(res => {
+                    console.log("USER CREATED", res);
+                    this.setState({
+                        usernameCreate: "",
+                        password: "",
+                        password2: "",
+                        secQuestion: "",
+                        secQuestionAnswer: "",
+                        secQuestion2: "",
+                        secQuestion2Answer: "",
+                    });
+                    alert("Account Created")
+                    this.showLoginPage(this.event)
+                })
+                    .catch(err => console.log(err));
+            }
+        }         
+        else {
+            alert("Fill in all boxes")
+        }
+   }
+
 // Modal functions
 openModal = () => {
   this.setState({ isModalOpen: true })
@@ -671,10 +729,12 @@ openModal = () => {
 
                 {this.state.showSignUpPage? (
                     <SignUpPage
-                        handleClick={this.showSignUpPage}
+                        handleClick={this.createUser}
                         handleChange={this.handleChange}
                         value={this.state}
                         onChange={this.getSignUpDropDownValue}
+                        handleClickSubmit={this.createUser}
+                        usernameCheck={this.userNameCheck}
                     />
                 ) : (null)}
 

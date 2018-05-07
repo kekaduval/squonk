@@ -17,6 +17,7 @@ class Budgets extends React.Component {
 
     state = {
 
+        loggedIN: false,
         userId: "5aee44cb10ec4b4e0c31befb", //UserID
         userName: "nathan", //Name of userlogged in
         budgetName: "", //name of Budget user creates
@@ -56,6 +57,8 @@ class Budgets extends React.Component {
         isModalOpen: false,
         showSignUpPage: false,
         modalMessage: "",
+        usernameLogin: "",
+        passwordLogin: "",
         usernameCreate: "",
         password: "",
         password2: "",
@@ -66,6 +69,7 @@ class Budgets extends React.Component {
 
     }
 
+   
     componentDidMount() {
         this.loadBudgets();
         this.getAllUsers();
@@ -171,8 +175,8 @@ class Budgets extends React.Component {
 
         // console.log(this.state.billName);
         // console.log(this.state.billPlannedAmount);
-        console.log("YYYYYUUUUUUUU", this.state.secQuestion);
-        console.log("YYYYYGGGGGGGGG", this.state.secQuestion2);
+        console.log("YYYYYUUUUUUUU", this.state.usernameCreate);
+        console.log("YYYYYGGGGGGGGG", this.state.password);
     };
 
     //input boxes information for adding a Budget
@@ -659,6 +663,8 @@ openModal = () => {
                         handleClick={this.showHomePage}
                         handleClickSignUp={this.showSignUpPage}
                         handleChange={this.handleChange}
+                        value={this.state}
+
 
                     />
                 ) : (null)}

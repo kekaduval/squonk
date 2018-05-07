@@ -4,7 +4,7 @@ import "./AcctSettingsButton.css"
 const AcctSettingsButton = props => {
   return (
     <div className='container'>
-      <button className=" btn btn-primary" title="Account Setting">Account Settings</button>
+      <button className=" " title="Account Setting">Account Settings</button>
     </div>
   )
 }

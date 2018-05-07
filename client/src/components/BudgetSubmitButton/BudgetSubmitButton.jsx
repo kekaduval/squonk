@@ -3,7 +3,7 @@ import "./BudgetSubmitButton.css"
 
 const BudgetSubmitButton = props => {
     return (
-        <button className='btn btn-primary marginRight' type='' name='' onClick={props.onClick}>Submit</button>
+        <button className='marginRight' type='' name='' onClick={props.onClick}>Submit</button>
     )
 }
 export default BudgetSubmitButton;

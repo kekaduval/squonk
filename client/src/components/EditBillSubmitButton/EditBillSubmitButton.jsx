@@ -8,4 +8,3 @@ const EditBillSubmitButton = props => {
     )
 }
 export default EditBillSubmitButton;
-

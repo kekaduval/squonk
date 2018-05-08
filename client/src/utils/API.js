@@ -12,7 +12,7 @@ export default {
     return axios.post("/api/user/", data);
   },
 
-  //creates a budget and sends all the users budgets back to the usersBudget state
+  //creates a budget and sends all the users budgets back sto the usersBudget state
   createBudget: data => {
     console.log("creating new budget", data);
     return axios.post("/api/budget/", data);

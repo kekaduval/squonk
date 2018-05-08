@@ -18,8 +18,8 @@ class Budgets extends React.Component {
     state = {
 
         loggedIN: false,
-        userId: "5aee44cb10ec4b4e0c31befb", //UserID
-        userName: "nathan", //Name of userlogged in
+        userId: "", //UserID
+        userName: "", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
         budgetPlannedAmount: "", //Planned Amount when user creates a budget
@@ -60,7 +60,7 @@ class Budgets extends React.Component {
         usernameLogin: "",
         passwordLogin: "",
         usernameCreate: "",
-        usernameCreateOK: "",
+        usernameCreateOK: false,
         password: "",
         password2: "",
         secQuestion: "",
@@ -72,14 +72,85 @@ class Budgets extends React.Component {
 
    
     componentDidMount() {
-        this.loadBudgets();
         this.getAllUsers();
     }
 
+    getAllUsers = () => {
+        API.getUsers()
+            .then(res => {
+                console.log('this is res ', res);
+
+                const allUsers = res.data.map(index => {
+                    return (
+                        {
+                            userName: index.user,
+                            userID: index.userID,
+                            sharedOutBudgets: index.sharedOutBudgets,
+                            sharedWithMeBudgets: index.sharedWithMe,
+                        }
+                    )
+
+                })
+                console.log("All Users", allUsers);
+                // console.log("All the User Budgets ", this.state.userBudgets);
+
+                this.setState({
+                    allUsers: allUsers
+                });
+
+            })
+            .catch(err => console.log(err));
+    }
+
+
+
+    userLogin = event => {
+        event.preventDefault();
+        const users = this.state.allUsers.map(user => user.userName)
+        console.log(users);
+
+        if (!users.includes(this.state.usernameLogin)) {
+            alert("No user name found. Please check the spelling or sign up for an account")
+        }
+        else {
+
+            if (!this.state.passwordLogin.length) {
+                alert("Please Enter a password")
+            } else {
+                const user = {
+                    userName: this.state.usernameLogin,
+                    password: this.state.passwordLogin
+                }
+                API.getUserLogin(user)
+                    .then(res => {
+                        console.log("Logging In", res.data);
+                        if (res.data.userName === null && res.data.userId === null) {
+                            alert("Password is incorrect")
+                        } else { }
+
+                        this.setState({
+                            userId: res.data.userId,
+                            userName: res.data.userName,
+                            loggedIN: true
+                        })
+                        let userIn = res.data.userId
+                        this.loadBudgets(userIn)
+                    })
+                    
+                    .then(this.showHomePage(event))
+                    .catch(err => console.log(err));
+            }
+        }
+
+    }
+
+
 
     //loads on page load. Gets all the users budgets
-    loadBudgets = () => {
-        const userId = this.state.userId;
+    loadBudgets = (user) => {
+        const userId = user;
+        console.log("The user ID", userId);
+        
         API.getUserBudgets(userId)
             .then(res => {
                 this.setState({
@@ -605,33 +676,6 @@ class Budgets extends React.Component {
 
 
 
-    getAllUsers = () => {
-        API.getUsers()
-            .then(res => {
-                console.log('this is res ', res);
-
-                const allUsers = res.data.map(index => {
-                    return (
-                        {
-                            userName: index.user,
-                            userID: index.userID,
-                            sharedOutBudgets: index.sharedOutBudgets,
-                            sharedWithMeBudgets: index.sharedWithMe,
-                        }
-                    )
-
-                })
-                console.log("All Users", allUsers);
-                // console.log("All the User Budgets ", this.state.userBudgets);
-
-                this.setState({
-                    allUsers: allUsers
-                });
-
-            })
-            .catch(err => console.log(err));
-    }
-
     //Checking to see if the username is already in the database
     userNameCheck = event => {
         let userToBe = this.state.allUsers.map(user => user.userName)
@@ -640,7 +684,7 @@ class Budgets extends React.Component {
             usernameCreate: value
         });
         console.log(this.state.username);
-        if (this.state.usernameCreate.length > 2 && userToBe.includes(this.state.usernameCreate)) {
+        if (event.target.value.length >= 3 && userToBe.includes(event.target.value)) {
             this.setState({
                 usernameCreateOK: true
             })
@@ -704,6 +748,8 @@ openModal = () => {
  /////////////////////
 
     render() {
+        console.log("USER BUDGETS",this.state.userBudgets);
+        
         return (
 
             <React.Fragment>
@@ -718,7 +764,7 @@ openModal = () => {
 
                 {this.state.showLoginPage ? (
                     <LoginPage
-                        handleClick={this.showHomePage}
+                        handleClick={this.userLogin}
                         handleClickSignUp={this.showSignUpPage}
                         handleChange={this.handleChange}
                         value={this.state}

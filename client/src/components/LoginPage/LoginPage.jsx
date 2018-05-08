@@ -12,7 +12,7 @@ const LoginPage = props => {
 
             <div className="formInputContainer">
               <div className="formInputWrapper">
-                <input className="formInput" name="passwordLogin" type="password" onChange={props.handleChange} value={props.value.passwordLogin} placeholder=" ENTER PASSWORD" />
+                <input className="formInput" name="passwordLogin" type="text" onChange={props.handleChange} value={props.value.passwordLogin} placeholder=" ENTER PASSWORD" />
               </div>
             </div>
 

@@ -14,7 +14,11 @@ router.route("/:id")
 // .delete(userController.remove);
 
 router.route("/share/")
-.post(userController.removeSharedUser);
+.post(userController.removeSharedUser)
+
+router.route("/cred/")
+.post(userController.findLogin)
+
 
 
 

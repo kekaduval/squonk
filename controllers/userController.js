@@ -24,13 +24,13 @@ module.exports = {
                     }
                 })
 
-                console.log("THIS IS THE NEW LOGGGGGGGGGGGGGGG",userObject);
-                
-                
+                // console.log("THIS IS THE NEW LOGGGGGGGGGGGGGGG",userObject);               
                 res.json(userObject)
             })
             .catch(err => res.status(422).json(err));
     },
+
+
     findById: function (req, res) {
         var id = mongoose.Types.ObjectId(req.params.id);
         db.User.findById(id)
@@ -38,6 +38,45 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
+
+    findLogin: function (req, res) {
+        console.log("UUUUUUUUUUUUUUUUUUUUUU",req.body.userName);    
+        // var id = mongoose.Types.ObjectId(req.body.userId);
+        db.User.findOne({"userName":req.body.userName})
+            .then(dbModel => {
+                console.log("user from DB", dbModel);
+                if (dbModel.password === req.body.password) {
+                    const User={
+                        userName: dbModel.userName,
+                        userId: dbModel._id,
+                        userBudgets: dbModel.budgets,
+                        allSharedBudgetWithUsers: dbModel.sharingBudgetWith,
+                        allUsersSharingBudgetsWithMe: dbModel.usersSharedBudgetWithMe,
+
+
+
+
+                    }
+                    res.json(User)
+                }else{
+                    const User = {
+                        userName: null,
+                        userId: null
+                    }
+                    res.json(User)
+                }
+
+
+                  
+            }              
+                )
+            .catch(err => res.status(422).json(err));
+    },
+
+
+
+
+
     create: function (req, res) {
         db.User.create(req.body)
             .then(dbModel => res.json(dbModel))

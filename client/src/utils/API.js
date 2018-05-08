@@ -34,10 +34,19 @@ export default {
     return axios.put("/api/user/", data);
   },
 
+  getUserLogin: data => {
+    console.log("user cred", data)
+    return axios.post("/api/user/cred", data);
+  },
+
+  
+
   removeUserFromShareBudget: data => {
     console.log("user remove from budget", data);
     return axios.post("/api/user/share", data);
   },
+
+
 
   getUserBudgets: id => {
     console.log("user id " +id )

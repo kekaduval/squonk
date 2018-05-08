@@ -11,6 +11,8 @@ import HomePage from '../../components/HomePage'
 import LoginPage from '../../components/LoginPage'
 import Modal from "../../components/Modal"
 import SignUpPage from "../../components/SignUpPage"
+import LoginButton from "../../components/LoginButton"
+import AccountSettings from "../../components/AccountSettings"
 
 
 class Budgets extends React.Component {
@@ -18,8 +20,8 @@ class Budgets extends React.Component {
     state = {
 
         loggedIN: false,
-        userId: "", //UserID
-        userName: "", //Name of userlogged in
+        userId: "5aece1c7b725b6197ef6d4ae", //UserID
+        userName: "gabe", //Name of userlogged in
         budgetName: "", //name of Budget user creates
         budgetNameList: [], //List of Budget Name
         budgetPlannedAmount: "", //Planned Amount when user creates a budget
@@ -44,6 +46,7 @@ class Budgets extends React.Component {
         editBill: false, // keeps edit bill hidden until a bills edit button is clicked
         showSharedUsers: false,
         editBillID: "",
+        editBillObject:[],
         allUsers: [], //all users names and IDs
         showUserLookup: false,
         NoBudgetsNoBillsDisplay: true,
@@ -56,6 +59,7 @@ class Budgets extends React.Component {
         showHomePage: false,
         isModalOpen: false,
         showSignUpPage: false,
+        showAccountSettings: false,
         modalMessage: "",
         usernameLogin: "",
         passwordLogin: "",
@@ -67,6 +71,9 @@ class Budgets extends React.Component {
         secQuestionAnswer: "",
         secQuestion2:"",
         secQuestion2Answer: "",
+        showSecQues: false,
+        showPasswordChange: false,
+        showAcctDelete: false
 
     }
 
@@ -134,7 +141,14 @@ class Budgets extends React.Component {
                             loggedIN: true
                         })
                         let userIn = res.data.userId
-                        this.loadBudgets(userIn)
+
+
+                        if (this.state.loggedIN) {
+                            this.loadBudgets(userIn) 
+                        }else{
+                            alert("Please try to log in Again")
+                        }
+                        
                     })
                     
                     .then(this.showHomePage(event))
@@ -148,7 +162,9 @@ class Budgets extends React.Component {
 
     //loads on page load. Gets all the users budgets
     loadBudgets = (user) => {
+
         const userId = user;
+        // const userId = this.state.userId
         console.log("The user ID", userId);
         
         API.getUserBudgets(userId)
@@ -348,9 +364,9 @@ class Budgets extends React.Component {
                 userName: this.state.userName,
                 budgetId: this.state.userChosenBudgetId,
                 budgetName: this.state.userChosenBudgetName,
-                billName: this.state.editBillName,
-                billPlannedAmount: this.state.editBillPlannedAmount,
-                billActualAmount: this.state.editBillActualAmount ? this.state.editBillActualAmount : 0.00,
+                billName: this.state.editBillName ? this.state.editBillName : this.state.editBillObject.billName,
+                billPlannedAmount: this.state.editBillPlannedAmount ? this.state.editBillPlannedAmount : this.state.editBillObject.billPlannedAmount,
+                billActualAmount: this.state.editBillActualAmount ? this.state.editBillActualAmount : this.state.editBillObject.billActualAmount,
                 billStatic: this.state.billStatic,
             }
         }
@@ -391,6 +407,7 @@ class Budgets extends React.Component {
                 });
                 console.log("The chosen budget object is ", this.state.userChosenBudgetObject);
                 this.getThisBudgetSharedUsers()
+                this.cancelShowSharedUsers()
             }
 
             ).catch(err => console.log(err));
@@ -556,14 +573,25 @@ class Budgets extends React.Component {
 
     editBill = (id, event) => {
         event.preventDefault()
+        let billClick = id;
+        let billObject = "";
+        let billInfo = this.state.userChosenBudgetBills.map(index => {
+            index._id === id    
+            billObject = index})
+        console.log("Gothimmmmmm" + billClick);
+        console.log("Gothimmmmmm22222", billObject);
         this.setState({
             editBill: true,
             showAddBudget: false,
             showAddBill: false,
             showUserLookup: false,
             showSharedUsers: false,
-            editBillID: id
+            editBillID: id,
+            editBillObject: billObject
+
         })
+        console.log("The edit bill object",this.state.editBillObject);
+        
     }
 
 
@@ -571,8 +599,6 @@ class Budgets extends React.Component {
 
         let user = this.state.userName;
         let findOwner = this.state.userChosenBudgetObject.userName
-        console.log("yyyyyyyyyyyyyy", findOwner);
-
         if (this.state.userBudgets.length > 0) {
             if (user === findOwner) {
                 this.setState({
@@ -594,6 +620,38 @@ class Budgets extends React.Component {
             this.openModal()
         }
 
+    }
+
+    signOut = (event) => {
+        event.preventDefault()
+        this.setState({
+            showSquonkGreetingPage: true,
+            showLoginPage: false,
+            showSignUpPage: false,
+            showHomePage: false,
+            loggedIN: false,
+            userId: "", 
+            userName: "", 
+        })
+    }
+
+    changePassword = event => {
+        if (this.state.password === this.state.password2) {
+            const newPass = {
+                id: this.state.userId,
+                password: this.state.password
+            }
+
+        API.userUpdate(newPass)
+        .then(res => {          
+            alert(res.data)}
+        )
+        .then(this.signOut(event))
+        .catch(err => console.log(err));
+            
+        }else{
+            alert("not same")
+        }
     }
 
     showSharedUsers = () => {
@@ -635,6 +693,15 @@ class Budgets extends React.Component {
             showHomePage: true,
         })
     }
+    showAcctSettings = () => {
+        this.setState({
+            showSquonkGreetingPage: false,
+            showLoginPage: false,
+            showSignUpPage: false,
+            showHomePage: false,
+            showAccountSettings: true,
+        })
+    }
 
 
 
@@ -673,6 +740,65 @@ class Budgets extends React.Component {
     cancelShowSharedUsers = () => {
         this.setState({ showSharedUsers: false })
     }
+    
+    cancelShowAcctSettings = () => {
+        this.setState({
+            showSquonkGreetingPage: false,
+            showLoginPage: false,
+            showSignUpPage: false,
+            showHomePage: true,
+            showAccountSettings: false,
+            showSecQues: false,
+            showPasswordChange: false
+        })
+    }
+
+    showSecQues = () => {
+        this.setState({
+            showSecQues: true,
+            showPasswordChange: false,
+            showAcctDelete: false
+        })
+    }
+
+    showPasswordChange = () => {
+        this.setState({
+            showSecQues: false,
+            showPasswordChange: true,
+            showAcctDelete: false
+        })
+    }
+
+    showAcctDelete = () => {
+        this.setState({
+            showSecQues: false,
+            showPasswordChange: false,
+            showAcctDelete: true
+        })
+    }
+
+
+    cancelShowSecQues = () => {
+        this.setState({
+            showSecQues: false,
+        })
+    }
+
+    cancelShowPasswordChange = () => {
+        this.setState({
+            showPasswordChange: false,
+            password: "",
+            password2: ""
+        })
+    }
+
+    cancelAcctDelete = () => {
+        this.setState({
+            showAcctDelete: false
+        })
+    }
+
+
 
 
 
@@ -784,12 +910,15 @@ openModal = () => {
                     />
                 ) : (null)}
 
-                {this.state.showHomePage ? (
+                {this.state.showHomePage && this.state.loggedIN ? (
                     <React.Fragment>
                         <Navbar
                             handleClick={this.showAddBudget}
                             handleUserClick={this.showUserLookup}
                             budgetListLength={this.state.userBudgets}
+                            handleClickSignOut={this.signOut}
+                            handleClickAcct={this.showAcctSettings}
+
                         />
                         <BudgetBar
                             budgets={this.state.userBudgets}
@@ -849,7 +978,32 @@ openModal = () => {
                                     <NoBudgetsNoBillsDisplay userName={this.state.userName} />
                                 ) : (false)
                             )}
+
+
                     </ React.Fragment>
+                ) : (null
+                        // <div className='container text-center notLoggedin'>
+                        //     <p>Please Log in to use Squonk</p>
+                        //     <LoginButton
+                        //         handleClick={this.showLoginPage} />
+                        // </div>
+
+                    
+                )}
+
+                {this.state.showAccountSettings && this.state.loggedIN ? (
+                    <AccountSettings
+                        handleClickCancel={this.cancelShowAcctSettings}
+                        handleClickSec={this.showSecQues}
+                        handleClickPass={this.showPasswordChange}
+                        handleClickCancelSec={this.cancelShowSecQues}
+                        handleClickCancelPass={this.cancelShowPasswordChange}
+                        handleClickAcctDelete={this.showAcctDelete}
+                        handleClickCancelAcctDelete={this.cancelAcctDelete}
+                        handleChange={this.handleChange}
+                        handleClickSubmitPass={this.changePassword}
+                        value={this.state}
+                    />
                 ) : (null)}
 
             </ React.Fragment>

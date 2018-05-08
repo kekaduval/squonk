@@ -40,41 +40,31 @@ module.exports = {
     },
 
     findLogin: function (req, res) {
-        console.log("UUUUUUUUUUUUUUUUUUUUUU",req.body.userName);    
+        console.log("UUUUUUUUUUUUUUUUUUUUUU", req.body.userName);
         // var id = mongoose.Types.ObjectId(req.body.userId);
-        db.User.findOne({"userName":req.body.userName})
+        db.User.findOne({ "userName": req.body.userName })
             .then(dbModel => {
                 console.log("user from DB", dbModel);
                 if (dbModel.password === req.body.password) {
-                    const User={
+                    const User = {
                         userName: dbModel.userName,
                         userId: dbModel._id,
                         userBudgets: dbModel.budgets,
                         allSharedBudgetWithUsers: dbModel.sharingBudgetWith,
                         allUsersSharingBudgetsWithMe: dbModel.usersSharedBudgetWithMe,
-
-
-
-
                     }
                     res.json(User)
-                }else{
+                } else {
                     const User = {
                         userName: null,
                         userId: null
                     }
                     res.json(User)
                 }
-
-
-                  
-            }              
-                )
+            }
+            )
             .catch(err => res.status(422).json(err));
     },
-
-
-
 
 
     create: function (req, res) {
@@ -83,8 +73,8 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     update: function (req, res) {
-        db.User.findOneAndUpdate({ _id: req.params.id }, req.body)
-            .then(dbModel => res.json(dbModel))
+        db.User.findOneAndUpdate({ _id: req.body.id }, {password: req.body.password})
+            .then(dbModel => res.json("Password Updated"))
             .catch(err => res.status(422).json(err));
     },
     remove: function (req, res) {

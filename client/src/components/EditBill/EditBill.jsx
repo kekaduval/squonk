@@ -28,7 +28,7 @@ const EditBill = props => {
             onChange={props.handleChange}
             editvalue={props.value.editBillName}
             // value={billInfo.billName}
-            placeholder="Bill Name"
+            placeholder={billInfo.billName}
           />
         </div>
 
@@ -41,7 +41,7 @@ const EditBill = props => {
             onChange={props.handleChange}
             editvalue={parseFloat(props.value.editBillPlannedAmount).toFixed(2)}
             // value={parseFloat(billInfo.billPlannedAmount).toFixed(2)}
-            placeholder=" Bill Planned Amount $25, $100, $1000"
+            placeholder={parseFloat(billInfo.billPlannedAmount).toFixed(2)}
           />
         </div>
 
@@ -53,7 +53,7 @@ const EditBill = props => {
             onChange={props.handleChange}
             editvalue={parseFloat(props.value.editBillActualAmount).toFixed(2)}
             // value={parseFloat(billInfo.billActualAmount).toFixed(2)}
-            placeholder=" Bill Actual Amount $25, $100, $1000"
+            placeholder={parseFloat(billInfo.billActualAmount).toFixed(2)}
           />
         </div>
 

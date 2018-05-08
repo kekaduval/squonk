@@ -19,6 +19,9 @@ router.route("/share/")
 router.route("/cred/")
 .post(userController.findLogin)
 
+router.route("/upd/")
+.put(userController.update)
+
 
 
 

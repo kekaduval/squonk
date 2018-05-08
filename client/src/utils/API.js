@@ -39,6 +39,10 @@ export default {
     return axios.post("/api/user/cred", data);
   },
 
+  userUpdate: data => {
+    console.log("user updates", data)
+    return axios.put("/api/user/upd", data);
+  },
   
 
   removeUserFromShareBudget: data => {

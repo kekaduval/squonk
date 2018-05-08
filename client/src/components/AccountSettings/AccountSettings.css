@@ -1,0 +1,22 @@
+.marginTopAndBottom {
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.headerBG {
+    background-color: #eaecef;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.headerBorderRight {
+    border-right: 1px solid black;
+}
+
+.acctBorder{
+    border: 1px solid white;
+    height: 250px;
+}
+

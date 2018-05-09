@@ -12,11 +12,30 @@
 }
 
 .headerBorderRight {
-    border-right: 1px solid black;
+    /* border-right: 1px solid black; */
 }
 
 .acctBorder{
-    border: 1px solid white;
-    height: 250px;
+    /* border: 1px solid white; */
+    height: 350px;
 }
 
+.marginBottom{
+    margin-bottom: 20px;
+    margin-top: 50px;
+}
+.formButton {
+  color: #454545;
+  background: transparent;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #454545;
+  position: relative;
+  margin: 0.5em;
+  display: inline-block;
+  /* padding: 0.5em 1em; */
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+  font-family: comfortaa;
+  font-weight: bold
+}

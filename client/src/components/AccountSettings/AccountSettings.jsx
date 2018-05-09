@@ -39,11 +39,11 @@ const AccountSettings = props => {
         <div className="col-md-6 acctBorder ">
 
 {props.value.showSecQues ? (
-        <SecQuestionsDisplay 
-              onClick={props.handleClickCancelSec}       
-        />         
+        <SecQuestionsDisplay
+              onClick={props.handleClickCancelSec}
+        />
           ):(null)}
-        
+
 
         {props.value.showPasswordChange ? (
           <PasswordDisplayChange
@@ -79,5 +79,3 @@ const AccountSettings = props => {
 }
 
 export default AccountSettings;
-
-

@@ -124,8 +124,8 @@ class Budgets extends React.Component {
           .then(res => {
             console.log("Logging In", res.data);
             if (res.data.userName === null && res.data.userId === null) {
-              alert("Password is incorrect");
               this.showLoginPage(event)
+              alert("Password is incorrect");              
             } else {
               this.setState({
                 userId: res.data.userId,
@@ -133,20 +133,14 @@ class Budgets extends React.Component {
                 loggedIN: true
               });
               let userIn = res.data.userId;
+              this.showHomePage(event)
 
               if (this.state.loggedIN) {
                 this.loadBudgets(userIn);
               } else {
                 alert("Please try to log in Again");
               }
-
-
-
-
-
             }
-
-
           })
 
           .then(this.showHomePage(event))

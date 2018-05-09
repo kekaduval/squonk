@@ -19,15 +19,20 @@
     justify-content: center;
     font-family: Montserrat, sans-serif;
     text-transform: uppercase;
+<<<<<<< HEAD
+    background-color: #F09819;
+
+}
+=======
 
 } */
+>>>>>>> 363da12cda0cfb4515ef1317a39b13209b59d72f
 
 .formContainer {
     width: 800px;
     height: 400px;
     /* border-radius: 10%; */
     border-radius: 3px solid #dddddd;
-    /* box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.1); */
 }
 
 .formWrapper {

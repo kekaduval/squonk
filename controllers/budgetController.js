@@ -53,5 +53,20 @@ module.exports = {
             })
             .then(dbUser => res.json(dbUser.budgets))
             .catch(err => res.status(422).json(err));
-        }
+        },
+
+    removeBudget: function (req, res) {
+        var budgetID = mongoose.Types.ObjectId(req.body.budget);
+
+        db.Bill.remove({ budgetId: req.body.budget })
+            .then((dbModel) => {
+                return db.Budget.remove({ _id: budgetID })
+            })
+            .then((dbModel) => {
+                return db.User.findOneAndUpdate({ _id: req.body.user }, { $pull: { budgets: budgetID } })
+            })
+            .then((dbModel) => { res.send("Budget and All Bills Removed")})
+    
+            .catch(err => res.status(422).json(err));
+    },
 };

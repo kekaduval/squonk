@@ -101,10 +101,10 @@ const BudgetBar = props => {
 
 
 
-      {props.usersWhoShareWithMe.length > 0 && sharedWithMeMessage && props.chosenBudget.userName !== props.myName ? (
+      {props.budgets.length && sharedWithMeMessage && props.chosenBudget.userName !== props.myName ? (
       <div className='row text-center'>
         <div className='col-md-12'>
-          <h3>"This is a Shared Budget from {findThisBudgetOwner}</h3>
+          <h3>"This is a Shared Budget from {findThisBudgetOwner} to remove yourself from this Budget, click "Delete Budget"</h3>
         </div>
       </div>) : (null)}
     </React.Fragment>

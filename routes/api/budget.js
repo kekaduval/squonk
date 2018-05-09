@@ -17,6 +17,8 @@ router.route("/:id")
 // router.route("/:id")
 // .post(budgetController.createBudget)
 
+router.route("/delete/")
+.post(budgetController.removeBudget);
 
 
     

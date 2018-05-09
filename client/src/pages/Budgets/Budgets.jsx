@@ -18,8 +18,8 @@ import AccountSettings from "../../components/AccountSettings"
 class Budgets extends React.Component {
   state = {
     loggedIN: true,
-    userId: "5aece1c7b725b6197ef6d4ae", //UserID
-    userName: "gabe", //Name of userlogged in
+    userId: "5af0f7a0b34fb82bad26c814", //UserID
+    userName: "bob", //Name of userlogged in
     budgetName: "", //name of Budget user creates
     budgetNameList: [], //List of Budget Name
     budgetPlannedAmount: "", //Planned Amount when user creates a budget

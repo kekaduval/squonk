@@ -5,11 +5,11 @@ import './HomePage.css'
 const HomePage = props => {
     return (
 
+        <div className=''>
+            <style> {'body { background-color: #F09819; }'}</style>
+
         <div className="container">
-
-
             <div className="containerItem landing-page-container">
-
                 <div className="open">
                     <span className="cls"></span>
                     <span>
@@ -60,7 +60,7 @@ const HomePage = props => {
                 </div>
 
             </div>
-
+            </div>
         </div>
     )
 }

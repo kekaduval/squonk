@@ -2,9 +2,9 @@
     box-sizing: border-box;
 }
 
-.about {
+/* .about {
     height: 100%;
-}
+} */
 
 .or {
     color: #ffffff;
@@ -13,16 +13,14 @@
     float:left;
     display: block;
 } */
-.about {
+/* .about {
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: Montserrat, sans-serif;
     text-transform: uppercase;
-    background-color: #F09819;
-    /* background-image: url("../images/dollar.jpg"); */
-    /* background-size: 550px; */
-}
+
+} */
 
 .formContainer {
     width: 800px;

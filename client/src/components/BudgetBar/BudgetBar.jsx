@@ -101,7 +101,7 @@ const BudgetBar = props => {
 
 
 
-      {sharedWithMeMessage && props.chosenBudget.userName !== props.myName ? (
+      {props.usersWhoShareWithMe.length > 0 && sharedWithMeMessage && props.chosenBudget.userName !== props.myName ? (
       <div className='row text-center'>
         <div className='col-md-12'>
           <h3>"This is a Shared Budget from {findThisBudgetOwner}</h3>

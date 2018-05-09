@@ -5,6 +5,15 @@ class Modal extends React.Component {
   render() {
     if (this.props.isOpen === false)
       return null
+       
+
+
+    
+
+
+
+
+
 
     let modalStyle = {
       position: 'absolute',
@@ -13,8 +22,9 @@ class Modal extends React.Component {
       transform: 'translate(-50%, -50%)',
       zIndex: '9999',
       background: '#fff',
-      height: '25%',
-      width: '25%',
+      height: '35%',
+      width: '35%',
+      
     }
 
 console.log(this.props.value.modalMessage);
@@ -42,6 +52,9 @@ console.log(this.props.value.modalMessage);
     }
 
     return (
+
+
+
       <div>
         <div style={modalStyle}>
         <p>{this.props.value.modalMessage}</p>
@@ -50,6 +63,9 @@ console.log(this.props.value.modalMessage);
             <div style={backdropStyle}
                  onClick={e => this.close(e)}/>}
       </div>
+
+
+
     )
   }
 
@@ -63,3 +79,6 @@ console.log(this.props.value.modalMessage);
 }
 
 export default Modal;
+
+
+

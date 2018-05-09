@@ -125,21 +125,28 @@ class Budgets extends React.Component {
             console.log("Logging In", res.data);
             if (res.data.userName === null && res.data.userId === null) {
               alert("Password is incorrect");
+              this.showLoginPage(event)
             } else {
+              this.setState({
+                userId: res.data.userId,
+                userName: res.data.userName,
+                loggedIN: true
+              });
+              let userIn = res.data.userId;
+
+              if (this.state.loggedIN) {
+                this.loadBudgets(userIn);
+              } else {
+                alert("Please try to log in Again");
+              }
+
+
+
+
+
             }
 
-            this.setState({
-              userId: res.data.userId,
-              userName: res.data.userName,
-              loggedIN: true
-            });
-            let userIn = res.data.userId;
 
-            if (this.state.loggedIN) {
-              this.loadBudgets(userIn);
-            } else {
-              alert("Please try to log in Again");
-            }
           })
 
           .then(this.showHomePage(event))

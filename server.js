@@ -88,7 +88,7 @@ mongoose.Promise = global.Promise;
 
 
 mongoose.connect(MONGODB_URI);
-// Start the server PORT
+// Start the server PORTS
 app.listen(PORT, function () {
     console.log("App running on port " + PORT + "!");
 });

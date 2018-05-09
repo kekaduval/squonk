@@ -39,6 +39,21 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
 
+    findSecQuestions: function (req, res) {
+        var id = mongoose.Types.ObjectId(req.params.id);
+        db.User.findById(id)
+            .then(dbModel => {
+                const SecQuestions={
+                    secQuestion1: dbModel.secQuestion1,
+                    secQuestion1Answer: dbModel.secQuestion1Answer,
+                    secQuestion2: dbModel.secQuestion2,
+                    secQuestion2Answer: dbModel.secQuestion2Answer
+                }                
+                res.json(SecQuestions)}
+            )
+            .catch(err => res.status(422).json(err));
+    },
+
     findLogin: function (req, res) {
         console.log("UUUUUUUUUUUUUUUUUUUUUU", req.body.userName);
         // var id = mongoose.Types.ObjectId(req.body.userId);
@@ -72,11 +87,20 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
-    update: function (req, res) {
+    updatePass: function (req, res) {
         db.User.findOneAndUpdate({ _id: req.body.id }, {password: req.body.password})
             .then(dbModel => res.json("Password Updated"))
             .catch(err => res.status(422).json(err));
     },
+
+    updateSec: function (req, res) {
+        db.User.findOneAndUpdate({ _id: req.body.id },req.body)
+            .then(dbModel => res.json("Sec Questions Updated"))
+            .catch(err => res.status(422).json(err));
+    },
+
+
+    
     remove: function (req, res) {
         db.User.findById({ _id: req.params.id })
             .then(dbModel => dbModel.remove())

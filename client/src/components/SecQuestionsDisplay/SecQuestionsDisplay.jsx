@@ -6,8 +6,9 @@ const SecQuestionsDisplay = props => {
 
         <React.Fragment>
             <div className="">
-                <div className="">
-                    <select name="secQuestion" >
+                <div className="kestion">
+                    <p>Previous Question:  {props.value.secQuestionsObject.secQuestion1}</p>
+                    <select onChange={props.handleChange} name="secQuestion">
                         <option >
                             PLEASE CHOOSE A SECURITY QUESTION.
                   </option>
@@ -27,15 +28,18 @@ const SecQuestionsDisplay = props => {
                 </div>
             </div>
 
-            <div className="">
-                <div className="">
-                    <input className="formInput" name="secQuestionAnswer" type="text" placeholder="SECURITY QUESTION ANSWER" />
+            <div className="kestion1">
+                <div className="answer">
+                    <p>Previous Answer: </p>
+                    <input className="formInput" name="secQuestionAnswer" onChange={props.handleChange} type="text" value={props.value.secQuestionAnswer}  placeholder={props.value.secQuestionsObject.secQuestion1Answer} />
                 </div>
             </div>
 
+
             <div className="">
-                <div className="">
-                    <select name="secQuestion2" >
+                <div className="kestion">
+                    <p>Previous Question: {props.value.secQuestionsObject.secQuestion2}</p>
+                    <select onChange={props.handleChange} name="secQuestion2"  >
                         <option >
                             PLEASE CHOOSE A SECURITY QUESTION.
                   </option>
@@ -56,17 +60,18 @@ const SecQuestionsDisplay = props => {
             </div>
 
             <div className="">
-                <div className="">
-                    <input className="formInput" name="secQuestion2Answer" type="text" placeholder="SECURITY QUESTION 2 ANSWER" />
+                <div className="answer">
+                    <p>Previous Answer: </p>
+                    <input className="formInput" name="secQuestion2Answer" onChange={props.handleChange} type="text" placeholder="SECURITY QUESTION 2 ANSWER" value={props.value.secQuestion2Answer} placeholder={props.value.secQuestionsObject.secQuestion2Answer}/>
                 </div>
             </div>
 
 
             <div className="">
-                <button className="" >
+                <button className="custombtn" onClick={(event => props.onClickSubmitSec(event))}>
                     Submit
               </button>
-                <button className="" onClick={props.onClick}> Cancel </button>
+                <button className="custombtn" onClick={props.onClick}> Cancel </button>
             </div>
         </React.Fragment>
     )

@@ -2,7 +2,9 @@ import React from 'react';
 import './LoginPage.css'
 
 const LoginPage = props => {
-    return <div className="about">
+    return <div className="">
+      <style> {'body { background-color: BLUE; }'}</style>
+
         <div className="formContainer">
           <div className="formTitle formTitleLogin">NEW LOGIN</div>
           <form className="form formLogin">

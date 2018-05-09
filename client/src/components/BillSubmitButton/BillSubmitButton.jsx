@@ -4,7 +4,7 @@ import './BillSubmitButton.css'
 
 const BillSubmitButton = props => {
     return (
-        <button className='btn btn-primary marginRight' type='' name='' onClick={props.onClick}>Submit Bill</button>
+        <button className='marginRight' type='' name='' onClick={props.onClick}>Submit Bill</button>
     )
 }
 export default BillSubmitButton;

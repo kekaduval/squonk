@@ -20,7 +20,14 @@ router.route("/cred/")
 .post(userController.findLogin)
 
 router.route("/upd/")
-.put(userController.update)
+.put(userController.updatePass)
+
+router.route("/sec/")
+.put(userController.updateSec)
+
+
+router.route("/sec/:id")
+.get(userController.findSecQuestions)
 
 
 

@@ -2,9 +2,9 @@
     box-sizing: border-box;
 }
 
-.about {
+/* .about {
     height: 100%;
-}
+} */
 
 .or {
     color: #ffffff;
@@ -13,15 +13,20 @@
     float:left;
     display: block;
 } */
-.about {
+/* .about {
     display: flex;
     align-items: center;
     justify-content: center;
     font-family: Montserrat, sans-serif;
     text-transform: uppercase;
+<<<<<<< HEAD
     background-color: #F09819;
 
 }
+=======
+
+} */
+>>>>>>> 363da12cda0cfb4515ef1317a39b13209b59d72f
 
 .formContainer {
     width: 800px;

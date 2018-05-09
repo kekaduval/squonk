@@ -1,6 +1,10 @@
 .bg {
     background-color: #eaecef;
-    height: 30px;
+    height: 35px;
+    font-family: 'Josefin Slab', serif;
+    text-align: center;
+    margin-top: 10px;
+
 }
 
 .marginBottom {

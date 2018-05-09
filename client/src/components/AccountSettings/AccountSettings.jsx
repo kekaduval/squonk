@@ -39,9 +39,19 @@ const AccountSettings = props => {
         <div className="col-md-6 acctBorder ">
 
 {props.value.showSecQues ? (
+<<<<<<< HEAD
         <SecQuestionsDisplay
               onClick={props.handleClickCancelSec}
         />
+=======
+        <SecQuestionsDisplay 
+              onClick={props.handleClickCancelSec} 
+              handleChange={props.handleChange}
+              value={props.value}      
+              onClickSubmit={props.handleClickSubmitPass}
+              onClickSubmitSec={props.handleClickSubmitSecQuestions}
+        />         
+>>>>>>> 363da12cda0cfb4515ef1317a39b13209b59d72f
           ):(null)}
 
 

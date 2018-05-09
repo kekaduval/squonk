@@ -16,8 +16,13 @@
 }
 
 .acctBorder{
+<<<<<<< HEAD
     /* border: 1px solid white; */
     height: 350px;
+=======
+    border: 1px solid white;
+    height: 360px;
+>>>>>>> 363da12cda0cfb4515ef1317a39b13209b59d72f
 }
 
 .marginBottom{

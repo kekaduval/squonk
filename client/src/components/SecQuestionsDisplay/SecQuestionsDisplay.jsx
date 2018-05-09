@@ -6,7 +6,7 @@ const SecQuestionsDisplay = props => {
 
         <React.Fragment>
             <div className="">
-                <div className="">
+                <div className="kestion">
                     <select name="secQuestion" >
                         <option >
                             PLEASE CHOOSE A SECURITY QUESTION.
@@ -27,14 +27,14 @@ const SecQuestionsDisplay = props => {
                 </div>
             </div>
 
-            <div className="">
-                <div className="">
+            <div className="kestion1">
+                <div className="answer">
                     <input className="formInput" name="secQuestionAnswer" type="text" placeholder="SECURITY QUESTION ANSWER" />
                 </div>
             </div>
 
             <div className="">
-                <div className="">
+                <div className="kestion">
                     <select name="secQuestion2" >
                         <option >
                             PLEASE CHOOSE A SECURITY QUESTION.
@@ -56,17 +56,17 @@ const SecQuestionsDisplay = props => {
             </div>
 
             <div className="">
-                <div className="">
+                <div className="answer">
                     <input className="formInput" name="secQuestion2Answer" type="text" placeholder="SECURITY QUESTION 2 ANSWER" />
                 </div>
             </div>
 
 
             <div className="">
-                <button className="" >
+                <button className="custombtn" >
                     Submit
               </button>
-                <button className="" onClick={props.onClick}> Cancel </button>
+                <button className="custombtn" onClick={props.onClick}> Cancel </button>
             </div>
         </React.Fragment>
     )

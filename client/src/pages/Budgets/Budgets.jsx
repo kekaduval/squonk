@@ -17,9 +17,9 @@ import AccountSettings from "../../components/AccountSettings"
 
 class Budgets extends React.Component {
   state = {
-    loggedIN: false,
-    userId: "", //UserID
-    userName: "", //Name of userlogged in
+    loggedIN: true,
+    userId: "5af0eb69bd9fd515307a97f3", //UserID
+    userName: "keka", //Name of userlogged in
     budgetName: "", //name of Budget user creates
     budgetNameList: [], //List of Budget Name
     budgetPlannedAmount: "", //Planned Amount when user creates a budget
@@ -52,9 +52,9 @@ class Budgets extends React.Component {
     allSharedBudgetWithUsers: [],
     allUsersSharingBudgetsWithMe: [],
     usersThisBudgetIsSharedWith: [],
-    showSquonkGreetingPage: true,
+    showSquonkGreetingPage: false,
     showLoginPage: false,
-    showHomePage: false,
+    showHomePage: true,
     isModalOpen: false,
     showSignUpPage: false,
     showAccountSettings: false,
@@ -77,7 +77,7 @@ class Budgets extends React.Component {
 
   componentDidMount() {
     this.getAllUsers();
-    // this.loadBudgets()
+    this.loadBudgets()
   }
 
   getAllUsers = () => {
@@ -125,7 +125,7 @@ class Budgets extends React.Component {
             console.log("Logging In", res.data);
             if (res.data.userName === null && res.data.userId === null) {
               this.showLoginPage(event)
-              alert("Password is incorrect");              
+              alert("Password is incorrect");
             } else {
               this.setState({
                 userId: res.data.userId,
@@ -151,8 +151,8 @@ class Budgets extends React.Component {
 
   //loads on page load. Gets all the users budgets
   loadBudgets = user => {
-    const userId = user;
-    // const userId = this.state.userId
+    // const userId = user;
+    const userId = this.state.userId
     console.log("The user ID", userId);
 
     API.getUserBudgets(userId)
@@ -439,7 +439,7 @@ class Budgets extends React.Component {
     event.preventDefault();
     if (this.state.usersThisBudgetIsSharedWith.length > 0) {
       alert("This is a shared budget. Please remove all shared with users before deletion.")
-    } 
+    }
     else {
       const data = {
         user: this.state.userId,
@@ -641,7 +641,7 @@ class Budgets extends React.Component {
       };
 
       API.userUpdate(newPass)
-        .then(res => {          
+        .then(res => {
           this.setState({
            password: "",
            password2: ""

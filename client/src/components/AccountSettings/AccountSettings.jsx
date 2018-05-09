@@ -46,7 +46,7 @@ const AccountSettings = props => {
               value={props.value}
               onClickSubmit={props.handleClickSubmitPass}
               onClickSubmitSec={props.handleClickSubmitSecQuestions}
-        />         
+        />
           ):(null)}
 
 

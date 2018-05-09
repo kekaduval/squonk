@@ -17,7 +17,7 @@ const BillsDisplay = props => {
   return (
     <div className='container'>
       <div className='row rowMargin'>
-        <div className='col-md-1  headerBG text-center '><AddBillButton onClick={props.onClick} /></div>
+        <div className='col-md-2  headerBG text-center '><AddBillButton onClick={props.onClick} /></div>
         <div className='col-md-2  headerBG text-center'><h4 className='wordPosition'> Bill Name</h4></div>
         <div className='col-md-2 text-center headerBG'><h4 className='wordPosition'>Planned Amount</h4></div>
         <div className='col-md-2 text-center headerBG'><h4 className='wordPosition'>Acutal Amount</h4></div>
@@ -37,11 +37,11 @@ const BillsDisplay = props => {
       {props.bills.length ? (props.bills.map(bill => {
         return (
           <React.Fragment key={bill._id}>
-            <BillDisplayItem 
-            onClick={props.deleteClick} 
-            editClick={props.editBillID} 
+            <BillDisplayItem
+            onClick={props.deleteClick}
+            editClick={props.editBillID}
             editBillShow={props.editBillShow}
-            bill={bill} 
+            bill={bill}
             />
           </React.Fragment>
         )
@@ -49,7 +49,7 @@ const BillsDisplay = props => {
       ) : (<h3 className="text-center">No Bills found</h3>)}
 
       <div className='row'>
-        <div className='offset-1 col-md-2 text-center'>
+        <div className='offset-2 col-md-2 text-center'>
           <h4>Totals</h4>
         </div>
         <div className='col-md-2 text-center'>
@@ -64,5 +64,3 @@ const BillsDisplay = props => {
 }
 
 export default BillsDisplay;
-
-

@@ -45,16 +45,26 @@ export default {
   },
   
 
+  userUpdateSec: data => {
+    console.log("user updates", data)
+    return axios.put("/api/user/sec", data);
+  },
+
+
   removeUserFromShareBudget: data => {
     console.log("user remove from budget", data);
     return axios.post("/api/user/share", data);
   },
 
 
-
   getUserBudgets: id => {
     console.log("user id " +id )
     return axios.get("/api/user/" + id);
+  },
+
+  getUserSecurityQuestions: id => {
+    console.log("user id " + id)
+    return axios.get("/api/user/sec/" + id);
   },
 
   getBudgetBills: id => {

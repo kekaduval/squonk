@@ -18,7 +18,7 @@ import AccountSettings from "../../components/AccountSettings"
 class Budgets extends React.Component {
   state = {
     loggedIN: true,
-    userId: "5af2452da491aa3ae88049a1", //UserID
+    userId: "5aece1c7b725b6197ef6d4ae", //UserID
     userName: "gabe", //Name of userlogged in
     budgetName: "", //name of Budget user creates
     budgetNameList: [], //List of Budget Name
@@ -71,7 +71,8 @@ class Budgets extends React.Component {
     secQuestion2Answer: "",
     showSecQues: false,
     showPasswordChange: false,
-    showAcctDelete: false
+    showAcctDelete: false,
+    secQuestionsObject: []
   };
 
   componentDidMount() {
@@ -643,7 +644,11 @@ class Budgets extends React.Component {
       };
 
       API.userUpdate(newPass)
-        .then(res => {
+        .then(res => {          
+          this.setState({
+           password: "",
+           password2: ""
+          })
           alert(res.data);
         })
         .then(this.signOut(event))
@@ -652,6 +657,38 @@ class Budgets extends React.Component {
       alert("not same");
     }
   };
+
+
+
+
+  changeSecQuestions = event => {
+    event.preventDefault();
+
+      const newSecQuestions = {
+        id: this.state.userId,
+        secQuestion1: this.state.secQuestion ? this.state.secQuestion : this.state.secQuestionsObject.secQuestion1,
+        secQuestion1Answer: this.state.secQuestionAnswer ? this.state.secQuestionAnswer : this.state.secQuestionsObject.secQuestion1Answer,
+        secQuestion2: this.state.secQuestion2 ? this.state.secQuestion2 : this.state.secQuestionsObject.secQuestion2,
+        secQuestion2Answer: this.state.secQuestion2Answer ? this.state.secQuestion2Answer : this.state.secQuestionsObject.secQuestion2Answer
+      };
+      API.userUpdateSec(newSecQuestions)
+        .then(res => {
+          this.setState({
+            secQuestion: "",
+            secQuestionAnswer: "",
+            secQuestion2: "",
+            secQuestion2Answer: "",
+            secQuestionsObject : [],
+
+          })
+          alert(res.data);
+          this.cancelShowSecQues()
+        })
+        // .then(this.signOut(event))
+        .catch(err => console.log(err));
+  };
+
+
 
   showSharedUsers = () => {
     this.setState({
@@ -750,11 +787,17 @@ class Budgets extends React.Component {
   };
 
   showSecQues = () => {
-    this.setState({
-      showSecQues: true,
-      showPasswordChange: false,
-      showAcctDelete: false
-    });
+    const id = this.state.userId
+    API.getUserSecurityQuestions(id)
+    .then(res => {
+      this.setState({
+        showSecQues: true,
+        showPasswordChange: false,
+        showAcctDelete: false,
+        secQuestionsObject: res.data
+      });
+    })
+    .catch(err => console.log(err));
   };
 
   showPasswordChange = () => {
@@ -1006,6 +1049,7 @@ class Budgets extends React.Component {
             handleClickCancelAcctDelete={this.cancelAcctDelete}
             handleChange={this.handleChange}
             handleClickSubmitPass={this.changePassword}
+            handleClickSubmitSecQuestions={this.changeSecQuestions}
             value={this.state}
           />
         ) : null}

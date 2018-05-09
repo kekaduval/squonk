@@ -40,7 +40,11 @@ const AccountSettings = props => {
 
 {props.value.showSecQues ? (
         <SecQuestionsDisplay 
-              onClick={props.handleClickCancelSec}       
+              onClick={props.handleClickCancelSec} 
+              handleChange={props.handleChange}
+              value={props.value}      
+              onClickSubmit={props.handleClickSubmitPass}
+              onClickSubmitSec={props.handleClickSubmitSecQuestions}
         />         
           ):(null)}
         

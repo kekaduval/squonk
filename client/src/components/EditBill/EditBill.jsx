@@ -8,15 +8,15 @@ const EditBill = props => {
   let billClick = props.value.editBillID;
   let billInfo = props.bills.find(index => index._id  === billClick )
   console.log("haahhahahahahahah" + billClick);
-  
+
   console.log("gggggggggggggg", billInfo);
-  
-  
+
+
   return (
     <div className='container marginTopAndBottom'>
       <div className='row '>
-        <div className='offset-4 col-md-1 text-center'>
-          <h3>Edit Bill</h3>
+        <div className='offset-6 col-md-1 text-center'>
+          <h3 className="unbill">Edit Bill</h3>
         </div>
       </div>
       <div className="row">
@@ -63,7 +63,7 @@ const EditBill = props => {
             // name="billStatic"
             checked={props.isChecked}
           // onChange={props.handleChange}
-          // value={props.value.billStatic}     
+          // value={props.value.billStatic}
           />
         </div>
 
@@ -76,5 +76,3 @@ const EditBill = props => {
 }
 
 export default EditBill;
-
-

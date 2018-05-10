@@ -1,80 +1,31 @@
 import React from 'react';
 import "./Modal.css"
 
-class Modal extends React.Component {
-  render() {
-    if (this.props.isOpen === false)
+
+const Modal = props => {
+      if (this.props.isOpen === false){
       return null
-       
+      } else {
+  return (
 
-
-    
-
-
-
-
-
-
-    let modalStyle = {
-      position: 'absolute',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      zIndex: '9999',
-      background: '#fff',
-      height: '35%',
-      width: '35%',
-      
-    }
-
-console.log(this.props.value.modalMessage);
-
-    if (this.props.style) {
-      for (let key in this.props.style) {
-        modalStyle[key] = this.props.style[key]
-      }
-    }
-
-    let backdropStyle = {
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      top: '0px',
-      left: '0px',
-      zIndex: '9998',
-      background: 'rgba(0, 0, 0, 0.3)'
-    }
-
-    if (this.props.backdropStyle) {
-      for (let key in this.props.backdropStyle) {
-        backdropStyle[key] = this.props.backdropStyle[key]
-      }
-    }
-
-    return (
-
-
-
-      <div>
-        <div style={modalStyle}>
-        <p>{this.props.value.modalMessage}</p>
+    // <div className="modal">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title">Modal title</h5>
+            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            <p>{props.value.modalMessage}</p>
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-secondary" data-dismiss="modal" onClose={props.onClose}>Close</button>
+          </div>
         </div>
-        {!this.props.noBackdrop &&
-            <div style={backdropStyle}
-                 onClick={e => this.close(e)}/>}
-      </div>
+        // </div>
 
-
-
-    )
-  }
-
-  close(e) {
-    e.preventDefault()
-
-    if (this.props.onClose) {
-      this.props.onClose()
-    }
+  )
   }
 }
 

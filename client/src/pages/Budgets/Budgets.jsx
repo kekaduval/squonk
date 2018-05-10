@@ -109,9 +109,8 @@ class Budgets extends React.Component {
     console.log(users);
 
     if (!users.includes(this.state.usernameLogin)) {
-      alert(
-        "No user name found. Please check the spelling or sign up for an account"
-      );
+      this.setState({ modalMessage: "No user name found. Please check the spelling or sign up for an account" });
+      this.openModal();
     } else {
       if (!this.state.passwordLogin.length) {
         alert("Please Enter a password");
@@ -925,7 +924,7 @@ class Budgets extends React.Component {
         <Modal
           isOpen={this.state.isModalOpen}
           value={this.state}
-          onClose={() => this.closeModal()}
+          onClose={this.closeModals}
         />
         {this.state.showSquonkGreetingPage ? (
           <HomePage state={this.state} handleClick={this.showLoginPage} />

@@ -58,7 +58,7 @@ const EditBill = props => {
         </div>
 
         <div className="col-md-1 text-center">
-          <h6 className=''>Static Bill</h6>
+          <h6 className='static'>Static Bill</h6>
           <input type="checkbox"
             // name="billStatic"
             checked={props.isChecked}

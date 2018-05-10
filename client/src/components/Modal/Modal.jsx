@@ -1,7 +1,11 @@
 import React from 'react';
 import "./Modal.css"
 
+
 const Modal = props => {
+      if (this.props.isOpen === false){
+      return null
+      } else {
   return (
 
     // <div className="modal">
@@ -22,6 +26,10 @@ const Modal = props => {
         // </div>
 
   )
+  }
 }
 
 export default Modal;
+
+
+

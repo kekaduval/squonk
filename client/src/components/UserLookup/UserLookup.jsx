@@ -5,7 +5,9 @@ import "./UserLookup.css"
 
 const UserLookup = props => {
 
-  let allUsers = props.allUsers;
+
+
+  let allUsers = props.allUsers.filter(user => user.userName !== props.value.userName);
   let userToBeAdded = props.userToShareBudget;
 
   let usersNamesPopulating = allUsers.filter(i => i.userName.startsWith(userToBeAdded) && userToBeAdded.length>=1);
@@ -14,15 +16,6 @@ const UserLookup = props => {
   console.log("12345678", allUsers);
   console.log("its a log " + userToBeAdded);
   console.log("filtering", usersNamesPopulating);
-
-
-
-  // function filter(names, index, letter) {
-  //   var filteredNames = names.filter(function (word) {
-  //     return word.charAt(index) === letter;
-  //   });
-  //   return filteredNames;
-  // }
 
 
   return (
@@ -51,6 +44,7 @@ const UserLookup = props => {
                 key={name.userID}
                 user={name}
                 onClick={props.handleClick}
+                value={props.value}
               />
             )
           })

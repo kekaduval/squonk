@@ -10,7 +10,7 @@ const ShareUserDisplayItem = props => {
 
     <React.Fragment>
       <div className="col-md-2"><h5>{props.userInfo.user}</h5></div>
-      <div className="col-md-1"><DeleteUserButton onClick={props.onClick} user={props.userInfo} /></div>
+      <div className="col-md-1"><DeleteUserButton onClick={props.onClick} user={props.userInfo} value={props.value}/></div>
     
     </React.Fragment>
   )

@@ -82,7 +82,7 @@ export default {
 
   deleteBill: data => {
     console.log("bill being deleted ", data);
-    return axios.post("/api/bill/delete/", qs.stringify(data));
+    return axios.post("/api/bill/delete/", data);
   },
 
   deleteBudget: data => {

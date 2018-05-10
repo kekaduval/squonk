@@ -34,8 +34,10 @@ module.exports = {
         var billDeleteId = mongoose.Types.ObjectId(req.body.billId);      
         var budId = mongoose.Types.ObjectId(req.body.budgetId);
  
-            db.Bill.remove({ _id: billDeleteId})    
-            db.Budget.update({ _id: budId }, { $pull: { bills: billDeleteId } })
+            db.Bill.remove({ _id: billDeleteId})
+                .then((dbModel) => { 
+                    return db.Budget.update({ _id: budId }, { $pull: { bills: billDeleteId } })
+                })   
             .then(res.send("Done"))
             .catch(err => res.status(422).json(err));
     },

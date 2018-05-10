@@ -139,20 +139,6 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
 
-    userDelete: function (req, res){
-    console.log(req.body);
-        db.User.find({_id:req.body.userID})
-            .then((dbModel) => {
-                 console.log(dbModel[0].budgets)
-
-                const Bills = dbModel[0].budgets;
-                
-                return bills.map(budget => { db.Bill.remove({budgetId: budget})})                
-                })
-            .then((dbModel) =>res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-    }
-
-
 };
+
 

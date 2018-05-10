@@ -29,9 +29,6 @@ router.route("/sec/")
 router.route("/sec/:id")
 .get(userController.findSecQuestions)
 
-router.route("/delete/")
-.post(userController.userDelete)
-
 
 
 

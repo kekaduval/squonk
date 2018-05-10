@@ -330,7 +330,7 @@ class Budgets extends React.Component {
         billActualAmount: this.state.billActualAmount
           ? this.state.billActualAmount
           : 0.0,
-        billStatic: this.state.billStatic
+        billStatic: this.state.billStatic,
       };
       API.createBill(newBill)
         .then(res => {
@@ -371,7 +371,8 @@ class Budgets extends React.Component {
         billActualAmount: this.state.editBillActualAmount
           ? this.state.editBillActualAmount
           : this.state.editBillObject.billActualAmount,
-        billStatic: this.state.billStatic
+        billStatic: this.state.billStatic,
+
       }
     };
     API.updateBill(updateBill)
@@ -423,6 +424,7 @@ class Budgets extends React.Component {
   };
 
   deleteBill = (id, event) => {
+    alert(id)
     event.preventDefault();
     const data = {
       billId: id,
@@ -454,18 +456,40 @@ class Budgets extends React.Component {
     }
   };
 
-  deleteAccount = (id, event) => {
+  deleteAccount = (id, budget, event) => {
     event.preventDefault()
-    alert(id)
-    const userID = {
-      userID:id
-    };
 
-    API.deleteUser(userID)
-    .then(res => console.log(res)) 
-    .catch(err => console.log(err));
+    if (this.state.allSharedBudgetWithUsers.length > 0) {
+
+      this.state.allSharedBudgetWithUsers.forEach(user => {
+        this.deleteSharedUser(user.user, user.userID,budget, event)
+      })
+    }else{}
+
+ 
+
+  
+
+
 
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   //Function to add user to budget
   addUserToMyBudget = (name, id) => {
@@ -478,7 +502,10 @@ class Budgets extends React.Component {
 
     let isUserThere = this.state.usersThisBudgetIsSharedWith.find(
       i => i.user === name
+  
     );
+
+    
     console.log("hhhhhhh", isUserThere);
 
     if (isUserThere) {
@@ -520,19 +547,19 @@ class Budgets extends React.Component {
     }
   };
 
-  deleteSharedUser = (name, id, event) => {
+  deleteSharedUser = (name, id, budget, event) => {
     event.preventDefault();
-    alert("Hi " + name + " " + id);
+    alert("Hi " + name + " " + id + " " + budget);
     const userIDToRemove = id;
     const userSharingWithName = name;
-    const budgetIDToRemove = this.state.userChosenBudgetId;
+    const budgetIDToRemove = budget;
     const budgetName = this.state.userChosenBudgetName;
     const myID = this.state.userId;
     const myName = this.state.userName;
 
     const data = {
       user: userIDToRemove, //User Im sharing with ID to remove from the budgets array
-      budget: budgetIDToRemove, // budget ID I'm removing user from
+      budgetID: budgetIDToRemove, // budget ID I'm removing user from
       userName: userSharingWithName, //user I'm sharing with name
       myID: myID, //my ID
       body: {
@@ -1013,6 +1040,7 @@ class Budgets extends React.Component {
                 usersIShareWith={this.state.usersThisBudgetIsSharedWith}
                 usersWhoShareWithMe={this.state.allUsersSharingBudgetsWithMe}
                 handleClick={this.deleteSharedUser}
+                value={this.state}
               />
             ) : (
               false

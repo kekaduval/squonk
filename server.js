@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 
 
 
+app.use(express.static("client/build"));
 
 /*  PASSPORT SETUP  */
 
@@ -79,7 +80,9 @@ app.post('/',
 // })
 
 app.use(routes);
-app.use(express.static("client/build"));
+
+
+
 // Add routes, both API and view
 
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/squonk";

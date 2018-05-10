@@ -55,7 +55,11 @@ class Budgets extends React.Component {
     showSquonkGreetingPage: true,
     showLoginPage: false,
     showHomePage: false,
+<<<<<<< HEAD
     isModalOpen: true,
+=======
+    isModalOpen: false,
+>>>>>>> 02ba12ba684a850ec319d8100ed4a9b447428536
     showSignUpPage: false,
     showAccountSettings: false,
     modalMessage: "",

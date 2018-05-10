@@ -56,6 +56,10 @@ export default {
     return axios.post("/api/user/share", data);
   },
 
+  deleteUser: data => {
+    console.log("delete user id", data);
+    return axios.post("/api/user/delete/", data);
+  },
 
   getUserBudgets: id => {
     console.log("user id " +id )

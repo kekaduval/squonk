@@ -150,8 +150,8 @@ class Budgets extends React.Component {
 
   //loads on page load. Gets all the users budgets
   loadBudgets = user => {
-    const userId = user;
-    // const userId = this.state.userId
+    // const userId = user;
+    const userId = this.state.userId
     console.log("The user ID", userId);
 
     API.getUserBudgets(userId)
@@ -454,6 +454,19 @@ class Budgets extends React.Component {
     }
   };
 
+  deleteAccount = (id, event) => {
+    event.preventDefault()
+    alert(id)
+    const userID = {
+      userID:id
+    };
+
+    API.deleteUser(userID)
+    .then(res => console.log(res)) 
+    .catch(err => console.log(err));
+
+  }
+
   //Function to add user to budget
   addUserToMyBudget = (name, id) => {
     const userIDToAdd = id;
@@ -474,19 +487,20 @@ class Budgets extends React.Component {
     } else {
       const data = {
         user: userIDToAdd, //User Im sharing with ID to push in there budgets array
-        budget: budgetIDToAddTo, // budget ID I'm sharing to push in to users budget array
+        budgetID: budgetIDToAddTo, // budget ID I'm sharing to push in to users budget array
         userName: userSharingWithName, //user I'm sharing with name to push to my array
         myID: myID, //my ID
         body: {
           //Creating object for user I'm sharing with to see shared Budget and username, goes under shared user.[UsersSharingBudgetWithMe]
           owner: myName,
-          budget: budgetName
+          budgetName: budgetName,
+          budgetID: budgetIDToAddTo,
         },
         userBody: {
           //Creating object for user I'm sharing with to see shared Budget and username, goes under owner [SharingBudgetWith]
           user: userSharingWithName,
           userID: userIDToAdd,
-          budget: budgetName,
+          budgetName: budgetName,
           budgetID: budgetIDToAddTo,
           owner: myName
         }
@@ -522,15 +536,15 @@ class Budgets extends React.Component {
       userName: userSharingWithName, //user I'm sharing with name
       myID: myID, //my ID
       body: {
-        //Object that I'm removing from usersSharedBudgetWithMe, goes under shared user.[UsersSharingBudgetWithMe]
         owner: myName,
-        budget: budgetName
+        budgetName: budgetName,
+        budgetID: budgetIDToRemove
       },
       userBodyRemove: {
         //Object that I'm removing from sharingBudgetWith Array,  goes under owner [SharingBudgetWith]
         user: userSharingWithName,
         userID: userIDToRemove,
-        budget: budgetName,
+        budgetName: budgetName,
         budgetID: budgetIDToRemove,
         owner: myName
       }
@@ -1046,9 +1060,10 @@ class Budgets extends React.Component {
             handleChange={this.handleChange}
             handleClickSubmitPass={this.changePassword}
             handleClickSubmitSecQuestions={this.changeSecQuestions}
+            handleClickDeleteAcct={this.deleteAccount}
             value={this.state}
           />
-        ) : null}
+        ) : null}s
       </React.Fragment>
     );
   }

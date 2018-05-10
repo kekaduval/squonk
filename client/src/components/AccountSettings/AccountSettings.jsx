@@ -62,6 +62,8 @@ const AccountSettings = props => {
           {props.value.showAcctDelete ? (
             <AccountDelete
               onClick={props.handleClickCancelAcctDelete}
+              onClickDelete={props.handleClickDeleteAcct}
+              value={props.value}
             />
           ) : (null)}
 

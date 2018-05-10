@@ -112,7 +112,7 @@ module.exports = {
     shareBudget: function (req, res) {
         console.log(req.body);
 
-        db.User.findOneAndUpdate({ _id: req.body.user }, { $push: { budgets: req.body.budget }})
+        db.User.findOneAndUpdate({ _id: req.body.user }, { $push: { budgets: req.body.budgetID }})
             .then((dbModel) => {
                 return db.User.findOneAndUpdate({ _id: req.body.user }, { $push: { usersSharedBudgetWithMe: req.body.body } })})
             .then((dbUser) => {
@@ -127,7 +127,7 @@ module.exports = {
     removeSharedUser: function (req, res) {
         console.log(req.body);
 
-        db.User.findOneAndUpdate({ _id: req.body.user }, { $pull: { budgets: req.body.budget } })
+        db.User.findOneAndUpdate({ _id: req.body.user }, { $pull: { budgets: req.body.budgetID } })
             .then((dbModel) => {
                 return db.User.findOneAndUpdate({ _id: req.body.user }, { $pull: { usersSharedBudgetWithMe: req.body.body } })
             })
@@ -138,6 +138,21 @@ module.exports = {
             .then(dbUser => res.json(dbUser))
             .catch(err => res.status(422).json(err));
     },
+
+    userDelete: function (req, res){
+    console.log(req.body);
+        db.User.find({_id:req.body.userID})
+            .then((dbModel) => {
+                 console.log(dbModel[0].budgets)
+
+                const Bills = dbModel[0].budgets;
+                
+                return bills.map(budget => { db.Bill.remove({budgetId: budget})})                
+                })
+            .then((dbModel) =>res.json(dbModel))
+            .catch(err => res.status(422).json(err));
+    }
+
+
 };
 
- 

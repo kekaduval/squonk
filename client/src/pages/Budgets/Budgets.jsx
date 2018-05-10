@@ -109,9 +109,8 @@ class Budgets extends React.Component {
     console.log(users);
 
     if (!users.includes(this.state.usernameLogin)) {
-      alert(
-        "No user name found. Please check the spelling or sign up for an account"
-      );
+      this.setState({ modalMessage: "No user name found. Please check the spelling or sign up for an account" });
+      this.openModal();
     } else {
       if (!this.state.passwordLogin.length) {
         alert("Please Enter a password");
@@ -125,7 +124,7 @@ class Budgets extends React.Component {
             console.log("Logging In", res.data);
             if (res.data.userName === null && res.data.userId === null) {
               this.showLoginPage(event)
-              alert("Password is incorrect");              
+              alert("Password is incorrect");
             } else {
               this.setState({
                 userId: res.data.userId,
@@ -439,7 +438,7 @@ class Budgets extends React.Component {
     event.preventDefault();
     if (this.state.usersThisBudgetIsSharedWith.length > 0) {
       alert("This is a shared budget. Please remove all shared with users before deletion.")
-    } 
+    }
     else {
       const data = {
         user: this.state.userId,
@@ -641,7 +640,7 @@ class Budgets extends React.Component {
       };
 
       API.userUpdate(newPass)
-        .then(res => {          
+        .then(res => {
           this.setState({
            password: "",
            password2: ""
@@ -925,7 +924,7 @@ class Budgets extends React.Component {
         <Modal
           isOpen={this.state.isModalOpen}
           value={this.state}
-          onClose={() => this.closeModal()}
+          onClose={this.closeModals}
         />
         {this.state.showSquonkGreetingPage ? (
           <HomePage state={this.state} handleClick={this.showLoginPage} />

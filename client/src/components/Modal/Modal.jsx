@@ -3,7 +3,7 @@ import "./Modal.css"
 
 
 const Modal = props => {
-      if (this.props.isOpen === false){
+      if (props.isOpen === false){
       return null
       } else {
   return (

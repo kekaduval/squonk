@@ -43,7 +43,7 @@ const BudgetBar = props => {
       <div className='container marginBottom headerBG'>
         <div className="row bg">
           <div className="col-md-3">
-            <h2>Budgets:
+            <h3>Budgets:
           <span><select id="budgetDropDown" onChange={props.handleChange}>
                 {props.budgets.length ? (props.budgets.map(budget => {
                   return (
@@ -63,20 +63,20 @@ const BudgetBar = props => {
                   </button></span>
 
                 ) : (null)}
-              </span></h2>
+              </span></h3>
           </div>
 
 
           <div className="col-md-3">
-            <h2>Planned $:<span className='marginLeft' style={style}>{parseFloat(totalBillPlannedAmount).toFixed(2)}</span></h2>
+            <h4>Planned $:<span className='marginLeft' style={style}>{parseFloat(totalBillPlannedAmount).toFixed(2)}</span></h4>
           </div>
 
           <div className="col-md-3">
-            <h2>Actual $:<span className='marginLeft' style={style}>{parseFloat(allBillsActualAmountSum).toFixed(2)}</span></h2>
+            <h4>Actual $:<span className='marginLeft' style={style}>{parseFloat(allBillsActualAmountSum).toFixed(2)}</span></h4>
           </div>
 
           <div className="col-md-2">
-            <h2> $Left :<span className='marginLeft' style={style}>{parseFloat(leftAmount).toFixed(2)}</span></h2>
+            <h4> Left $ :<span className='marginLeft' style={style}>{parseFloat(leftAmount).toFixed(2)}</span></h4>
           </div>
         </div>
       </div>

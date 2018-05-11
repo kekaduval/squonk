@@ -15,15 +15,6 @@ const AccountSettings = props => {
 
   return (
     <React.Fragment>
-<<<<<<< HEAD
-=======
-    <style> {'body { background-color: #e3e7ed; }'}</style>
-
-      <Navbar
-      onClick={props.handleClickSignOut}/>
-
-      <div className='container marginTopAndBottom'>
->>>>>>> 2ca675a9d0e7a6d286fc6b072717c759dfa64259
 
       {props.value.showAccountSettings && props.value.loggedIN ? ( 
       <NavbarAcctSettings 

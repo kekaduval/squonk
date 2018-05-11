@@ -27,7 +27,7 @@ h2{
 }
 
 .marginBottom{
-    margin-bottom: 20px;
+    margin-bottom: 0px;
     margin-top: 50px;
 }
 .formButton {
@@ -47,7 +47,7 @@ h2{
 }
 
 /*  border stuff*/
-.formButton:before, .formButton:after {
+ .formButton:before, .formButton:after {
   content: '';
   display: block;
   position: absolute;
@@ -59,7 +59,7 @@ h2{
   transition: all 0.3s ease-in-out
 }
 /*  border stuff*/
-.formButton:before {
+ .formButton:before {
   top: -6px;
   left: -6px;
   border-width: 2px 0 0 2px;
@@ -73,7 +73,6 @@ h2{
   border-width: 0 2px 2px 0;
 }
 
-
 .formButton:hover:before, .formButton:hover:after {
   width: calc(100% + 12px);
   height: calc(100% + 12px);
@@ -81,7 +80,7 @@ h2{
   opacity: 0;
 }
 
-.formButton:hover {
+ .formButton:hover {
   color: #353535;
   background-color: #fff;
   border-color: #fff

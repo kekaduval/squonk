@@ -999,12 +999,19 @@ class Budgets extends React.Component {
     console.log("USER BUDGETS", this.state.userBudgets);
 
     return (
+
+
       <React.Fragment>
+
+
+{this.state.isModalOpen ? (
         <Modal
-          isOpen={this.state.isModalOpen}
+          
           value={this.state}
-          onClose={this.closeModals}
-        />
+          onClose={this.closeModal}
+        />):(null)}
+
+
         {this.state.showSquonkGreetingPage ? (
           <HomePage state={this.state} handleClick={this.showLoginPage} />
         ) : null}
@@ -1123,6 +1130,7 @@ class Budgets extends React.Component {
             handleClickSubmitPass={this.changePassword}
             handleClickSubmitSecQuestions={this.changeSecQuestions}
             handleClickDeleteAcct={this.deleteAccount}
+            handleClickSignOut={this.signOut}
             value={this.state}
           />
         ) : null}s

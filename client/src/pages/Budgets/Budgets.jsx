@@ -236,11 +236,11 @@ class Budgets extends React.Component {
           budgetNameList: userBudgetNames
         });
           this.getThisBudgetSharedUsers();
+          this.userBudgetBillsID();
 
       })
       .catch(err => console.log(err));
   };
-
 
   // Function that grabs all the users shared budgets
   getThisBudgetSharedUsers = () => {
@@ -445,7 +445,7 @@ class Budgets extends React.Component {
     };
     API.deleteBill(data)
       .then(res => console.log(res))
-      .then(this.loadBudgets())
+      .then(this.reloadUserInfo())
       .catch(err => console.log(err));
   };
 

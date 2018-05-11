@@ -6,28 +6,10 @@ const HomePage = props => {
     return (
 
         <div className=''>
-            <style> {'body { background-color: #F09819; }'}</style>
+            <style> {'body { background-color: #B4CFEC; }'}</style>
 
         <div className="container">
             <div className="containerItem landing-page-container">
-                <div className="open">
-                    <span className="cls"></span>
-                    <span>
-                        <ul className="sub-menu ">
-                            <li>
-                                <a href="#about" title="about"> About Us</a>
-                            </li>
-                            <li>
-                                <a href="#index.html" title="loginSignup"> Log in/Sign up</a>
-                            </li>
-
-                            <li>
-                                <a href="#settings" title="settings">Settings</a>
-                            </li>
-                        </ul>
-                    </span>
-                    <span className="cls"></span>
-                </div>
 
 
                 <div className="contentWrapper">

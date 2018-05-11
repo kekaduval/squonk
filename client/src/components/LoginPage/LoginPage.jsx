@@ -3,44 +3,56 @@ import './LoginPage.css'
 
 const LoginPage = props => {
     return <div className="">
-      <style> {'body { background-color: BLUE; }'}</style>
+      <style> {'body { background-color: #e3e7ed; }'}</style>
 
-        <div className="formContainer">
-          <div className="formTitle formTitleLogin">NEW LOGIN</div>
-          <form className="form formLogin">
-            <div className="formInputContainer">
-              <input className="formInput" name="usernameLogin" type="text" onChange={props.handleChange} value={props.value.usernameLogin} placeholder="USERNAME" />
-            </div>
+        <div className="container">
+        <div className="row">
+        <div className="col-md-6 col-sm-6 col-xs-6 col-md-offset-3">
+      			<div className="iosBlurBg">
+      				<div className="whiteBg"></div>
+      			</div>
+            <div className="bottomEnter"></div>
+      			<div className="bottomBlurBg"></div>
+            <div className="loginForm">
+      				<div className="title">
+      					<p> Squonk<br/> <span>Login</span> </p>
 
-            <div className="formInputContainer">
-              <div className="formInputWrapper">
-                <input className="formInput" name="passwordLogin" type="text" onChange={props.handleChange} value={props.value.passwordLogin} placeholder=" ENTER PASSWORD" />
+      					<hr className="short"/>
+      				</div>
+
+            <form>
+            <div className="col-3">
+                <input className="effect-2" name="usernameLogin" type="text" onChange={props.handleChange} value={props.value.usernameLogin} placeholder="USERNAME" />
+                  <span className="focus-border"/>
+
+                  <input className="effect-2" name="passwordLogin" type="text" onChange={props.handleChange} value={props.value.passwordLogin} placeholder="ENTER PASSWORD" />
+                  <span className="focus-border"/>
+
+                  <div class="forget">
+    			        	<button class="btn btn-default btn-sm">FORGOT PASSWORD?</button>
+    			        </div>
               </div>
+
+            </form>
             </div>
 
-            <div className="formInputContainer">
-              <button className="formButton" onClick={event => props.handleClick(event)}>
-                Login
+
+              <button className="enterButton" onClick={event => props.handleClick(event)}>
+              {" "}
+                 LOGIN
               </button>
+
+
+            <button className="enterButton1" onClick={event => props.handleClickSignUp(event)}>
+              {" "}
+              SIGN UP
+            </button>
+
             </div>
-            <div className="formInputContainer">
-              <button className="formButton"> Forgot Password </button>
             </div>
-            <div className="formInputContainer">
-              <div className="or">
-                <h2> Or </h2>
-              </div>
-              <button className="formButton" onClick={event => props.handleClickSignUp(event)}>
-                {" "}
-                Sign up
-              </button>
             </div>
-          </form>
-        </div>
-      </div>;
+
+      </div> ;
 }
 
 export default LoginPage;
-
-
-

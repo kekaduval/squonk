@@ -2,33 +2,45 @@ import React from 'react';
 import './SignUpPage.css'
 
 const LoginPage = props => {
-    return <div className="about">
-        <div className="formContainer">
-          <div className="formTitle formTitleLogin">Sign UP</div>
-          <form className="form formLogin">
-            <div className="formInputContainer">
-            <input className="formInput" name="usernameCreate" onChange={props.usernameCheck} value={props.value.usernameCreate} type="text" placeholder="USERNAME" />
+    return <div className="">
+    <style> {'body { background-color: #e3e7ed; }'}</style>
 
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6 col-sm-6 col-xs-6 col-md-offset-3">
+            <div className="iosBlurBg">
+        		<div className="whiteBg"></div>
+            	</div>
+              <div className="bottomEnter"></div>
+              <div className="bottomBlurBg"></div>
+              <div className="loginForm">
+                <div className="title1">
+                  <p> Squonk<br/> <span>Sign up</span> </p>
+
+                  <hr className="short"/>
+                </div>
+            <form>
+              <div className="col-3">
+            <input className="effect-2" name="usernameCreate" onChange={props.usernameCheck} value={props.value.usernameCreate} type="text" placeholder="USERNAME" />
+            <span className="focus-border"/>
             {props.value.usernameCreateOK ? (
               <h4>This username is already taken</h4>
             ):(null)}
             </div>
 
-            <div className="formInputContainer">
-              <div className="formInputWrapper">
-                <input className="formInput" name="password" onChange={props.handleChange} value={props.value.password} type="password" placeholder=" ENTER PASSWORD" />
-              </div>
+              <div className="col-3">
+                <input className="effect-2" name="password" onChange={props.handleChange} value={props.value.password} type="password" placeholder=" ENTER PASSWORD" />
+
+            </div>
+
+              <div className="col-3">
+                <input className="effect-2" name="password2" onChange={props.handleChange} value={props.value.password2} type="password" placeholder="CONFIRM PASSWORD" />
+
             </div>
 
             <div className="formInputContainer">
               <div className="formInputWrapper">
-                <input className="formInput" name="password2" onChange={props.handleChange} value={props.value.password2} type="password" placeholder="CONFIRM PASSWORD" />
-              </div>
-            </div>
-
-            <div className="formInputContainer">
-              <div className="formInputWrapper">
-              <select onChange={props.handleChange} name="secQuestion" >
+              <select className="select1" onChange={props.handleChange} name="secQuestion" >
                 <option >
                   PLEASE CHOOSE A SECURITY QUESTION.
                   </option>
@@ -48,15 +60,16 @@ const LoginPage = props => {
               </div>
             </div>
 
-            <div className="formInputContainer">
-              <div className="formInputWrapper">
-                <input className="formInput" name="secQuestionAnswer" onChange={props.handleChange} value={props.value.secQuestionAnswer} type="text" placeholder="SECURITY QUESTION ANSWER" />
-              </div>
+
+              <div className="col-3">
+                <input className="effect-2" name="secQuestionAnswer" onChange={props.handleChange} value={props.value.secQuestionAnswer} type="text" placeholder="SECURITY QUESTION ANSWER" />
+                  <span className="focus-border"/>
+
             </div>
 
             <div className="formInputContainer">
               <div className="formInputWrapper">
-              <select onChange={props.handleChange} name="secQuestion2" >
+              <select className="select1" onChange={props.handleChange} name="secQuestion2" >
                 <option >
                   PLEASE CHOOSE A SECURITY QUESTION.
                   </option>
@@ -76,19 +89,21 @@ const LoginPage = props => {
               </div>
             </div>
 
-            <div className="formInputContainer">
-              <div className="formInputWrapper">
-                <input className="formInput" name="secQuestion2Answer" onChange={props.handleChange} value={props.value.secQuestion2Answer} type="text" placeholder="SECURITY QUESTION 2 ANSWER" />
+              <div className="col-3">
+                <input className="effect-2" name="secQuestion2Answer" onChange={props.handleChange} value={props.value.secQuestion2Answer} type="text" placeholder="SECURITY QUESTION 2 ANSWER" />
               </div>
-            </div>
 
-            <div className="formInputContainer">
               <button className="formButton" onClick={(event) => props.handleClick(event)}>
                 Submit
               </button>
               <button className="formButton"> Cancel </button>
-            </div>
+
+
           </form>
+
+        </div>
+        </div>
+        </div>
         </div>
       </div>;
 }

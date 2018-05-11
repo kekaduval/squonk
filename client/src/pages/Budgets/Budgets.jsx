@@ -1,19 +1,19 @@
-import React from 'react';
-import Navbar from '../../components/Navbar';
-import AddBudget from '../../components/AddBudget';
+import React from "react";
+import Navbar from "../../components/Navbar";
+import AddBudget from "../../components/AddBudget";
 import API from "../../utils/API";
-import BudgetBar from "../../components/BudgetBar"
+import BudgetBar from "../../components/BudgetBar";
 import BillsDisplay from "../../components/BillsDisplay";
-import UserLookup from "../../components/UserLookup"
-import ShareUserDisplay from "../../components/ShareUserDisplay"
-import NoBudgetsNoBillsDisplay from "../../components/NoBudgetsNoBillsDisplay"
-import HomePage from '../../components/HomePage'
-import LoginPage from '../../components/LoginPage'
-import Modal from "../../components/Modal"
-import SignUpPage from "../../components/SignUpPage"
-import LoginButton from "../../components/LoginButton"
-import AccountSettings from "../../components/AccountSettings"
-
+import UserLookup from "../../components/UserLookup";
+import ShareUserDisplay from "../../components/ShareUserDisplay";
+import NoBudgetsNoBillsDisplay from "../../components/NoBudgetsNoBillsDisplay";
+import HomePage from "../../components/HomePage";
+import LoginPage from "../../components/LoginPage";
+import Modal from "../../components/Modal";
+import SignUpPage from "../../components/SignUpPage";
+import LoginButton from "../../components/LoginButton";
+import ForgotPassword from "../../components/ForgotPassword"
+import AccountSettings from "../../components/AccountSettings";
 
 class Budgets extends React.Component {
   state = {
@@ -55,6 +55,7 @@ class Budgets extends React.Component {
     showSquonkGreetingPage: true,
     showLoginPage: false,
     showHomePage: false,
+    showForgotPassword: false,
     isModalOpen: false,
     showSignUpPage: false,
     showAccountSettings: false,
@@ -72,7 +73,11 @@ class Budgets extends React.Component {
     showSecQues: false,
     showPasswordChange: false,
     showAcctDelete: false,
-    secQuestionsObject: []
+    secQuestionsObject: [],
+    showUserNameForgotPassword: false,
+    showSecQuesForgotPassword: false,
+    showNewPasswordForgotPassword: false,
+    userNameForgotPassword: ""
   };
 
   componentDidMount() {
@@ -483,7 +488,7 @@ class Budgets extends React.Component {
       });
     }
 
-    this.removeUser()
+    this.removeUser();
   };
 
   //deletes all bill associated with user
@@ -512,22 +517,22 @@ class Budgets extends React.Component {
 
   //deletes the user object
   removeUser = () => {
-    const user = {user: this.state.userId}
+    const user = { user: this.state.userId };
     API.deleteMe(user)
       .then(res => {
-        alert("GoodBye")
-     this.setState({
-       showSquonkGreetingPage: true,
-       showLoginPage: false,
-       showSignUpPage: false,
-       showHomePage: false,
-       loggedIN: false,
-       userId: "",
-       userName: ""
-     })  
+        alert("GoodBye");
+        this.setState({
+          showSquonkGreetingPage: true,
+          showLoginPage: false,
+          showSignUpPage: false,
+          showHomePage: false,
+          loggedIN: false,
+          userId: "",
+          userName: ""
+        });
       })
       .catch(err => console.log(err));
-  }
+  };
 
   //Function to add user to budget
   addUserToMyBudget = (name, id) => {
@@ -781,6 +786,7 @@ class Budgets extends React.Component {
       showSquonkGreetingPage: false,
       showLoginPage: true,
       showSignUpPage: false,
+      showForgotPassword: false,
       showHomePage: false
     });
   };
@@ -791,7 +797,22 @@ class Budgets extends React.Component {
       showSquonkGreetingPage: false,
       showLoginPage: false,
       showSignUpPage: true,
+      showForgotPassword: false,
       showHomePage: false
+    });
+  };
+
+  showForgotPassword = event => {
+    event.preventDefault();
+    this.setState({
+      showSquonkGreetingPage: false,
+      showLoginPage: false,
+      showSignUpPage: false,
+      showForgotPassword: true,
+      showHomePage: false,
+      showUserNameForgotPassword: true,
+      showSecQuesForgotPassword: false,
+      showNewPasswordForgotPassword: false
     });
   };
 
@@ -801,6 +822,7 @@ class Budgets extends React.Component {
       showSquonkGreetingPage: false,
       showLoginPage: false,
       showSignUpPage: false,
+      showForgotPassword: false,
       showHomePage: true
     });
   };
@@ -911,6 +933,21 @@ class Budgets extends React.Component {
     });
   };
 
+// enterUserNameGetQuestions = (event) => {
+//   alert("hye")
+//     const name = this.state.userNameForgotPassword;
+//     API.getUserSecurityQuestions(name)
+//       .then(res => {
+//         console.log("New res", res);
+        
+//         this.setState({
+//           secQuestionsObject: res.data
+//         });
+//       })
+//       .catch(err => console.log(err));
+//   };
+
+
   //Checking to see if the username is already in the database
   userNameCheck = event => {
     let userToBe = this.state.allUsers.map(user => user.userName);
@@ -999,19 +1036,10 @@ class Budgets extends React.Component {
     console.log("USER BUDGETS", this.state.userBudgets);
 
     return (
-
-
       <React.Fragment>
-
-
-{this.state.isModalOpen ? (
-        <Modal
-          
-          value={this.state}
-          onClose={this.closeModal}
-        />):(null)}
-
-
+        {this.state.isModalOpen ? (
+          <Modal value={this.state} onClose={this.closeModal} />
+        ) : null}
         {this.state.showSquonkGreetingPage ? (
           <HomePage state={this.state} handleClick={this.showLoginPage} />
         ) : null}
@@ -1020,6 +1048,7 @@ class Budgets extends React.Component {
             handleClick={this.userLogin}
             handleClickSignUp={this.showSignUpPage}
             handleChange={this.handleChange}
+            handleClickForgotPassword={this.showForgotPassword}
             value={this.state}
           />
         ) : null}
@@ -1031,6 +1060,14 @@ class Budgets extends React.Component {
             onChange={this.getSignUpDropDownValue}
             handleClickSubmit={this.createUser}
             usernameCheck={this.userNameCheck}
+          />
+        ) : null}
+        {this.state.showForgotPassword ? (
+          <ForgotPassword
+            handleChange={this.handleChange}
+            value={this.state}
+            handleClickSubmit={this.createUser}
+            handleUserNameSubmit={this.enterUserNameGetQuestions}
           />
         ) : null}
         {this.state.showHomePage && this.state.loggedIN ? (

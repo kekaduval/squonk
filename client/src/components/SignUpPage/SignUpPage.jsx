@@ -1,7 +1,7 @@
 import React from 'react';
 import './SignUpPage.css'
 
-const LoginPage = props => {
+const SignUpPage = props => {
     return <div className="">
     <style> {'body { background-color: #e3e7ed; }'}</style>
 
@@ -108,4 +108,4 @@ const LoginPage = props => {
       </div>;
 }
 
-export default LoginPage;
+export default SignUpPage;

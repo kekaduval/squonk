@@ -15,7 +15,9 @@ const AccountSettings = props => {
 
   return (
     <React.Fragment>
-      <Navbar />
+      <Navbar 
+      onClick={props.handleClickSignOut}/>
+
       <div className='container marginTopAndBottom'>
 
 

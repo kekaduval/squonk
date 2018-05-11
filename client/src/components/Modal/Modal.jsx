@@ -1,35 +1,26 @@
-import React from 'react';
-import "./Modal.css"
+import React from "react";
+import "./Modal.css";
+import { Button, Modal } from "react-bootstrap";
 
+const Modal1 = props => {
+  return <div className="static-modal">
+      <Modal.Dialog>
+        <Modal.Header>
+          <Modal.Title>SQUONK</Modal.Title>
+        </Modal.Header>
 
-const Modal = props => {
-      if (props.isOpen === false){
-      return null
-      } else {
-  return (
+        <Modal.Body>
+          <h5>{props.value.modalMessage}</h5>
+        </Modal.Body>
 
-    // <div className="modal">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title">Modal title</h5>
-            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div className="modal-body">
-            <p>{props.value.modalMessage}</p>
-          </div>
-          <div className="modal-footer">
-            <button type="button" className="btn btn-secondary" data-dismiss="modal" onClose={props.onClose}>Close</button>
-          </div>
-        </div>
-        // </div>
+        <Modal.Footer>
+          <Button onClick={props.onClose}>Close</Button>
+        </Modal.Footer>
+      </Modal.Dialog>
+    </div>;
+};
 
-  )
-  }
-}
-
-export default Modal;
+export default Modal1;
 
 
 

@@ -150,8 +150,8 @@ class Budgets extends React.Component {
 
   //loads on page load. Gets all the users budgets
   loadBudgets = user => {
-    const userId = user;
-    // const userId = this.state.userId
+    // const userId = user;
+    const userId = this.state.userId
     console.log("The user ID", userId);
 
     API.getUserBudgets(userId)

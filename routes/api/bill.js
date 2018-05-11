@@ -18,6 +18,9 @@ router.route("/:id")
 router.route("/delete/")
 .post(billController.remove);
 
+router.route("/deleteAll/"
+).post(billController.removeAll);
+
 
 
 

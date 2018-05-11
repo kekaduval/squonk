@@ -109,7 +109,10 @@ class Budgets extends React.Component {
     console.log(users);
 
     if (!users.includes(this.state.usernameLogin)) {
-      this.setState({ modalMessage: "No user name found. Please check the spelling or sign up for an account" });
+      this.setState({
+        modalMessage:
+          "No user name found. Please check the spelling or sign up for an account"
+      });
       this.openModal();
     } else {
       if (!this.state.passwordLogin.length) {
@@ -123,7 +126,7 @@ class Budgets extends React.Component {
           .then(res => {
             console.log("Logging In", res.data);
             if (res.data.userName === null && res.data.userId === null) {
-              this.showLoginPage(event)
+              this.showLoginPage(event);
               alert("Password is incorrect");
             } else {
               this.setState({
@@ -132,7 +135,7 @@ class Budgets extends React.Component {
                 loggedIN: true
               });
               let userIn = res.data.userId;
-              this.showHomePage(event)
+              this.showHomePage(event);
 
               if (this.state.loggedIN) {
                 this.loadBudgets(userIn);
@@ -151,7 +154,7 @@ class Budgets extends React.Component {
   //loads on page load. Gets all the users budgets
   loadBudgets = user => {
     // const userId = user;
-    const userId = this.state.userId
+    const userId = this.state.userId;
     console.log("The user ID", userId);
 
     API.getUserBudgets(userId)
@@ -330,7 +333,7 @@ class Budgets extends React.Component {
         billActualAmount: this.state.billActualAmount
           ? this.state.billActualAmount
           : 0.0,
-        billStatic: this.state.billStatic,
+        billStatic: this.state.billStatic
       };
       API.createBill(newBill)
         .then(res => {
@@ -371,8 +374,7 @@ class Budgets extends React.Component {
         billActualAmount: this.state.editBillActualAmount
           ? this.state.editBillActualAmount
           : this.state.editBillObject.billActualAmount,
-        billStatic: this.state.billStatic,
-
+        billStatic: this.state.billStatic
       }
     };
     API.updateBill(updateBill)
@@ -424,7 +426,7 @@ class Budgets extends React.Component {
   };
 
   deleteBill = (id, event) => {
-    alert(id)
+    alert(id);
     event.preventDefault();
     const data = {
       billId: id,
@@ -439,57 +441,93 @@ class Budgets extends React.Component {
   deleteBudget = (id, event) => {
     event.preventDefault();
     if (this.state.usersThisBudgetIsSharedWith.length > 0) {
-      alert("This is a shared budget. Please remove all shared with users before deletion.")
-    }
-    else {
+      alert(
+        "This is a shared budget. Please remove all shared with users before deletion."
+      );
+    } else {
       const data = {
         user: this.state.userId,
-        budget: id,
+        budget: id
         // bills: [this.state.userChosenBudgetBills]
       };
       API.deleteBudget(data)
         .then(res => {
-          alert(res.data)
+          alert(res.data);
           this.loadBudgets();
         })
         .catch(err => console.log(err));
     }
   };
 
+  // deletes user account and calls three functions 1. delete all bills 2. delete all budgets 3. remove user
   deleteAccount = (id, budget, event) => {
-    event.preventDefault()
+    event.preventDefault();
 
     if (this.state.allSharedBudgetWithUsers.length > 0) {
-
       this.state.allSharedBudgetWithUsers.forEach(user => {
-        this.deleteSharedUser(user.user, user.userID,budget, event)
+        this.deleteSharedUser(user.user, user.userID, user.budgetID, event);
+      });
+    }
+
+    if (this.state.userBudgets.length > 0) {
+      let budgets = this.state.userBudgets;
+      budgets.forEach(bud => {
+        this.deleteAllBills(bud._id, event);
+      });
+    }
+
+    if (this.state.userBudgets.length > 0) {
+      let budgets = this.state.userBudgets;
+      budgets.forEach(bud => {
+        this.deleteAllBudgets(bud._id, event);
+      });
+    }
+
+    this.removeUser()
+  };
+
+  //deletes all bill associated with user
+  deleteAllBills = (budget, event) => {
+    const data = {
+      budgetID: budget
+    };
+    API.deleteAllBills(data)
+      .then(res => {
+        console.log(res);
       })
-    }else{}
+      .catch(err => console.log(err));
+  };
 
- 
+  //deletes all budgets associated with user
+  deleteAllBudgets = (budget, event) => {
+    const data = {
+      budgetID: budget
+    };
+    API.deleteAllBudgets(data)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.log(err));
+  };
 
-  
-
-
-
+  //deletes the user object
+  removeUser = () => {
+    const user = {user: this.state.userId}
+    API.deleteMe(user)
+      .then(res => {
+        alert("GoodBye")
+     this.setState({
+       showSquonkGreetingPage: true,
+       showLoginPage: false,
+       showSignUpPage: false,
+       showHomePage: false,
+       loggedIN: false,
+       userId: "",
+       userName: ""
+     })  
+      })
+      .catch(err => console.log(err));
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   //Function to add user to budget
   addUserToMyBudget = (name, id) => {
@@ -502,10 +540,8 @@ class Budgets extends React.Component {
 
     let isUserThere = this.state.usersThisBudgetIsSharedWith.find(
       i => i.user === name
-  
     );
 
-    
     console.log("hhhhhhh", isUserThere);
 
     if (isUserThere) {
@@ -521,7 +557,7 @@ class Budgets extends React.Component {
           //Creating object for user I'm sharing with to see shared Budget and username, goes under shared user.[UsersSharingBudgetWithMe]
           owner: myName,
           budgetName: budgetName,
-          budgetID: budgetIDToAddTo,
+          budgetID: budgetIDToAddTo
         },
         userBody: {
           //Creating object for user I'm sharing with to see shared Budget and username, goes under owner [SharingBudgetWith]
@@ -683,9 +719,9 @@ class Budgets extends React.Component {
       API.userUpdate(newPass)
         .then(res => {
           this.setState({
-           password: "",
-           password2: ""
-          })
+            password: "",
+            password2: ""
+          });
           alert(res.data);
         })
         .then(this.signOut(event))
@@ -695,37 +731,39 @@ class Budgets extends React.Component {
     }
   };
 
-
-
-
   changeSecQuestions = event => {
     event.preventDefault();
 
-      const newSecQuestions = {
-        id: this.state.userId,
-        secQuestion1: this.state.secQuestion ? this.state.secQuestion : this.state.secQuestionsObject.secQuestion1,
-        secQuestion1Answer: this.state.secQuestionAnswer ? this.state.secQuestionAnswer : this.state.secQuestionsObject.secQuestion1Answer,
-        secQuestion2: this.state.secQuestion2 ? this.state.secQuestion2 : this.state.secQuestionsObject.secQuestion2,
-        secQuestion2Answer: this.state.secQuestion2Answer ? this.state.secQuestion2Answer : this.state.secQuestionsObject.secQuestion2Answer
-      };
-      API.userUpdateSec(newSecQuestions)
-        .then(res => {
-          this.setState({
-            secQuestion: "",
-            secQuestionAnswer: "",
-            secQuestion2: "",
-            secQuestion2Answer: "",
-            secQuestionsObject : [],
-
-          })
-          alert(res.data);
-          this.cancelShowSecQues()
-        })
-        // .then(this.signOut(event))
-        .catch(err => console.log(err));
+    const newSecQuestions = {
+      id: this.state.userId,
+      secQuestion1: this.state.secQuestion
+        ? this.state.secQuestion
+        : this.state.secQuestionsObject.secQuestion1,
+      secQuestion1Answer: this.state.secQuestionAnswer
+        ? this.state.secQuestionAnswer
+        : this.state.secQuestionsObject.secQuestion1Answer,
+      secQuestion2: this.state.secQuestion2
+        ? this.state.secQuestion2
+        : this.state.secQuestionsObject.secQuestion2,
+      secQuestion2Answer: this.state.secQuestion2Answer
+        ? this.state.secQuestion2Answer
+        : this.state.secQuestionsObject.secQuestion2Answer
+    };
+    API.userUpdateSec(newSecQuestions)
+      .then(res => {
+        this.setState({
+          secQuestion: "",
+          secQuestionAnswer: "",
+          secQuestion2: "",
+          secQuestion2Answer: "",
+          secQuestionsObject: []
+        });
+        alert(res.data);
+        this.cancelShowSecQues();
+      })
+      // .then(this.signOut(event))
+      .catch(err => console.log(err));
   };
-
-
 
   showSharedUsers = () => {
     this.setState({
@@ -824,17 +862,17 @@ class Budgets extends React.Component {
   };
 
   showSecQues = () => {
-    const id = this.state.userId
+    const id = this.state.userId;
     API.getUserSecurityQuestions(id)
-    .then(res => {
-      this.setState({
-        showSecQues: true,
-        showPasswordChange: false,
-        showAcctDelete: false,
-        secQuestionsObject: res.data
-      });
-    })
-    .catch(err => console.log(err));
+      .then(res => {
+        this.setState({
+          showSecQues: true,
+          showPasswordChange: false,
+          showAcctDelete: false,
+          secQuestionsObject: res.data
+        });
+      })
+      .catch(err => console.log(err));
   };
 
   showPasswordChange = () => {
@@ -970,7 +1008,6 @@ class Budgets extends React.Component {
         {this.state.showSquonkGreetingPage ? (
           <HomePage state={this.state} handleClick={this.showLoginPage} />
         ) : null}
-
         {this.state.showLoginPage ? (
           <LoginPage
             handleClick={this.userLogin}
@@ -979,7 +1016,6 @@ class Budgets extends React.Component {
             value={this.state}
           />
         ) : null}
-
         {this.state.showSignUpPage ? (
           <SignUpPage
             handleClick={this.createUser}
@@ -990,7 +1026,6 @@ class Budgets extends React.Component {
             usernameCheck={this.userNameCheck}
           />
         ) : null}
-
         {this.state.showHomePage && this.state.loggedIN ? (
           <React.Fragment>
             <Navbar
@@ -1075,7 +1110,6 @@ class Budgets extends React.Component {
         //         handleClick={this.showLoginPage} />
         // </div>
         }
-
         {this.state.showAccountSettings && this.state.loggedIN ? (
           <AccountSettings
             handleClickCancel={this.cancelShowAcctSettings}

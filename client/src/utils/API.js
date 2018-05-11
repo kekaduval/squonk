@@ -5,7 +5,6 @@ var qs = require('qs');
 //budgetRoute -- /api/budget
 //billRoute -- /api/bill
 export default {
-
   //so far all of these routes below this line function
   createUser: data => {
     console.log("creating new user", data);
@@ -35,35 +34,37 @@ export default {
   },
 
   getUserLogin: data => {
-    console.log("user cred", data)
+    console.log("user cred", data);
     return axios.post("/api/user/cred", data);
   },
 
   userUpdate: data => {
-    console.log("user updates", data)
+    console.log("user updates", data);
     return axios.put("/api/user/upd", data);
   },
-  
 
   userUpdateSec: data => {
-    console.log("user updates", data)
+    console.log("user updates", data);
     return axios.put("/api/user/sec", data);
   },
-
 
   removeUserFromShareBudget: data => {
     console.log("user remove from budget", data);
     return axios.post("/api/user/share", data);
   },
 
+  deleteUser: data => {
+    console.log("delete user id", data);
+    return axios.post("/api/user/delete/", data);
+  },
 
   getUserBudgets: id => {
-    console.log("user id " +id )
+    console.log("user id " + id);
     return axios.get("/api/user/" + id);
   },
 
   getUserSecurityQuestions: id => {
-    console.log("user id " + id)
+    console.log("user id " + id);
     return axios.get("/api/user/sec/" + id);
   },
 
@@ -72,13 +73,28 @@ export default {
     return axios.get("/api/budget/" + id);
   },
   getBudgetObjects: id => {
-    console.log("budget id capturing " + id)
+    console.log("budget id capturing " + id);
     return axios.get("/api/budget/" + id);
   },
 
   deleteBill: data => {
     console.log("bill being deleted ", data);
-    return axios.post("/api/bill/delete/", qs.stringify(data));
+    return axios.post("/api/bill/delete/", data);
+  },
+
+  deleteMe: data => {
+    console.log("User being deleted ", data);
+    return axios.post("/api/user/delete/", data);
+  },
+
+  deleteAllBills: data => {
+    console.log("bill being deleted ", data);
+    return axios.post("/api/bill/deleteAll/", data);
+  },
+
+  deleteAllBudgets: data => {
+    console.log("budget being deleted ", data);
+    return axios.post("/api/budget/deleteAll/", data);
   },
 
   deleteBudget: data => {

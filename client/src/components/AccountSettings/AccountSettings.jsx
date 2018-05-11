@@ -15,7 +15,9 @@ const AccountSettings = props => {
 
   return (
     <React.Fragment>
-      <Navbar />
+      <Navbar 
+      onClick={props.handleClickSignOut}/>
+
       <div className='container marginTopAndBottom'>
 
 
@@ -62,6 +64,8 @@ const AccountSettings = props => {
           {props.value.showAcctDelete ? (
             <AccountDelete
               onClick={props.handleClickCancelAcctDelete}
+              onClickDelete={props.handleClickDeleteAcct}
+              value={props.value}
             />
           ) : (null)}
 

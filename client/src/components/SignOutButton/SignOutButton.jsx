@@ -5,7 +5,7 @@ const SignOutButton = props => {
 
   return (
     <div className='container'>
-      <button className="text-center " title="Sign Out" onClick={(event) =>props.onClick(event)}>Sign <br/> Out</button>
+      <button className="text-center " title="Sign Out" onClick={(event)=>props.onClick(event)}>Sign <br/> Out</button>
     </div>
   )
 }

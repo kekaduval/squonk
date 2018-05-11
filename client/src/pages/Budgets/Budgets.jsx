@@ -1301,7 +1301,7 @@ class Budgets extends React.Component {
             handleClickSignOut={this.signOut}
             value={this.state}
           />
-        ) : null}s
+        ) : null}
       </React.Fragment>
     );
   }

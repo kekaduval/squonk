@@ -22,7 +22,8 @@ const ShareUserDisplay = props => {
                 <ShareUserDisplayItem 
                   key={user.userID}
                   userInfo={user}
-                  onClick={props.handleClick}           
+                  onClick={props.handleClick}   
+                  value={props.value}        
                 />
               )
             })}

@@ -18,7 +18,11 @@ router.route("/:id")
 // .post(budgetController.createBudget)
 
 router.route("/delete/")
-.post(budgetController.removeBudget);
+.post(budgetController.removeBudget)
+
+router.route("/deleteAll/")
+.post(budgetController.remove)
+
 
 
     

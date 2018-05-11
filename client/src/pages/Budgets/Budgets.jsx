@@ -833,7 +833,9 @@ class Budgets extends React.Component {
       showLoginPage: false,
       showSignUpPage: false,
       showForgotPassword: false,
-      showHomePage: true
+      showHomePage: true,
+      showAccountSettings: false
+
     });
   };
 
@@ -1305,6 +1307,8 @@ class Budgets extends React.Component {
             handleClickSubmitSecQuestions={this.changeSecQuestions}
             handleClickDeleteAcct={this.deleteAccount}
             handleClickSignOut={this.signOut}
+            handleClickAcct={this.showAcctSettings}
+            handleClickHomePage={this.showHomePage}
             value={this.state}
           />
         ) : null}

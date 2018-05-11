@@ -1,6 +1,6 @@
 import React from 'react';
 import "./AccountSettings.css"
-import Navbar from "../Navbar"
+import NavbarAcctSettings from "../NavbarAcctSettings"
 import SecQuestionsDisplay from "../SecQuestionsDisplay"
 import PasswordDisplayChange from "../PasswordDisplayChange"
 import AccountDelete from "../AccountDelete"
@@ -15,14 +15,15 @@ const AccountSettings = props => {
 
   return (
     <React.Fragment>
-    <style> {'body { background-color: #e3e7ed; }'}</style>
 
-      <Navbar
-      onClick={props.handleClickSignOut}/>
+      {props.value.showAccountSettings && props.value.loggedIN ? ( 
+      <NavbarAcctSettings 
+      handleClickAcct={props.handleClickAcct}
+      onClick={props.handleClickSignOut}
+      handleClickHomePage={props.handleClickHomePage} 
+      />):(null)}
 
       <div className='container marginTopAndBottom'>
-
-
 
         <div className="col-md-6 headerBG headerBorderRight">
           <h2>Account Settings</h2>

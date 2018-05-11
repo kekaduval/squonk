@@ -23,7 +23,6 @@ module.exports = {
           });
         });
 
-        // console.log("THIS IS THE NEW LOGGGGGGGGGGGGGGG",userObject);
         res.json(userObject);
       })
       .catch(err => res.status(422).json(err));

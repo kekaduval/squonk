@@ -21,6 +21,3 @@ const Modal1 = props => {
 };
 
 export default Modal1;
-
-
-

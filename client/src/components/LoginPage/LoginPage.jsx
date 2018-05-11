@@ -38,6 +38,7 @@ const LoginPage = props => {
                     </div>
                   </div>
                 </form>
+
               </div>
 
               <button className="enterButton" onClick={event => props.handleClick(event)}>

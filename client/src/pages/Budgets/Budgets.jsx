@@ -82,7 +82,6 @@ class Budgets extends React.Component {
 
   componentDidMount() {
     this.getAllUsers();
-    // this.loadBudgets()
   }
 
 // Gets all the users in the db
@@ -153,7 +152,6 @@ class Budgets extends React.Component {
               }
             }
           })
-
           .then(this.showHomePage(event))
           .catch(err => console.log(err));
       }
@@ -217,7 +215,7 @@ class Budgets extends React.Component {
     this.getThisBudgetSharedUsers();
   };
 
-
+// reloads user information when they are not on the first budget on the budget bar.
   reloadUserInfo = user => {
     const userId = this.state.userId;
     console.log("The user ID", userId);
@@ -441,6 +439,7 @@ class Budgets extends React.Component {
       .catch(err => console.log(err));
   };
 
+// function to delete a bill
   deleteBill = (id, event) => {
     console.log("deletebillid " + id);
     event.preventDefault();
@@ -454,6 +453,7 @@ class Budgets extends React.Component {
       .catch(err => console.log(err));
   };
 
+// function to delete a budget
   deleteBudget = (id, event) => {
     event.preventDefault();
     if (this.state.usersThisBudgetIsSharedWith.length > 0) {
@@ -546,7 +546,6 @@ class Budgets extends React.Component {
       .catch(err => console.log(err));
   };
 
-// Start the new function here Nate
   //Function to add user to budget
   addUserToMyBudget = (name, id) => {
     const userIDToAdd = id;
@@ -958,6 +957,7 @@ class Budgets extends React.Component {
     });
   };
 
+// Function to get the users questions
   enterUserNameGetQuestions = event => {
     event.preventDefault();
     const name = {
@@ -966,7 +966,8 @@ class Budgets extends React.Component {
     API.getUserNameSecurityQuestions(name)
       .then(res => {
         if (res.data === null) {
-          alert("No user by that username found");
+          this.setState({ modalMessage:  "No user by that username found." });
+          this.openModal();
         } else {
           console.log("New res", res);
           this.setState({
@@ -978,6 +979,7 @@ class Budgets extends React.Component {
       .catch(err => console.log(err));
   };
 
+// show forgot password sections
   showForgotPassword = event => {
     event.preventDefault();
     this.setState({
@@ -992,6 +994,7 @@ class Budgets extends React.Component {
     });
   };
 
+// show forgot password security section
   showForgotPasswordSecQuest = event => {
     event.preventDefault();
     this.setState({
@@ -1006,6 +1009,7 @@ class Budgets extends React.Component {
     });
   };
 
+// Show the forgot password section
   showForgotPasswordChangePassword = event => {
     event.preventDefault();
     this.setState({
@@ -1020,6 +1024,7 @@ class Budgets extends React.Component {
     });
   };
 
+// Function that checks the users password answers with security questions
   checkForgetPasswordAnswers = event => {
     event.preventDefault();
     if (
@@ -1030,12 +1035,12 @@ class Budgets extends React.Component {
     ) {
       this.showForgotPasswordChangePassword(event);
     } else {
-      alert(
-        "Your answers do not match your previous answers. Please try again"
-      );
+      this.setState({ modalMessage:  "Your answers do not match your previous answers. Please try again" });
+      this.openModal();
     }
   };
 
+// Function to change your password
   ForgotPasswordChangePassword = event => {
     if (this.state.password === this.state.password2) {
       const userID = this.state.allUsers.find(user => {
@@ -1055,12 +1060,13 @@ class Budgets extends React.Component {
             secQuestionAnswer: "",
             secQuestion2Answer: ""
           });
-          alert(res.data);
+          console.log(res.data);
         })
         .then(this.signOut(event))
         .catch(err => console.log(err));
     } else {
-      alert("not same");
+      this.setState({ modalMessage:  "Passwords are not the same." });
+      this.openModal();
     }
   };
 

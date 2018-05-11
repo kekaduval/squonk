@@ -28,8 +28,8 @@ const LoginPage = props => {
                   <input className="effect-2" name="passwordLogin" type="text" onChange={props.handleChange} value={props.value.passwordLogin} placeholder="ENTER PASSWORD" />
                   <span className="focus-border"/>
 
-                  <div class="forget">
-    			        	<button class="btn btn-default btn-sm">FORGOT PASSWORD?</button>
+                  <div className="forget">
+    			        	<button className="btn btn-default btn-sm">FORGOT PASSWORD?</button>
     			        </div>
               </div>
 

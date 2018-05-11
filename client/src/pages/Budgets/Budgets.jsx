@@ -212,6 +212,36 @@ class Budgets extends React.Component {
     this.getThisBudgetSharedUsers();
   };
 
+
+  reloadUserInfo = user => {
+    const userId = this.state.userId;
+    console.log("The user ID", userId);
+
+    API.getUserBudgets(userId)
+      .then(res => {
+        this.setState({
+          userBudgets: res.data.budgets
+        });
+        this.setState({
+          allSharedBudgetWithUsers: res.data.sharingBudgetWith
+        });
+        this.setState({
+          allUsersSharingBudgetsWithMe: res.data.usersSharedBudgetWithMe
+        });
+
+        let userBudgetNames = this.state.userBudgets.map(budget => {
+          return budget.budgetName;
+        });
+        this.setState({
+          budgetNameList: userBudgetNames
+        });
+          this.getThisBudgetSharedUsers();
+
+      })
+      .catch(err => console.log(err));
+  };
+
+
   // Function that grabs all the users shared budgets
   getThisBudgetSharedUsers = () => {
     console.log(
@@ -510,6 +540,7 @@ class Budgets extends React.Component {
       .catch(err => console.log(err));
   }
 
+// Start the new function here Nate
   //Function to add user to budget
   addUserToMyBudget = (name, id) => {
     const userIDToAdd = id;
@@ -555,7 +586,7 @@ class Budgets extends React.Component {
             allSharedBudgetWithUsers: res.data.sharingBudgetWith,
             allUsersSharingBudgetsWithMe: res.data.allUsersSharingBudgetsWithMe
           });
-          this.loadBudgets();
+          this.reloadUserInfo();
           console.log("TTTTT", this.state.allSharedBudgetWithUsers);
           console.log(this.state.allUsersSharingBudgetsWithMe);
         })
@@ -601,7 +632,7 @@ class Budgets extends React.Component {
           allSharedBudgetWithUsers: res.data.sharingBudgetWith,
           allUsersSharingBudgetsWithMe: res.data.allUsersSharingBudgetsWithMe
         });
-        this.loadBudgets();
+        this.reloadUserInfo();
         console.log("TTTTT", this.state.allSharedBudgetWithUsers);
         console.log(this.state.allUsersSharingBudgetsWithMe);
       })

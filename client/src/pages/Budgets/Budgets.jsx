@@ -80,6 +80,7 @@ class Budgets extends React.Component {
     // this.loadBudgets()
   }
 
+// Gets all the users in the db
   getAllUsers = () => {
     API.getUsers()
       .then(res => {
@@ -94,7 +95,6 @@ class Budgets extends React.Component {
           };
         });
         console.log("All Users", allUsers);
-        // console.log("All the User Budgets ", this.state.userBudgets);
 
         this.setState({
           allUsers: allUsers
@@ -103,6 +103,7 @@ class Budgets extends React.Component {
       .catch(err => console.log(err));
   };
 
+// function for user validation to see if the username and password is correct
   userLogin = event => {
     event.preventDefault();
     const users = this.state.allUsers.map(user => user.userName);
@@ -111,12 +112,13 @@ class Budgets extends React.Component {
     if (!users.includes(this.state.usernameLogin)) {
       this.setState({
         modalMessage:
-          "No user name found. Please check the spelling or sign up for an account"
+          "No user name found. Please check the spelling or sign up for an account."
       });
       this.openModal();
     } else {
       if (!this.state.passwordLogin.length) {
-        alert("Please Enter a password");
+        this.setState({ modalMessage: "Please Enter a password." });
+        this.openModal();
       } else {
         const user = {
           userName: this.state.usernameLogin,
@@ -127,7 +129,8 @@ class Budgets extends React.Component {
             console.log("Logging In", res.data);
             if (res.data.userName === null && res.data.userId === null) {
               this.showLoginPage(event);
-              alert("Password is incorrect");
+              this.setState({ modalMessage: "Password is incorrect." });
+              this.openModal();
             } else {
               this.setState({
                 userId: res.data.userId,
@@ -140,7 +143,8 @@ class Budgets extends React.Component {
               if (this.state.loggedIN) {
                 this.loadBudgets(userIn);
               } else {
-                alert("Please try to log in Again");
+                this.setState({ modalMessage: "Please try to log in again." });
+                this.openModal();
               }
             }
           })
@@ -153,7 +157,6 @@ class Budgets extends React.Component {
 
   //loads on page load. Gets all the users budgets
   loadBudgets = user => {
-    // const userId = user;
     const userId = this.state.userId;
     console.log("The user ID", userId);
 
@@ -186,10 +189,7 @@ class Budgets extends React.Component {
         this.setState({
           budgetNameList: userBudgetNames
         });
-        // console.log(userBudgetNames);
-        // console.log(userPlannedAmount);
-        // console.log(userActualAmount);
-        // console.log(this.state);
+
         if (this.state.userBudgets.length > 0) {
           this.userFirstBudget();
         } else {
@@ -212,6 +212,7 @@ class Budgets extends React.Component {
     this.getThisBudgetSharedUsers();
   };
 
+  // Function that grabs all the users shared budgets
   getThisBudgetSharedUsers = () => {
     console.log(
       "This is all my Shared Users and Budgets ",
@@ -244,8 +245,6 @@ class Budgets extends React.Component {
         this.setState({
           userChosenBudgetBills: res.data.bills
         });
-        // console.log("Bills associated with chosen Budget", this.state.userChosenBudgetBills);
-        // console.log("Budget ID associated with chosen bull", this.state.userChosenBudgetId);
       })
       .catch(err => console.log(err));
   };
@@ -258,8 +257,6 @@ class Budgets extends React.Component {
     });
     console.log(this.state);
 
-    // console.log(this.state.billName);
-    // console.log(this.state.billPlannedAmount);
     console.log("YYYYYUUUUUUUU", this.state.usernameCreate);
     console.log("YYYYYGGGGGGGGG", this.state.password);
   };
@@ -267,24 +264,13 @@ class Budgets extends React.Component {
   //input boxes information for adding a Budget
   editHandleChange = event => {
     const { name, value } = event.target;
-    // console.log(event.target);
-
     this.setState({
       [name]: value
     });
-    // console.log("mmmmmmmmmmmmmm",this.state.editBillName);
-    // console.log("nnnnnnnnnnnnnn",this.state.editBillPlannedAmount);
-    // console.log("oooooooooooooo",this.state.editBillActualAmount);
   };
 
   //creating a budget, tieing it to a user and updating all users budget state
   submitBudgetClick = () => {
-    // const userPotentialBudgetName = this.state.userChosenBudgetId;
-    // const matchBudgetName = this.state.userBudgets.find(i => i._id === userPotentialBudgetName)
-
-    // if (matchBudgetName) {
-    //     alert("You already have a budget by that name")
-    // } else {
 
     const newBudget = {
       userId: this.state.userId,
@@ -310,7 +296,6 @@ class Budgets extends React.Component {
         })
       )
       .catch(err => console.log(err));
-    // }
   };
 
   //creating a bill, tieing it to a users budget and updating all users bills state
@@ -320,9 +305,9 @@ class Budgets extends React.Component {
       i => i.billName === userPotentialBillName
     );
     if (matchBillName) {
-      alert("You already have a bill by that name");
+      this.setState({ modalMessage: "You already have a bill with that name." });
+      this.openModal();
     } else {
-      // console.log("Bill Submitted");
       const newBill = {
         userId: this.state.userId,
         userName: this.state.userName,
@@ -340,7 +325,6 @@ class Budgets extends React.Component {
           this.setState({
             userBills: res.data
           });
-          // console.log(this.state.userBills);
           this.userBudgetBillsID();
         })
         .then(
@@ -357,7 +341,6 @@ class Budgets extends React.Component {
 
   // updating a bill, tieing it to a users budget and updating all users bills state
   updateBillClick = event => {
-    // console.log("Bill Updated");
     const updateBill = {
       billId: this.state.editBillID,
       body: {
@@ -401,12 +384,10 @@ class Budgets extends React.Component {
     event.preventDefault();
     var x = event.target.selectedIndex;
     let selectedValue = event.target.options[x].dataset.id;
-    // selectedValue is the budget id
     console.log("The new ID should be:" + selectedValue);
     let chosenBudgetObject = this.state.userBudgets.find(
       i => i._id === selectedValue
     );
-
     this.setState({ userChosenBudgetId: selectedValue });
 
     API.getBudgetBills(selectedValue)
@@ -426,7 +407,7 @@ class Budgets extends React.Component {
   };
 
   deleteBill = (id, event) => {
-    alert(id);
+    console.log("deletebillid " + id);
     event.preventDefault();
     const data = {
       billId: id,
@@ -441,9 +422,8 @@ class Budgets extends React.Component {
   deleteBudget = (id, event) => {
     event.preventDefault();
     if (this.state.usersThisBudgetIsSharedWith.length > 0) {
-      alert(
-        "This is a shared budget. Please remove all shared with users before deletion."
-      );
+      this.setState({ modalMessage: "This is a shared budget. Please remove all shared with users before deletion." });
+      this.openModal();
     } else {
       const data = {
         user: this.state.userId,
@@ -452,7 +432,7 @@ class Budgets extends React.Component {
       };
       API.deleteBudget(data)
         .then(res => {
-          alert(res.data);
+          console.log(res.data);
           this.loadBudgets();
         })
         .catch(err => console.log(err));
@@ -515,8 +495,9 @@ class Budgets extends React.Component {
     const user = {user: this.state.userId}
     API.deleteMe(user)
       .then(res => {
-        alert("GoodBye")
-     this.setState({
+        this.setState({ modalMessage: "GoodBye" });
+        this.openModal();
+        this.setState({
        showSquonkGreetingPage: true,
        showLoginPage: false,
        showSignUpPage: false,
@@ -524,7 +505,7 @@ class Budgets extends React.Component {
        loggedIN: false,
        userId: "",
        userName: ""
-     })  
+     })
       })
       .catch(err => console.log(err));
   }
@@ -545,7 +526,7 @@ class Budgets extends React.Component {
     console.log("hhhhhhh", isUserThere);
 
     if (isUserThere) {
-      this.setState({ modalMessage: "User Already Added" });
+      this.setState({ modalMessage: "User Already Added." });
       this.openModal();
     } else {
       const data = {
@@ -583,9 +564,11 @@ class Budgets extends React.Component {
     }
   };
 
+  // function to remove a shared user from a budget
   deleteSharedUser = (name, id, budget, event) => {
     event.preventDefault();
-    alert("Hi " + name + " " + id + " " + budget);
+    this.setState({ modalMessage: "Shared User removed from budget." });
+    this.openModal();
     const userIDToRemove = id;
     const userSharingWithName = name;
     const budgetIDToRemove = budget;
@@ -626,6 +609,7 @@ class Budgets extends React.Component {
       .catch(err => console.log(err));
   };
 
+//Function to show add budget button
   showAddBudget = () => {
     this.setState({
       showAddBudget: true,
@@ -637,6 +621,7 @@ class Budgets extends React.Component {
     });
   };
 
+// //Function to show add bill button
   showAddBill = () => {
     this.setState({
       showAddBill: true,
@@ -647,6 +632,7 @@ class Budgets extends React.Component {
     });
   };
 
+// function to edit a bill
   editBill = (id, event) => {
     event.preventDefault();
     let billClick = id;
@@ -669,6 +655,7 @@ class Budgets extends React.Component {
     console.log("The edit bill object", this.state.editBillObject);
   };
 
+// function to show the user you are looking for to share with
   showUserLookup = () => {
     let user = this.state.userName;
     let findOwner = this.state.userChosenBudgetObject.userName;
@@ -686,16 +673,14 @@ class Budgets extends React.Component {
           modalMessage: `This Budget has been Shared with you, and you cannot reshare it. Please contact the owner: ${findOwner}  if you need to add more people to this budget.`
         });
         this.openModal();
-        // alert(`This Budget has been Shared with you, and you cannot reshare it. Please contact the owner: ${findOwner}  if you need to add more people to this budget.`)
       }
     } else {
-      // alert("Add A budget First")
-      // "You already have a bill by that name"
       this.setState({ modalMessage: "Add A budget First" });
       this.openModal();
     }
   };
 
+// Function to sign out user
   signOut = event => {
     event.preventDefault();
     this.setState({
@@ -709,6 +694,7 @@ class Budgets extends React.Component {
     });
   };
 
+// function to change password
   changePassword = event => {
     if (this.state.password === this.state.password2) {
       const newPass = {
@@ -722,15 +708,17 @@ class Budgets extends React.Component {
             password: "",
             password2: ""
           });
-          alert(res.data);
+          console.log(res.data);
         })
         .then(this.signOut(event))
         .catch(err => console.log(err));
     } else {
-      alert("not same");
+      this.setState({ modalMessage: "Passwords are not the same." });
+      this.openModal();
     }
   };
 
+// function to change security questions
   changeSecQuestions = event => {
     event.preventDefault();
 
@@ -758,13 +746,15 @@ class Budgets extends React.Component {
           secQuestion2Answer: "",
           secQuestionsObject: []
         });
-        alert(res.data);
+        console.log(res.data);
+        this.setState({ modalMessage: "Security Questions Updated" });
+        this.openModal();
         this.cancelShowSecQues();
       })
-      // .then(this.signOut(event))
       .catch(err => console.log(err));
   };
 
+// function to show shared users
   showSharedUsers = () => {
     this.setState({
       showAddBill: false,
@@ -775,6 +765,7 @@ class Budgets extends React.Component {
     });
   };
 
+// function to show the login page
   showLoginPage = event => {
     event.preventDefault();
     this.setState({
@@ -785,6 +776,7 @@ class Budgets extends React.Component {
     });
   };
 
+// function to show the sign in page
   showSignUpPage = event => {
     event.preventDefault();
     this.setState({
@@ -795,6 +787,7 @@ class Budgets extends React.Component {
     });
   };
 
+// function to show the home page
   showHomePage = event => {
     event.preventDefault();
     this.setState({
@@ -804,6 +797,8 @@ class Budgets extends React.Component {
       showHomePage: true
     });
   };
+
+// function to show the account settings page
   showAcctSettings = () => {
     this.setState({
       showSquonkGreetingPage: false,
@@ -814,6 +809,7 @@ class Budgets extends React.Component {
     });
   };
 
+// function to cancel adding a budget
   cancelAddBudget = () => {
     this.setState({
       showAddBudget: false,
@@ -823,6 +819,7 @@ class Budgets extends React.Component {
     });
   };
 
+// Function to cancel adding a bill
   cancelAddBill = () => {
     this.setState({
       showAddBill: false,
@@ -832,6 +829,7 @@ class Budgets extends React.Component {
     });
   };
 
+// function to cancel editing a bill
   cancelEditBill = () => {
     this.setState({
       editBill: false,
@@ -841,14 +839,17 @@ class Budgets extends React.Component {
     });
   };
 
+// cancel looking up a user
   cancelShowUserLookup = () => {
     this.setState({ showUserLookup: false, userToShareBudget: "" });
   };
 
+// cancel show the shared users
   cancelShowSharedUsers = () => {
     this.setState({ showSharedUsers: false });
   };
 
+  // cancel show the account settings
   cancelShowAcctSettings = () => {
     this.setState({
       showSquonkGreetingPage: false,
@@ -861,6 +862,7 @@ class Budgets extends React.Component {
     });
   };
 
+// Show the security questions
   showSecQues = () => {
     const id = this.state.userId;
     API.getUserSecurityQuestions(id)
@@ -875,6 +877,7 @@ class Budgets extends React.Component {
       .catch(err => console.log(err));
   };
 
+// Show the password change
   showPasswordChange = () => {
     this.setState({
       showSecQues: false,
@@ -883,6 +886,7 @@ class Budgets extends React.Component {
     });
   };
 
+// Show account deletion
   showAcctDelete = () => {
     this.setState({
       showSecQues: false,
@@ -891,12 +895,14 @@ class Budgets extends React.Component {
     });
   };
 
+//  Cancel show security questions
   cancelShowSecQues = () => {
     this.setState({
       showSecQues: false
     });
   };
 
+// Cancel the show password change
   cancelShowPasswordChange = () => {
     this.setState({
       showPasswordChange: false,
@@ -905,6 +911,7 @@ class Budgets extends React.Component {
     });
   };
 
+// cancel account deletion
   cancelAcctDelete = () => {
     this.setState({
       showAcctDelete: false
@@ -944,7 +951,8 @@ class Budgets extends React.Component {
       this.state.secQuestion2
     ) {
       if (this.state.password !== this.state.password2) {
-        alert("Passwords do not match");
+        this.setState({ modalMessage: "Passwords do not match" });
+        this.openModal();
       } else {
         const newUser = {
           userName: this.state.usernameCreate.toLowerCase(),
@@ -966,17 +974,20 @@ class Budgets extends React.Component {
               secQuestion2: "",
               secQuestion2Answer: ""
             });
-            alert("Account Created");
+            this.setState({ modalMessage: "Account Created." });
+            this.openModal();
             this.showLoginPage(this.event);
           })
           .catch(err => console.log(err));
       }
     } else {
-      alert("Fill in all boxes");
+      this.setState({ modalMessage: "Fill in all boxes." });
+      this.openModal();
     }
   };
 
   // Modal functions
+  // Function to open the modal
   openModal = () => {
     this.setState({ isModalOpen: true });
     setTimeout(
@@ -987,6 +998,7 @@ class Budgets extends React.Component {
     );
   };
 
+  // Function to close the modal
   closeModal = () => {
     this.setState({ isModalOpen: false });
   };
@@ -1004,9 +1016,9 @@ class Budgets extends React.Component {
       <React.Fragment>
 
 
-{this.state.isModalOpen ? (
+      {this.state.isModalOpen ? (
         <Modal
-          
+
           value={this.state}
           onClose={this.closeModal}
         />):(null)}

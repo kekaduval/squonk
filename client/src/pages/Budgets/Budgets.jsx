@@ -11,7 +11,6 @@ import HomePage from "../../components/HomePage";
 import LoginPage from "../../components/LoginPage";
 import Modal from "../../components/Modal";
 import SignUpPage from "../../components/SignUpPage";
-import LoginButton from "../../components/LoginButton";
 import ForgotPassword from "../../components/ForgotPassword";
 import AccountSettings from "../../components/AccountSettings";
 
@@ -88,8 +87,6 @@ class Budgets extends React.Component {
   getAllUsers = () => {
     API.getUsers()
       .then(res => {
-        console.log("this is res ", res);
-
         const allUsers = res.data.map(index => {
           return {
             userName: index.user,
@@ -98,8 +95,6 @@ class Budgets extends React.Component {
             sharedWithMeBudgets: index.sharedWithMe
           };
         });
-        console.log("All Users", allUsers);
-
         this.setState({
           allUsers: allUsers
         });
@@ -111,7 +106,6 @@ class Budgets extends React.Component {
   userLogin = event => {
     event.preventDefault();
     const users = this.state.allUsers.map(user => user.userName);
-    console.log(users);
 
     if (!users.includes(this.state.usernameLogin)) {
       this.setState({
@@ -161,7 +155,6 @@ class Budgets extends React.Component {
   //loads on page load. Gets all the users budgets
   loadBudgets = user => {
     const userId = this.state.userId;
-    console.log("The user ID", userId);
 
     API.getUserBudgets(userId)
       .then(res => {
@@ -174,17 +167,6 @@ class Budgets extends React.Component {
         this.setState({
           allUsersSharingBudgetsWithMe: res.data.usersSharedBudgetWithMe
         });
-
-        console.log("User res ", res);
-        console.log("All the User Budgets ", this.state.userBudgets);
-        console.log(
-          "all the budgets I share",
-          this.state.allSharedBudgetWithUsers
-        );
-        console.log(
-          "All budgets shared with me",
-          this.state.allUsersSharingBudgetsWithMe
-        );
 
         let userBudgetNames = this.state.userBudgets.map(budget => {
           return budget.budgetName;
@@ -210,7 +192,6 @@ class Budgets extends React.Component {
       currentBudgetActualAmount: this.state.userBudgets[0].actualAmount,
       userChosenBudgetObject: this.state.userBudgets[0]
     });
-    console.log("User chosen budget is ", this.state.userChosenBudgetObject);
     this.userBudgetBillsID();
     this.getThisBudgetSharedUsers();
   };
@@ -218,7 +199,6 @@ class Budgets extends React.Component {
 // reloads user information when they are not on the first budget on the budget bar.
   reloadUserInfo = user => {
     const userId = this.state.userId;
-    console.log("The user ID", userId);
 
     API.getUserBudgets(userId)
       .then(res => {
@@ -247,32 +227,18 @@ class Budgets extends React.Component {
 
   // Function that grabs all the users shared budgets
   getThisBudgetSharedUsers = () => {
-    console.log(
-      "This is all my Shared Users and Budgets ",
-      this.state.allSharedBudgetWithUsers
-    );
-    console.log(
-      "This is the current budget ID ",
-      this.state.userChosenBudgetId
-    );
+
     let sharedUsersThisBudget = this.state.allSharedBudgetWithUsers.filter(
       i => i.budgetID === this.state.userChosenBudgetId
     );
     this.setState({
       usersThisBudgetIsSharedWith: sharedUsersThisBudget
     });
-
-    console.log("Shared users only for this budget", sharedUsersThisBudget);
-    console.log(
-      "This is the users in this budget state ",
-      this.state.usersThisBudgetIsSharedWith
-    );
   };
 
   //grabs all the bills associated with the chosen budget
   userBudgetBillsID = () => {
     const budgetId = this.state.userChosenBudgetId;
-    console.log(budgetId);
     API.getBudgetBills(budgetId)
       .then(res => {
         this.setState({
@@ -288,10 +254,6 @@ class Budgets extends React.Component {
     this.setState({
       [name]: value
     });
-    console.log(this.state);
-
-    console.log("YYYYYUUUUUUUU", this.state.usernameCreate);
-    console.log("YYYYYGGGGGGGGG", this.state.password);
   };
 
   //input boxes information for adding a Budget
@@ -314,7 +276,6 @@ class Budgets extends React.Component {
     };
     API.createBudget(newBudget)
       .then(res => {
-        console.log("UUUUUUUUUUUUUUUUUU", res);
 
         this.setState({
           userBudgets: res.data
@@ -398,7 +359,6 @@ class Budgets extends React.Component {
         this.setState({
           userBills: res.data
         });
-        console.log(this.state.userBills);
         this.userBudgetBillsID();
       })
       .then(
@@ -417,7 +377,6 @@ class Budgets extends React.Component {
     event.preventDefault();
     var x = event.target.selectedIndex;
     let selectedValue = event.target.options[x].dataset.id;
-    console.log("The new ID should be:" + selectedValue);
     let chosenBudgetObject = this.state.userBudgets.find(
       i => i._id === selectedValue
     );
@@ -429,10 +388,6 @@ class Budgets extends React.Component {
           userChosenBudgetBills: res.data.bills,
           userChosenBudgetObject: chosenBudgetObject
         });
-        console.log(
-          "The chosen budget object is ",
-          this.state.userChosenBudgetObject
-        );
         this.getThisBudgetSharedUsers();
         this.cancelShowSharedUsers();
       })
@@ -441,7 +396,6 @@ class Budgets extends React.Component {
 
 // function to delete a bill
   deleteBill = (id, event) => {
-    console.log("deletebillid " + id);
     event.preventDefault();
     const data = {
       billId: id,
@@ -467,7 +421,6 @@ class Budgets extends React.Component {
       };
       API.deleteBudget(data)
         .then(res => {
-          console.log(res.data);
           this.loadBudgets();
         })
         .catch(err => console.log(err));
@@ -507,9 +460,7 @@ class Budgets extends React.Component {
       budgetID: budget
     };
     API.deleteAllBills(data)
-      .then(res => {
-        console.log(res);
-      })
+      .then(res => {})
       .catch(err => console.log(err));
   };
 
@@ -519,9 +470,7 @@ class Budgets extends React.Component {
       budgetID: budget
     };
     API.deleteAllBudgets(data)
-      .then(res => {
-        console.log(res);
-      })
+      .then(res => {})
       .catch(err => console.log(err));
   };
 
@@ -559,7 +508,6 @@ class Budgets extends React.Component {
       i => i.user === name
     );
 
-    console.log("hhhhhhh", isUserThere);
 
     if (isUserThere) {
       this.setState({ modalMessage: "User Already Added." });
@@ -592,8 +540,6 @@ class Budgets extends React.Component {
             allUsersSharingBudgetsWithMe: res.data.allUsersSharingBudgetsWithMe
           });
           this.reloadUserInfo();
-          console.log("TTTTT", this.state.allSharedBudgetWithUsers);
-          console.log(this.state.allUsersSharingBudgetsWithMe);
         })
         .then(this.cancelShowUserLookup())
         .catch(err => console.log(err));
@@ -638,8 +584,6 @@ class Budgets extends React.Component {
           allUsersSharingBudgetsWithMe: res.data.allUsersSharingBudgetsWithMe
         });
         this.reloadUserInfo();
-        console.log("TTTTT", this.state.allSharedBudgetWithUsers);
-        console.log(this.state.allUsersSharingBudgetsWithMe);
       })
       .then(this.cancelShowSharedUsers())
       .catch(err => console.log(err));
@@ -677,8 +621,6 @@ class Budgets extends React.Component {
       index._id === id;
       billObject = index;
     });
-    console.log("Gothimmmmmm" + billClick);
-    console.log("Gothimmmmmm22222", billObject);
     this.setState({
       editBill: true,
       showAddBudget: false,
@@ -688,7 +630,6 @@ class Budgets extends React.Component {
       editBillID: id,
       editBillObject: billObject
     });
-    console.log("The edit bill object", this.state.editBillObject);
   };
 
 // function to show the user you are looking for to share with
@@ -744,7 +685,6 @@ class Budgets extends React.Component {
             password: "",
             password2: ""
           });
-          console.log(res.data);
         })
         .then(this.signOut(event))
         .catch(err => console.log(err));
@@ -782,7 +722,6 @@ class Budgets extends React.Component {
           secQuestion2Answer: "",
           secQuestionsObject: []
         });
-        console.log(res.data);
         this.setState({ modalMessage: "Security Questions Updated" });
         this.openModal();
         this.cancelShowSecQues();
@@ -971,7 +910,6 @@ class Budgets extends React.Component {
           this.setState({ modalMessage:  "No user by that username found." });
           this.openModal();
         } else {
-          console.log("New res", res);
           this.setState({
             secQuestionsObject: res.data
           });
@@ -1062,7 +1000,6 @@ class Budgets extends React.Component {
             secQuestionAnswer: "",
             secQuestion2Answer: ""
           });
-          console.log(res.data);
         })
         .then(this.signOut(event))
         .catch(err => console.log(err));
@@ -1079,7 +1016,6 @@ class Budgets extends React.Component {
     this.setState({
       usernameCreate: value
     });
-    console.log(this.state.username);
     if (
       event.target.value.length >= 3 &&
       userToBe.includes(event.target.value)
@@ -1118,7 +1054,6 @@ class Budgets extends React.Component {
         };
         API.createUser(newUser)
           .then(res => {
-            console.log("USER CREATED", res);
             this.setState({
               usernameCreate: "",
               password: "",
@@ -1162,7 +1097,6 @@ class Budgets extends React.Component {
   /////////////////////
 
   render() {
-    console.log("USER BUDGETS", this.state.userBudgets);
 
     return (
       <React.Fragment>

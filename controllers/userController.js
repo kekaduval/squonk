@@ -14,7 +14,6 @@ module.exports = {
     db.User.find(req.query)
       // .sort({ date: -1 })
       .then(dbModel => {
-        console.log(dbModel[0]);
         const userObject = dbModel.map(index => {
           return (users = {
             user: index.userName,
@@ -57,7 +56,6 @@ module.exports = {
     // var id = mongoose.Types.ObjectId(req.body.user);
     db.User.findOne({"userName":req.body.user})
       .then(dbModel => {
-        console.log(dbModel);
         if (dbModel) {
         const SecQuestions = {
           secQuestion1: dbModel.secQuestion1,
@@ -76,11 +74,9 @@ module.exports = {
   },
 
   findLogin: function(req, res) {
-    console.log("UUUUUUUUUUUUUUUUUUUUUU", req.body.userName);
     // var id = mongoose.Types.ObjectId(req.body.userId);
     db.User.findOne({ userName: req.body.userName })
       .then(dbModel => {
-        console.log("user from DB", dbModel);
         if (dbModel.password === req.body.password) {
           const User = {
             userName: dbModel.userName,
@@ -129,7 +125,6 @@ module.exports = {
   },
 
   shareBudget: function(req, res) {
-    console.log(req.body);
 
     db.User.findOneAndUpdate(
       { _id: req.body.user },
@@ -155,7 +150,6 @@ module.exports = {
   },
 
   removeSharedUser: function(req, res) {
-    console.log(req.body);
 
     db.User.findOneAndUpdate(
       { _id: req.body.user },

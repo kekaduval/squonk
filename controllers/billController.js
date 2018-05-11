@@ -49,7 +49,6 @@ module.exports = {
     db.Bill.create(req.body)
       .then(dbBill => {
         var id = mongoose.Types.ObjectId(req.body.budgetId);
-        console.log("This is the id " + id);
         return db.Budget.findOneAndUpdate(
           { _id: id },
           { $push: { bills: dbBill._id } }

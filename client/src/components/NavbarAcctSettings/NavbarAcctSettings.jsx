@@ -1,8 +1,5 @@
 import React from 'react';
-import AddButton from "../AddButton"
 import AcctSettingsButton from "../AcctSettingsButton"
-import ShareBudgetButton from "../ShareBudgetButton"
-import SignOutButton from "../SignOutButton"
 import './NavbarAcctSettings.css'
 
 const NavbarAcctSettings = props => {

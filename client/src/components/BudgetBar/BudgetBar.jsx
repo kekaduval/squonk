@@ -5,9 +5,6 @@ import DropDownMenu from "../DropDownMenu"
 
 
 const BudgetBar = props => {
-  console.log("kkkkkkkkk", props.chosenBudget.budgetName);
-  console.log("LLLLLLLL", props.usersWhoShareWithMe);
-
 
   let findThisBudgetOwner = "";
 
@@ -17,21 +14,25 @@ const BudgetBar = props => {
       return (i.owner)
     })
   }
-  console.log("Budget Owner", findThisBudgetOwner);
 
-  let initialBudgetPlannedAmount = props.chosenBudget.budgetPlannedAmount;
+  let initialBudgetPlannedAmount = props.chosenBudget.budgetPlannedAmount || 0;
   let billActualAmountValues = props.bills.map(i => { return (i.billActualAmount) })
   let allBillsActualAmountSum = billActualAmountValues.reduce((a, b) => a + b, 0)
 
   let billPlannedAmountValues = props.bills.map(i => { return (i.billPlannedAmount) })
   let allBillsPlannedAmountSum = billPlannedAmountValues.reduce((a, b) => a + b, 0)
 
-  let totalBillPlannedAmount = (initialBudgetPlannedAmount || 0);
+  let totalBillPlannedAmount=""; 
+  
+  if (allBillsPlannedAmountSum > initialBudgetPlannedAmount) {
+    totalBillPlannedAmount = allBillsPlannedAmountSum
+  }else{
+    totalBillPlannedAmount = initialBudgetPlannedAmount
+  }
   let leftAmount = totalBillPlannedAmount - allBillsActualAmountSum
 
   let sharedWithMeMessage = findThisBudgetOwner !== props.myName
-  console.log("Shared Message", sharedWithMeMessage);
-  console.log("Found Budget Owner", findThisBudgetOwner);
+
 
 
   const style = {

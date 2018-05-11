@@ -7,9 +7,6 @@ const EditBill = props => {
 
   let billClick = props.value.editBillID;
   let billInfo = props.bills.find(index => index._id  === billClick )
-  console.log("haahhahahahahahah" + billClick);
-
-  console.log("gggggggggggggg", billInfo);
 
 
   return (

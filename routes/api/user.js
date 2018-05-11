@@ -29,6 +29,9 @@ router.route("/sec/")
 router.route("/sec/:id")
 .get(userController.findSecQuestions)
 
+router.route("/forgotSec/")
+.post(userController.findSecQuestionsForgotPassword)
+
 router.route("/delete/")
 .post(userController.remove);
 

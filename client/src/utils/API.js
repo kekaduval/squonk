@@ -68,6 +68,11 @@ export default {
     return axios.get("/api/user/sec/" + id);
   },
 
+  getUserNameSecurityQuestions: name => {
+    console.log("user name ", name);
+    return axios.post("/api/user/forgotSec/" , name);
+  },
+
   getBudgetBills: id => {
     // console.log("budget id" + id)
     return axios.get("/api/budget/" + id);

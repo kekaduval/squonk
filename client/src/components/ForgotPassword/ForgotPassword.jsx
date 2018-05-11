@@ -24,8 +24,8 @@ const ForgotPassword = props => {
                 <hr className="short" />
               </div>
               <form>
+                {/* // //////////////////////////////////////////////////////////////////////////////////// */}
                 {props.value.showUserNameForgotPassword ? (
- 
                   <div className="col-3">
                     <input
                       className="effect-2"
@@ -36,15 +36,16 @@ const ForgotPassword = props => {
                       placeholder=" ENTER YOUR USERNAME"
                     />
                     <button
-                      className="formButton"onClick={(event) => props.handleUserNameSubmit(event)}>
+                      className="formButton"
+                      onClick={event => props.handleUserNameSubmit(event)}
+                    >
                       Submit
                     </button>
                     <button className="formButton"> Cancel </button>
                   </div>
                 ) : null}
 
-
-
+                {/* // //////////////////////////////////////////////////////////////////////////////////// */}
                 {props.value.showNewPasswordForgotPassword ? (
                   <React.Fragment>
                     <div className="col-3">
@@ -53,7 +54,7 @@ const ForgotPassword = props => {
                         name="password"
                         onChange={props.handleChange}
                         value={props.value.password}
-                        type="password"
+                        type="text"
                         placeholder=" ENTER NEW PASSWORD"
                       />
                     </div>
@@ -64,47 +65,32 @@ const ForgotPassword = props => {
                         name="password2"
                         onChange={props.handleChange}
                         value={props.value.password2}
-                        type="password"
+                        type="text"
                         placeholder="CONFIRM NEW PASSWORD"
                       />
                     </div>
-                    {/* <button
+                    <button
                       className="formButton"
-                      onClick={event => props.handleClick(event)}
+                      onClick={event => props.handlePasswordChangeSubmit(event)}
                     >
                       Submit
-                    </button> */}
+                    </button>
                     <button className="formButton"> Cancel </button>
                   </React.Fragment>
                 ) : null}
 
+                {/* // //////////////////////////////////////////////////////////////////////////////////// */}
                 {props.value.showSecQuesForgotPassword ? (
                   <React.Fragment>
                     <div className="formInputContainer">
-                      <div className="formInputWrapper">
-                        <select
-                          className="select1"
-                          onChange={props.handleChange}
-                          name="secQuestion"
-                        >
-                          <option>PLEASE CHOOSE A SECURITY QUESTION.</option>
-                          <option value="What is your Childhood Nickname?">
-                            What is your Childhood Nickname?
-                          </option>
-                          <option value="What is your Mother's Maiden Name?">
-                            What is your Mother's Maiden Name?
-                          </option>
-                          <option value="What is your First Pet's Name?">
-                            What is your First Pet's Name?
-                          </option>
-                          <option value="What is your Favorite Color?">
-                            What is your Favorite Color?
-                          </option>
-                        </select>
-                      </div>
+                      <div className="formInputWrapper" />
                     </div>
 
                     <div className="col-3">
+                      <h5>{props.value.secQuestionsObject.secQuestion1}</h5>
+                    </div>
+
+                    <div className="col-">
                       <input
                         className="effect-2"
                         name="secQuestionAnswer"
@@ -118,25 +104,13 @@ const ForgotPassword = props => {
 
                     <div className="formInputContainer">
                       <div className="formInputWrapper">
-                        <select
-                          className="select1"
-                          onChange={props.handleChange}
-                          name="secQuestion2"
-                        >
-                          <option>PLEASE CHOOSE A SECURITY QUESTION.</option>
-                          <option value="What is your Favorite Junk Food?">
-                            What is your Favorite Junk Food?
-                          </option>
-                          <option value="Apple or Samsung?">
-                            Apple or Samsung?
-                          </option>
-                          <option value="StarWars or StarTrek?">
-                            StarWars or StarTrek?
-                          </option>
-                          <option value="What is the make of your first car?">
-                            What is the make of your first car?
-                          </option>
-                        </select>
+                        <div className="col-3">
+                          <div className="col-3">
+                            <h5>
+                              {props.value.secQuestionsObject.secQuestion2}
+                            </h5>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
@@ -150,12 +124,12 @@ const ForgotPassword = props => {
                         placeholder="ENTER YOUR ANSWER"
                       />
                     </div>
-                    {/* <button
+                    <button
                       className="formButton"
-                      onClick={event => props.handleClick(event)}
+                      onClick={event => props.handleQuestionsSubmit(event)}
                     >
                       Submit
-                    </button> */}
+                    </button>
                     <button className="formButton"> Cancel </button>
                   </React.Fragment>
                 ) : null}

@@ -54,9 +54,11 @@ module.exports = {
   },
 
   findSecQuestionsForgotPassword: function(req, res) {
-    var id = mongoose.Types.ObjectId(req.params.name);
-    db.User.findById(id)
+    // var id = mongoose.Types.ObjectId(req.body.user);
+    db.User.findOne({"userName":req.body.user})
       .then(dbModel => {
+        console.log(dbModel);
+        if (dbModel) {
         const SecQuestions = {
           secQuestion1: dbModel.secQuestion1,
           secQuestion1Answer: dbModel.secQuestion1Answer,
@@ -64,6 +66,11 @@ module.exports = {
           secQuestion2Answer: dbModel.secQuestion2Answer
         };
         res.json(SecQuestions);
+        } else{
+          res.json(dbModel);
+        }
+
+        
       })
       .catch(err => res.status(422).json(err));
   },

@@ -69,8 +69,8 @@ export default {
   },
 
   getUserNameSecurityQuestions: name => {
-    console.log("user name " + name);
-    return axios.get("/api/user/forgotSec/" + name);
+    console.log("user name ", name);
+    return axios.post("/api/user/forgotSec/" , name);
   },
 
   getBudgetBills: id => {

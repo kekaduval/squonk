@@ -12,7 +12,7 @@ import LoginPage from "../../components/LoginPage";
 import Modal from "../../components/Modal";
 import SignUpPage from "../../components/SignUpPage";
 import LoginButton from "../../components/LoginButton";
-import ForgotPassword from "../../components/ForgotPassword"
+import ForgotPassword from "../../components/ForgotPassword";
 import AccountSettings from "../../components/AccountSettings";
 
 class Budgets extends React.Component {
@@ -802,20 +802,6 @@ class Budgets extends React.Component {
     });
   };
 
-  showForgotPassword = event => {
-    event.preventDefault();
-    this.setState({
-      showSquonkGreetingPage: false,
-      showLoginPage: false,
-      showSignUpPage: false,
-      showForgotPassword: true,
-      showHomePage: false,
-      showUserNameForgotPassword: true,
-      showSecQuesForgotPassword: false,
-      showNewPasswordForgotPassword: false
-    });
-  };
-
   showHomePage = event => {
     event.preventDefault();
     this.setState({
@@ -933,20 +919,111 @@ class Budgets extends React.Component {
     });
   };
 
-// enterUserNameGetQuestions = (event) => {
-//   alert("hye")
-//     const name = this.state.userNameForgotPassword;
-//     API.getUserSecurityQuestions(name)
-//       .then(res => {
-//         console.log("New res", res);
-        
-//         this.setState({
-//           secQuestionsObject: res.data
-//         });
-//       })
-//       .catch(err => console.log(err));
-//   };
+  enterUserNameGetQuestions = event => {
+    event.preventDefault();
+    const name = {
+      user: this.state.userNameForgotPassword
+    };
+    API.getUserNameSecurityQuestions(name)
+      .then(res => {
+        if (res.data === null) {
+          alert("No user by that username found");
+        } else {
+          console.log("New res", res);
+          this.setState({
+            secQuestionsObject: res.data
+          });
+          this.showForgotPasswordSecQuest(event);
+        }
+      })
+      .catch(err => console.log(err));
+  };
 
+  showForgotPassword = event => {
+    event.preventDefault();
+    this.setState({
+      showSquonkGreetingPage: false,
+      showLoginPage: false,
+      showSignUpPage: false,
+      showForgotPassword: true,
+      showHomePage: false,
+      showUserNameForgotPassword: true,
+      showSecQuesForgotPassword: false,
+      showNewPasswordForgotPassword: false
+    });
+  };
+
+  showForgotPasswordSecQuest = event => {
+    event.preventDefault();
+    this.setState({
+      showSquonkGreetingPage: false,
+      showLoginPage: false,
+      showSignUpPage: false,
+      showForgotPassword: true,
+      showHomePage: false,
+      showUserNameForgotPassword: false,
+      showSecQuesForgotPassword: true,
+      showNewPasswordForgotPassword: false
+    });
+  };
+
+  showForgotPasswordChangePassword = event => {
+    event.preventDefault();
+    this.setState({
+      showSquonkGreetingPage: false,
+      showLoginPage: false,
+      showSignUpPage: false,
+      showForgotPassword: true,
+      showHomePage: false,
+      showUserNameForgotPassword: false,
+      showSecQuesForgotPassword: false,
+      showNewPasswordForgotPassword: true
+    });
+  };
+
+  checkForgetPasswordAnswers = event => {
+    event.preventDefault();
+    if (
+      this.state.secQuestionsObject.secQuestion1Answer ===
+        this.state.secQuestionAnswer.toLowerCase() &&
+      this.state.secQuestionsObject.secQuestion2Answer ===
+        this.state.secQuestion2Answer.toLowerCase()
+    ) {
+      this.showForgotPasswordChangePassword(event);
+    } else {
+      alert(
+        "Your answers do not match your previous answers. Please try again"
+      );
+    }
+  };
+
+  ForgotPasswordChangePassword = event => {
+    if (this.state.password === this.state.password2) {
+      const userID = this.state.allUsers.find(user => {
+        user.userName === this.state.userNameForgotPassword;
+        return user;
+      });
+      const newPass = {
+        id: userID.userID,
+        password: this.state.password
+      };
+      API.userUpdate(newPass)
+        .then(res => {
+          this.setState({
+            password: "",
+            password2: "",
+            userNameForgotPassword: "",
+            secQuestionAnswer: "",
+            secQuestion2Answer: ""
+          });
+          alert(res.data);
+        })
+        .then(this.signOut(event))
+        .catch(err => console.log(err));
+    } else {
+      alert("not same");
+    }
+  };
 
   //Checking to see if the username is already in the database
   userNameCheck = event => {
@@ -1068,6 +1145,8 @@ class Budgets extends React.Component {
             value={this.state}
             handleClickSubmit={this.createUser}
             handleUserNameSubmit={this.enterUserNameGetQuestions}
+            handleQuestionsSubmit={this.checkForgetPasswordAnswers}
+            handlePasswordChangeSubmit={this.ForgotPasswordChangePassword}
           />
         ) : null}
         {this.state.showHomePage && this.state.loggedIN ? (

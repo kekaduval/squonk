@@ -15,7 +15,10 @@ const BillsDisplay = props => {
   let allBillsPlannedAmountSum = billPlannedAmountValues.reduce((a, b) => a + b, 0)
 
   return (
+
     <div className='container'>
+    <style className="colour"> {'body { background-color: #F3F8FF; }'}</style>
+
       <div className='row rowMargin'>
         <div className='col-md-2  headerBG text-center '><AddBillButton onClick={props.onClick} /></div>
         <div className='col-md-2  headerBG text-center'><h4 className='wordPosition'> Bill Name</h4></div>

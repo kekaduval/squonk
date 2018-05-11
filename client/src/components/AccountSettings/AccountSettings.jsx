@@ -15,12 +15,13 @@ const AccountSettings = props => {
 
   return (
     <React.Fragment>
+    <style className="colour"> {'body { background-color: #F3F8FF; }'}</style>
 
-      {props.value.showAccountSettings && props.value.loggedIN ? ( 
-      <NavbarAcctSettings 
+      {props.value.showAccountSettings && props.value.loggedIN ? (
+      <NavbarAcctSettings
       handleClickAcct={props.handleClickAcct}
       onClick={props.handleClickSignOut}
-      handleClickHomePage={props.handleClickHomePage} 
+      handleClickHomePage={props.handleClickHomePage}
       />):(null)}
 
       <div className='container marginTopAndBottom'>
@@ -39,7 +40,7 @@ const AccountSettings = props => {
           <button className="formButton" onClick={props.handleClickAcctDelete}> Delete Account </button>
           <button className="formButton" onClick={(event) => props.handleClickCancel(event)}> Cancel </button>
 
-
+          <p className="para"> Click on the buttons below to "change security Questions, change password or delete you account". </p>
         </div>
         <div className="col-md-6 acctBorder ">
 

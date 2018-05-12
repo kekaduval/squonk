@@ -43,8 +43,8 @@ const BudgetBar = props => {
     <React.Fragment>
       <div className='container marginBottom headerBG'>
         <div className="row bg">
-          <div className="col-md-3">
-            <h3>Budgets:
+          <div className="col-md-4">
+            <h4>Budgets:
           <span><select id="budgetDropDown" onChange={props.handleChange}>
                 {props.budgets.length ? (props.budgets.map(budget => {
                   return (
@@ -64,7 +64,7 @@ const BudgetBar = props => {
                   </button></span>
 
                 ) : (null)}
-              </span></h3>
+              </span></h4>
           </div>
 
 

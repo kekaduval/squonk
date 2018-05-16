@@ -13,10 +13,6 @@ const UserLookup = props => {
   let usersNamesPopulating = allUsers.filter(i => i.userName.startsWith(userToBeAdded) && userToBeAdded.length>=1);
   // let usersNamesPopulating = allUsers.filter((i,index) => i.userName.charAt(index) == userToBeAdded);
 
-  console.log("12345678", allUsers);
-  console.log("its a log " + userToBeAdded);
-  console.log("filtering", usersNamesPopulating);
-
 
   return (
       // Lookup Input Box

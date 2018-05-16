@@ -6,14 +6,7 @@ import DropDownMenu from "../DropDownMenu"
 
 const BudgetBar = props => {
 
-  let findThisBudgetOwner = "";
-
-  if (props.usersWhoShareWithMe) {
-    findThisBudgetOwner = props.usersWhoShareWithMe.map(i => {
-      i.budget === props.chosenBudget.budgetName
-      return (i.owner)
-    })
-  }
+  let findThisBudgetOwner = props.owner.toUpperCase();
 
   let initialBudgetPlannedAmount = props.chosenBudget.budgetPlannedAmount || 0;
   let billActualAmountValues = props.bills.map(i => { return (i.billActualAmount) })
@@ -32,6 +25,8 @@ const BudgetBar = props => {
   let leftAmount = totalBillPlannedAmount - allBillsActualAmountSum
 
   let sharedWithMeMessage = findThisBudgetOwner !== props.myName
+
+  let deleteIcon = props.myName === findThisBudgetOwner;
 
 
 
@@ -56,12 +51,12 @@ const BudgetBar = props => {
                 ) : (null)
                 }
               </select>
-                {props.budgets.length ? (
+                {props.budgets.length && deleteIcon ? (
 
                   <span><button className="btn btn-danger deletePosition" onClick={(event) => props.handleClickDeleteBudget(props.chosenBudget._id, event)}>
                   <i className="fa fa-trash" aria-hidden="true"></i>
-
                   </button></span>
+
 
                 ) : (null)}
               </span></h4>
@@ -97,7 +92,7 @@ const BudgetBar = props => {
       {props.budgets.length && sharedWithMeMessage && props.chosenBudget.userName !== props.myName ? (
       <div className='row text-center'>
         <div className='col-md-12'>
-          <h3>"This is a Shared Budget from {findThisBudgetOwner} to remove yourself from this Budget, click "Delete Budget"</h3>
+          <h4>"This is a Shared Budget from {findThisBudgetOwner} to remove yourself from this Budget, Please contact {findThisBudgetOwner} </h4>
         </div>
       </div>) : (null)}
     </React.Fragment>

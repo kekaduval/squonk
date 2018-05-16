@@ -29,6 +29,7 @@ class Budgets extends React.Component {
     userChosenBudgetName: "", //Budget ID of the Budget the user is viewing
     userChosenBudgetId: "", //The ID of the budget the user has selected
     userChosenBudgetObject: [],
+    budgetOwner: "",
     userChosenBudgetBills: [], //The bills to the budget the user has selected
     userChosenBudgetBillObjects: [], //A list of all the users bills when they log in
     billName: "", //name of the bill when user creates one
@@ -190,7 +191,9 @@ class Budgets extends React.Component {
       userChosenBudgetId: this.state.userBudgets[0]._id,
       currentBudgetPlannedAmount: this.state.userBudgets[0].budgetPlannedAmount,
       currentBudgetActualAmount: this.state.userBudgets[0].actualAmount,
-      userChosenBudgetObject: this.state.userBudgets[0]
+      userChosenBudgetObject: this.state.userBudgets[0],
+      budgetOwner: this.state.userBudgets[0].userName
+
     });
     this.userBudgetBillsID();
     this.getThisBudgetSharedUsers();
@@ -376,17 +379,23 @@ class Budgets extends React.Component {
   getSelectedValue = event => {
     event.preventDefault();
     var x = event.target.selectedIndex;
-    let selectedValue = event.target.options[x].dataset.id;
+    let selectedValue = event.target.options[x].dataset.id;  
     let chosenBudgetObject = this.state.userBudgets.find(
       i => i._id === selectedValue
     );
-    this.setState({ userChosenBudgetId: selectedValue });
 
-    API.getBudgetBills(selectedValue)
+     const {_id, userName} = chosenBudgetObject
+    this.setState({
+      userChosenBudgetId: _id,
+      budgetOwner: userName
+    });
+   
+
+  API.getBudgetBills(_id)
       .then(res => {
         this.setState({
           userChosenBudgetBills: res.data.bills,
-          userChosenBudgetObject: chosenBudgetObject
+          userChosenBudgetObject: chosenBudgetObject,
         });
         this.getThisBudgetSharedUsers();
         this.cancelShowSharedUsers();
@@ -1163,6 +1172,7 @@ class Budgets extends React.Component {
               handleClick={this.showSharedUsers}
               handleClickCancel={this.cancelShowSharedUsers}
               handleClickDeleteBudget={this.deleteBudget}
+              owner={this.state.budgetOwner}
             />
             {this.state.showAddBudget ? (
               <AddBudget

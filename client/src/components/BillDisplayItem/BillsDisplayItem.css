@@ -6,3 +6,10 @@
 .rowBG {
     border-bottom: 1px dashed black;
 }
+
+.sizePos{
+
+    position: relative;
+    bottom: -10px;
+
+}

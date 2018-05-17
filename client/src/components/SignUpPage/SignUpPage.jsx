@@ -3,6 +3,7 @@ import './SignUpPage.css'
 
 const SignUpPage = props => {
     return <div className="">
+      <style> {"body { background-color: #e3e7ed; }"}</style>
 
         <div className="container">
           <div className="row">

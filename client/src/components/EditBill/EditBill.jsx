@@ -17,7 +17,7 @@ const EditBill = props => {
         </div>
       </div>
       <div className="row">
-        <div className="col-md-2">
+        <div className="offset-md-1 col-md-3">
           <input
             className="form-control text-center"
             type="text"
@@ -25,7 +25,7 @@ const EditBill = props => {
             onChange={props.handleChange}
             editvalue={props.value.editBillName}
             // value={billInfo.billName}
-            placeholder={billInfo.billName}
+            placeholder={billInfo.billName.toUpperCase()}
           />
         </div>
 
@@ -54,7 +54,7 @@ const EditBill = props => {
           />
         </div>
 
-        <div className="col-md-1 text-center">
+        {/* <div className="col-md-1 text-center">
           <h6 className='static'>Static Bill</h6>
           <input type="checkbox"
             // name="billStatic"
@@ -62,7 +62,7 @@ const EditBill = props => {
           // onChange={props.handleChange}
           // value={props.value.billStatic}
           />
-        </div>
+        </div> */}
 
 
         <EditBillSubmitButton onClick={props.handleClick} />

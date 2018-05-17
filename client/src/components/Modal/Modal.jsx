@@ -10,7 +10,7 @@ const Modal1 = props => {
         </Modal.Header>
 
         <Modal.Body>
-          <h5>{props.value.modalMessage}</h5>
+          <h5 className={"text-center"}>{props.value.modalMessage}</h5>
         </Modal.Body>
 
         <Modal.Footer>

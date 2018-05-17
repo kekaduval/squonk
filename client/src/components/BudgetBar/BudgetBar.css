@@ -43,3 +43,8 @@
    /* text-align: center; */
    /* margin-top: -20px; */
 }
+
+.trashPos{
+    position: relative;
+  right: 2px
+}

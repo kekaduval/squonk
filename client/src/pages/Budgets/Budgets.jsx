@@ -362,6 +362,8 @@ class Budgets extends React.Component {
         this.setState({
           userBills: res.data
         });
+        this.setState({ modalMessage: "Bill Updated." });
+        this.openModal();
         this.userBudgetBillsID();
       })
       .then(
@@ -411,7 +413,9 @@ class Budgets extends React.Component {
       budgetId: this.state.userChosenBudgetId
     };
     API.deleteBill(data)
-      .then(res => console.log(res))
+      .then(res => {console.log(res)
+        this.setState({ modalMessage: "Bill Deleted." });
+        this.openModal();})    
       .then(this.reloadUserInfo())
       .catch(err => console.log(err));
   };
@@ -430,6 +434,8 @@ class Budgets extends React.Component {
       };
       API.deleteBudget(data)
         .then(res => {
+          this.setState({ modalMessage: "Budget and Bills Deleted." })
+          this.openModal() 
           this.loadBudgets();
         })
         .catch(err => console.log(err));

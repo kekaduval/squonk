@@ -26,7 +26,7 @@ const BudgetBar = props => {
 
   let sharedWithMeMessage = findThisBudgetOwner !== props.myName
 
-  let deleteIcon = props.myName === findThisBudgetOwner;
+  let deleteIcon = props.myName.toUpperCase() === findThisBudgetOwner;
 
 
 
@@ -36,6 +36,8 @@ const BudgetBar = props => {
 
   return (
     <React.Fragment>
+            <style> {"body { background-color: #f4f8fe; }"}</style>
+
       <div className='container marginBottom headerBG'>
         <div className="row bg">
           <div className="col-md-4">
@@ -54,7 +56,7 @@ const BudgetBar = props => {
                 {props.budgets.length && deleteIcon ? (
 
                   <span><button className="btn btn-danger deletePosition" onClick={(event) => props.handleClickDeleteBudget(props.chosenBudget._id, event)}>
-                  <i className="fa fa-trash" aria-hidden="true"></i>
+                  <i className="fa fa-trash trashPos" aria-hidden="true"></i>
                   </button></span>
 
 
@@ -63,19 +65,21 @@ const BudgetBar = props => {
           </div>
 
 
-          <div className="col-md-3">
+          <div className="col">
             <h4>Planned $:<span className='marginLeft' style={style}>{parseFloat(totalBillPlannedAmount).toFixed(2)}</span></h4>
           </div>
 
-          <div className="col-md-3">
+          <div className="col">
             <h4>Actual $:<span className='marginLeft' style={style}>{parseFloat(allBillsActualAmountSum).toFixed(2)}</span></h4>
           </div>
 
-          <div className="col-md-2">
+          <div className="col">
             <h4> Left $ :<span className='marginLeft' style={style}>{parseFloat(leftAmount).toFixed(2)}</span></h4>
           </div>
         </div>
       </div>
+
+      
 
 
 

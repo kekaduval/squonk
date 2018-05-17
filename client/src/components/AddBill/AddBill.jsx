@@ -13,7 +13,7 @@ const AddBill = props => {
         </div>
       </div>
       <div className="row">
-        <div className="col-md-2">
+        <div className="offset-md-1 col-md-3">
           <input
             className="form-control text-center"
             type="text"
@@ -32,7 +32,7 @@ const AddBill = props => {
             name="billPlannedAmount"
             onChange={props.handleChange}
             value={props.value.billPlannedAmount}
-            placeholder=" Bill Planned Amount $25, $100, $1000"
+            placeholder=" Bill Planned Amount $25"
           />
         </div>
 
@@ -43,11 +43,11 @@ const AddBill = props => {
             name="billActualAmount"
             onChange={props.handleChange}
             value={props.value.billActualAmount}
-            placeholder=" Bill Actual Amount $25, $100, $1000"
+            placeholder=" Bill Actual Amount $25"
           />
         </div>
 
-        <div className="col-md-1 text-center">
+        {/* <div className="col-md-1 text-center">
           <h6 className=''>Static Bill</h6>
           <input type="checkbox"
             // name="billStatic"
@@ -55,7 +55,7 @@ const AddBill = props => {
           // onChange={props.handleChange}
           // value={props.value.billStatic}     
           />
-        </div>
+        </div> */}
 
 
         <BillSubmitButton onClick={props.handleClick} />

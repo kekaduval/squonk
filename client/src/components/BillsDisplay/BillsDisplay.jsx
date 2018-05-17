@@ -20,7 +20,7 @@ const BillsDisplay = props => {
     <style className="colour"> {'body { background-color: #F3F8FF; }'}</style>
 
       <div className='row rowMargin'>
-        <div className='col-md-2  headerBG text-center '><AddBillButton onClick={props.onClick} /></div>
+        <div className='offset-md-1 col-md-1  headerBG text-center '><AddBillButton onClick={props.onClick} /></div>
         <div className='col-md-2  headerBG text-center'><h4 className='wordPosition'> Bill Name</h4></div>
         <div className='col-md-2 text-center headerBG'><h4 className='wordPosition'>Planned Amount</h4></div>
         <div className='col-md-2 text-center headerBG'><h4 className='wordPosition'>Acutal Amount</h4></div>
@@ -44,6 +44,7 @@ const BillsDisplay = props => {
             onClick={props.deleteClick}
             editClick={props.editBillID}
             editBillShow={props.editBillShow}
+            editBill={props.editBill}
             bill={bill}
             />
           </React.Fragment>
